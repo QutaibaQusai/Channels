@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:channels/core/router/route_names.dart';
 import 'package:channels/features/onboarding/presentation/views/onboarding_view.dart';
+import 'package:channels/features/authentication/presentation/views/phone_auth_view.dart';
+import 'package:channels/features/authentication/presentation/views/otp_verification_view.dart';
 
 /// Centralized routing configuration using Go Router
 class AppRouter {
@@ -46,6 +48,18 @@ class AppRouter {
         builder: (context, state) => const Scaffold(
           body: Center(child: Text('Signup Screen')),
         ),
+      ),
+
+      GoRoute(
+        path: RouteNames.phoneAuth,
+        name: RouteNames.phoneAuth,
+        builder: (context, state) => const PhoneAuthView(),
+      ),
+
+      GoRoute(
+        path: RouteNames.otpVerification,
+        name: RouteNames.otpVerification,
+        builder: (context, state) => const OtpVerificationView(),
       ),
 
       // ==================== MAIN APP ====================

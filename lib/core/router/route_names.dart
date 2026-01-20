@@ -9,6 +9,8 @@ class RouteNames {
   // ==================== AUTH ====================
   static const String login = '/login';
   static const String signup = '/signup';
+  static const String phoneAuth = '/phone-auth';
+  static const String otpVerification = '/otp-verification';
   static const String forgotPassword = '/forgot-password';
 
   // ==================== MAIN APP ====================

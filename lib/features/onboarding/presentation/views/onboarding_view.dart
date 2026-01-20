@@ -3,10 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:channels/core/services/storage_service.dart';
 import 'package:channels/core/services/language_service.dart';
+import 'package:channels/core/services/theme_service.dart';
 import 'package:channels/core/shared/widgets/app_button.dart';
 import 'package:channels/core/localization/app_localizations.dart';
+import 'package:channels/core/router/route_names.dart';
 import 'package:channels/features/onboarding/data/datasources/onboarding_local_datasource.dart';
 import 'package:channels/features/onboarding/data/repositories/onboarding_repository_impl.dart';
 import 'package:channels/features/onboarding/presentation/cubit/onboarding_cubit.dart';
@@ -16,14 +17,14 @@ import 'package:channels/features/onboarding/presentation/widgets/page_indicator
 import 'package:channels/core/theme/app_colors.dart';
 
 /// Main onboarding view with page view
-class OnboardingView extends StatefulWidget {
+class OnboardingView extends ConsumerStatefulWidget {
   const OnboardingView({super.key});
 
   @override
-  State<OnboardingView> createState() => _OnboardingViewState();
+  ConsumerState<OnboardingView> createState() => _OnboardingViewState();
 }
 
-class _OnboardingViewState extends State<OnboardingView> {
+class _OnboardingViewState extends ConsumerState<OnboardingView> {
   late PageController _pageController;
 
   @override
@@ -42,8 +43,8 @@ class _OnboardingViewState extends State<OnboardingView> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) {
-        // Get storage service from main.dart
-        final storageService = StorageService();
+        // Get storage service from Riverpod provider
+        final storageService = ref.read(storageServiceProvider);
         final dataSource = OnboardingLocalDataSource(storageService);
         final repository = OnboardingRepositoryImpl(dataSource);
         return OnboardingCubit(repository);
@@ -51,8 +52,8 @@ class _OnboardingViewState extends State<OnboardingView> {
       child: BlocConsumer<OnboardingCubit, OnboardingState>(
         listener: (context, state) {
           if (state is OnboardingCompleted) {
-            // Navigate to login/home screen
-            context.go('/login');
+            // Navigate to phone authentication
+            context.go(RouteNames.phoneAuth);
           }
         },
         builder: (context, state) {
