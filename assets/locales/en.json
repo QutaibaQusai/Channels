@@ -1,0 +1,21 @@
+{
+  "common": {
+    "next": "Next",
+    "skip": "Skip",
+    "getStarted": "Get Started"
+  },
+  "onboarding": {
+    "page1": {
+      "title": "Your Personal Ad Channel",
+      "subtitle": "Subscribe to categories that matter to you and get instant notifications for new ads"
+    },
+    "page2": {
+      "title": "Create Channels, Stay Updated",
+      "subtitle": "Pick your favorite categories and set filters to receive only the ads you care about"
+    },
+    "page3": {
+      "title": "Post Ads in Seconds",
+      "subtitle": "Snap a few photos, add details, and reach thousands of potential buyers instantly"
+    }
+  }
+}

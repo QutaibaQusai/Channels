@@ -1,0 +1,39 @@
+# Flutter Native Splash Screen Configuration
+# This file configures the native splash screen for Android, iOS, and Web
+# Run: dart run flutter_native_splash:create
+
+flutter_native_splash:
+  # Background color (brand golden yellow)
+  color: "#f5bc46"
+
+  # Splash screen image (centered)
+  image: assets/images/splash_screen.png
+
+  # Dark mode configuration
+  color_dark: "#000000"
+  image_dark: assets/images/splash_screen.png
+
+  # Android 12+ specific configuration
+  android_12:
+    # Light mode
+    image: assets/images/splash_screen.png
+    color: "#f5bc46"
+    icon_background_color: "#f5bc46"
+
+    # Dark mode
+    image_dark: assets/images/splash_screen.png
+    color_dark: "#000000"
+    icon_background_color_dark: "#000000"
+
+  # Platform support
+  android: true
+  ios: true
+  web: true
+
+  # Image positioning
+  android_gravity: center
+  ios_content_mode: center
+  web_image_mode: center
+
+  # Fullscreen mode
+  fullscreen: true
