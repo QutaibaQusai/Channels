@@ -4,14 +4,17 @@ import 'package:channels/features/authentication/presentation/cubit/countries/co
 
 class CountriesCubit extends Cubit<CountriesState> {
   final CountriesRemoteDataSource countriesRemoteDataSource;
+  final String languageCode;
 
-  CountriesCubit({required this.countriesRemoteDataSource})
-      : super(CountriesInitial());
+  CountriesCubit({
+    required this.countriesRemoteDataSource,
+    required this.languageCode,
+  }) : super(CountriesInitial());
 
   Future<void> getCountries() async {
     emit(CountriesLoading());
     try {
-      final countries = await countriesRemoteDataSource.getCountries();
+      final countries = await countriesRemoteDataSource.getCountries(languageCode);
       emit(CountriesSuccess(countries: countries));
     } catch (e) {
       emit(CountriesFailure(errorMessage: e.toString()));

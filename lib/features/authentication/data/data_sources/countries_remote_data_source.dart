@@ -3,7 +3,7 @@ import 'package:channels/core/api/end_ponits.dart';
 import 'package:channels/features/authentication/data/models/country_model.dart';
 
 abstract class CountriesRemoteDataSource {
-  Future<List<CountryModel>> getCountries();
+  Future<List<CountryModel>> getCountries(String languageCode);
 }
 
 class CountriesRemoteDataSourceImpl implements CountriesRemoteDataSource {
@@ -12,8 +12,12 @@ class CountriesRemoteDataSourceImpl implements CountriesRemoteDataSource {
   CountriesRemoteDataSourceImpl({required this.apiConsumer});
 
   @override
-  Future<List<CountryModel>> getCountries() async {
-    final response = await apiConsumer.get(EndPoint.countries);
+  Future<List<CountryModel>> getCountries(String languageCode) async {
+    // Send language in request body
+    final response = await apiConsumer.get(
+      EndPoint.countries,
+      data: {'lang': languageCode},
+    );
 
     // Parse the response as a list of countries
     final List<dynamic> countriesJson = response as List<dynamic>;
