@@ -56,6 +56,21 @@ class AppLocalizations {
       'skip': 'Skip',
       'getStarted': 'Get Started',
     },
+    'countryPicker': {
+      'title': 'Select Country',
+      'searchHint': 'Search country...',
+      'noResults': 'No countries found',
+      'error': 'Failed to load countries',
+      'loading': 'Loading countries...',
+    },
+    'phoneAuth': {
+      'title': 'Enter your phone number',
+      'subtitle': 'We\'ll send you a verification code to confirm your number',
+      'sendButton': 'Send OTP',
+      'errorEmpty': 'Please enter your phone number',
+      'errorInvalid': 'Please enter a valid phone number',
+      'otpSent': 'OTP sent successfully!',
+    },
     'onboarding': {
       'page1': {
         'title': 'Your Personal Ad Channel',
@@ -82,6 +97,21 @@ class AppLocalizations {
       'next': 'التالي',
       'skip': 'تخطي',
       'getStarted': 'ابدأ الآن',
+    },
+    'countryPicker': {
+      'title': 'اختر الدولة',
+      'searchHint': 'ابحث عن دولة...',
+      'noResults': 'لم يتم العثور على دول',
+      'error': 'فشل تحميل الدول',
+      'loading': 'جاري تحميل الدول...',
+    },
+    'phoneAuth': {
+      'title': 'أدخل رقم هاتفك',
+      'subtitle': 'سنرسل لك رمز تحقق لتأكيد رقمك',
+      'sendButton': 'إرسال رمز التحقق',
+      'errorEmpty': 'الرجاء إدخال رقم هاتفك',
+      'errorInvalid': 'الرجاء إدخال رقم هاتف صحيح',
+      'otpSent': 'تم إرسال رمز التحقق بنجاح!',
     },
     'onboarding': {
       'page1': {

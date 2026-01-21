@@ -1,16 +1,15 @@
+import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 
 class ApiInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    // Get current locale language code
-    final locale = WidgetsBinding.instance.platformDispatcher.locale;
-    final languageCode = locale.languageCode;
-
-    // Add language header - only add 'ar' if Arabic, otherwise don't add header
-    if (languageCode == 'ar') {
-      options.queryParameters['lang'] = 'ar';
+    // Encode body data as JSON string for GET requests
+    if (options.method == 'GET' &&
+        options.data != null &&
+        options.data is Map) {
+      options.headers['Content-Type'] = 'application/json';
+      options.data = json.encode(options.data);
     }
 
     super.onRequest(options, handler);

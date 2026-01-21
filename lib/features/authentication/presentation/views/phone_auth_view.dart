@@ -5,6 +5,7 @@ import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/helpers/spacing.dart';
 import 'package:channels/core/shared/widgets/app_button.dart';
 import 'package:channels/core/shared/widgets/custom_app_bar.dart';
+import 'package:channels/core/localization/app_localizations.dart';
 import 'package:channels/features/authentication/presentation/widgets/phone_input_field.dart';
 
 /// Phone authentication view - User enters phone number
@@ -35,14 +36,14 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
     final phone = _phoneController.text.trim();
     if (phone.isEmpty) {
       setState(() {
-        _errorText = 'Please enter your phone number';
+        _errorText = 'phoneAuth.errorEmpty'.tr(context);
       });
       return;
     }
 
     if (phone.length < 9) {
       setState(() {
-        _errorText = 'Please enter a valid phone number';
+        _errorText = 'phoneAuth.errorInvalid'.tr(context);
       });
       return;
     }
@@ -59,9 +60,9 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
           _isLoading = false;
         });
         // TODO: Navigate to OTP verification view
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('OTP sent successfully!')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('phoneAuth.otpSent'.tr(context))),
+        );
       }
     });
   }
@@ -82,7 +83,7 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
 
               // Title
               Text(
-                'Enter your phone number',
+                'phoneAuth.title'.tr(context),
                 style: TextStyle(
                   fontSize: 28.sp,
                   fontWeight: FontWeight.bold,
@@ -94,7 +95,7 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
 
               // Subtitle
               Text(
-                'We\'ll send you a verification code to confirm your number',
+                'phoneAuth.subtitle'.tr(context),
                 style: TextStyle(
                   fontSize: 16.sp,
                   color: AppColors.textSecondaryLight,
@@ -121,7 +122,7 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
 
               // Send OTP button
               AppButton(
-                text: 'Send OTP',
+                text: 'phoneAuth.sendButton'.tr(context),
                 onPressed: _sendOTP,
                 isLoading: _isLoading,
                 backgroundColor: AppColors.primary,

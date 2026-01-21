@@ -1,0 +1,120 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:channels/core/theme/app_colors.dart';
+import 'package:channels/core/theme/app_sizes.dart';
+import 'package:channels/core/shared/widgets/custom_app_bar.dart';
+import 'package:channels/core/shared/widgets/search_bar_widget.dart';
+import 'package:channels/core/localization/app_localizations.dart';
+import 'package:channels/features/authentication/data/models/country_model.dart';
+import 'package:channels/features/authentication/presentation/cubit/countries/countries_cubit.dart';
+import 'package:channels/features/authentication/presentation/cubit/countries/countries_state.dart';
+import 'package:channels/features/authentication/presentation/views/country_picker/widgets/countries_loading_widget.dart';
+import 'package:channels/features/authentication/presentation/views/country_picker/widgets/countries_error_widget.dart';
+import 'package:channels/features/authentication/presentation/views/country_picker/widgets/countries_empty_widget.dart';
+import 'package:channels/features/authentication/presentation/views/country_picker/widgets/country_list_item.dart';
+
+/// Country picker view - User selects their country
+class CountryPickerView extends StatefulWidget {
+  const CountryPickerView({super.key});
+
+  @override
+  State<CountryPickerView> createState() => _CountryPickerViewState();
+}
+
+class _CountryPickerViewState extends State<CountryPickerView> {
+  String _searchQuery = '';
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<CountriesCubit>().getCountries();
+  }
+
+  List<CountryModel> _filterCountries(List<CountryModel> countries) {
+    if (_searchQuery.isEmpty) return countries;
+    return countries.where((country) {
+      return country.name.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+          country.dialingCode.contains(_searchQuery);
+    }).toList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.backgroundLight,
+      appBar: CustomAppBar(
+        title: 'countryPicker.title'.tr(context),
+        showBackButton: true,
+      ),
+      body: SafeArea(
+        bottom: false,
+        child: Column(
+          children: [
+            // Search bar
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: AppSizes.screenPaddingH,
+                vertical: AppSizes.s16,
+              ),
+              child: SearchBarWidget(
+                hintText: 'countryPicker.searchHint'.tr(context),
+                onChanged: (value) {
+                  setState(() {
+                    _searchQuery = value;
+                  });
+                },
+              ),
+            ),
+
+            // Countries list
+            Expanded(
+              child: BlocBuilder<CountriesCubit, CountriesState>(
+                builder: (context, state) {
+                  if (state is CountriesLoading) {
+                    return const CountriesLoadingWidget();
+                  }
+
+                  if (state is CountriesFailure) {
+                    return CountriesErrorWidget(
+                      errorMessage: state.errorMessage,
+                    );
+                  }
+
+                  if (state is CountriesSuccess) {
+                    final filteredCountries = _filterCountries(state.countries);
+
+                    if (filteredCountries.isEmpty) {
+                      return const CountriesEmptyWidget();
+                    }
+
+                    return ListView.separated(
+                      padding: EdgeInsets.only(
+                        left: AppSizes.screenPaddingH,
+                        right: AppSizes.screenPaddingH,
+                        bottom: 0,
+                      ),
+                      itemCount: filteredCountries.length,
+                      separatorBuilder: (context, index) =>
+                          Divider(height: 1, color: AppColors.dividerLight),
+                      itemBuilder: (context, index) {
+                        final country = filteredCountries[index];
+                        return CountryListItem(
+                          country: country,
+                          onTap: () {
+                            Navigator.pop(context, country);
+                          },
+                        );
+                      },
+                    );
+                  }
+
+                  return const SizedBox.shrink();
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

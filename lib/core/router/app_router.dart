@@ -7,7 +7,7 @@ import 'package:channels/core/api/dio_consumer.dart';
 import 'package:channels/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:channels/features/authentication/presentation/views/phone_auth_view.dart';
 import 'package:channels/features/authentication/presentation/views/otp_verification_view.dart';
-import 'package:channels/features/authentication/presentation/views/country_picker_view.dart';
+import 'package:channels/features/authentication/presentation/views/country_picker/country_picker_view.dart';
 import 'package:channels/features/authentication/data/data_sources/countries_remote_data_source.dart';
 import 'package:channels/features/authentication/presentation/cubit/countries/countries_cubit.dart';
 
@@ -65,14 +65,21 @@ class AppRouter {
       GoRoute(
         path: RouteNames.countryPicker,
         name: RouteNames.countryPicker,
-        builder: (context, state) => BlocProvider(
-          create: (context) => CountriesCubit(
-            countriesRemoteDataSource: CountriesRemoteDataSourceImpl(
-              apiConsumer: DioConsumer(dio: Dio()),
+        builder: (context, state) {
+          // Get current locale from context
+          final locale = Localizations.localeOf(context);
+          final languageCode = locale.languageCode;
+
+          return BlocProvider(
+            create: (context) => CountriesCubit(
+              countriesRemoteDataSource: CountriesRemoteDataSourceImpl(
+                apiConsumer: DioConsumer(dio: Dio()),
+              ),
+              languageCode: languageCode,
             ),
-          ),
-          child: const CountryPickerView(),
-        ),
+            child: const CountryPickerView(),
+          );
+        },
       ),
 
       GoRoute(
