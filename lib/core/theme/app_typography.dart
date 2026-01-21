@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:channels/core/theme/app_colors.dart';
 
 /// Centralized typography system using flutter_screenutil
 class AppTypography {
@@ -13,6 +14,42 @@ class AppTypography {
   static const FontWeight semiBold = FontWeight.w600;
   static const FontWeight bold = FontWeight.w700;
   static const FontWeight extraBold = FontWeight.w800;
+
+  // ==================== ONBOARDING STYLES ====================
+
+  /// Onboarding page title style (centered, bold)
+  static TextStyle onboardingTitle = TextStyle(
+    fontSize: 20.sp,
+    fontWeight: bold,
+    height: 1.3,
+    color: AppColors.textPrimaryLight,
+  );
+
+  /// Onboarding page subtitle/description style (centered, secondary color)
+  static TextStyle onboardingSubtitle = TextStyle(
+    fontSize: 14.sp,
+    fontWeight: regular,
+    height: 1.4,
+    color: AppColors.textSecondaryLight,
+  );
+
+  // ==================== APP BAR STYLES ====================
+
+  /// App bar title style (centered, semi-bold)
+  static TextStyle appBarTitle = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: semiBold,
+    color: AppColors.textPrimaryLight,
+  );
+
+  // ==================== BUTTON STYLES ====================
+
+  /// Button text style (used in AppButton widget)
+  static TextStyle buttonText = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: semiBold,
+    letterSpacing: 0.5,
+  );
 
   // ==================== DISPLAY STYLES ====================
 

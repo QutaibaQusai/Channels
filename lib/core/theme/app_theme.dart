@@ -31,7 +31,7 @@ class AppTheme {
         onPrimary: Colors.white,
         onSecondary: Colors.white,
         onError: Colors.white,
-        onSurface: AppColors.textPrimaryLight,
+        onSurface: AppColors.textSecondaryLight,
         outline: AppColors.borderLight,
       ),
 
@@ -89,7 +89,7 @@ class AppTheme {
         ),
         contentPadding: EdgeInsets.symmetric(
           horizontal: AppSizes.s16,
-          vertical: AppSizes.s14,
+          vertical: AppSizes.s12,
         ),
       ),
 
@@ -138,26 +138,27 @@ class AppTheme {
       ),
 
       // Text Theme
-      textTheme: TextTheme(
-        displayLarge: AppTypography.displayLarge,
-        displayMedium: AppTypography.displayMedium,
-        displaySmall: AppTypography.displaySmall,
-        headlineLarge: AppTypography.headlineLarge,
-        headlineMedium: AppTypography.headlineMedium,
-        headlineSmall: AppTypography.headlineSmall,
-        titleLarge: AppTypography.titleLarge,
-        titleMedium: AppTypography.titleMedium,
-        titleSmall: AppTypography.titleSmall,
-        bodyLarge: AppTypography.bodyLarge,
-        bodyMedium: AppTypography.bodyMedium,
-        bodySmall: AppTypography.bodySmall,
-        labelLarge: AppTypography.labelLarge,
-        labelMedium: AppTypography.labelMedium,
-        labelSmall: AppTypography.labelSmall,
-      ).apply(
-        bodyColor: AppColors.textPrimaryLight,
-        displayColor: AppColors.textPrimaryLight,
-      ),
+      textTheme:
+          TextTheme(
+            displayLarge: AppTypography.displayLarge,
+            displayMedium: AppTypography.displayMedium,
+            displaySmall: AppTypography.displaySmall,
+            headlineLarge: AppTypography.headlineLarge,
+            headlineMedium: AppTypography.headlineMedium,
+            headlineSmall: AppTypography.headlineSmall,
+            titleLarge: AppTypography.titleLarge,
+            titleMedium: AppTypography.titleMedium,
+            titleSmall: AppTypography.titleSmall,
+            bodyLarge: AppTypography.bodyLarge,
+            bodyMedium: AppTypography.bodyMedium,
+            bodySmall: AppTypography.bodySmall,
+            labelLarge: AppTypography.labelLarge,
+            labelMedium: AppTypography.labelMedium,
+            labelSmall: AppTypography.labelSmall,
+          ).apply(
+            bodyColor: AppColors.textPrimaryLight,
+            displayColor: AppColors.textPrimaryLight,
+          ),
     );
   }
 
@@ -221,7 +222,7 @@ class AppTheme {
       // Input Decoration
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: AppColors.surfaceElevatedDark,
+        fillColor: AppColors.surfaceSecondaryDark,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppSizes.r12),
           borderSide: const BorderSide(color: AppColors.borderDark),
@@ -240,7 +241,7 @@ class AppTheme {
         ),
         contentPadding: EdgeInsets.symmetric(
           horizontal: AppSizes.s16,
-          vertical: AppSizes.s14,
+          vertical: AppSizes.s12,
         ),
       ),
 
@@ -289,26 +290,27 @@ class AppTheme {
       ),
 
       // Text Theme
-      textTheme: TextTheme(
-        displayLarge: AppTypography.displayLarge,
-        displayMedium: AppTypography.displayMedium,
-        displaySmall: AppTypography.displaySmall,
-        headlineLarge: AppTypography.headlineLarge,
-        headlineMedium: AppTypography.headlineMedium,
-        headlineSmall: AppTypography.headlineSmall,
-        titleLarge: AppTypography.titleLarge,
-        titleMedium: AppTypography.titleMedium,
-        titleSmall: AppTypography.titleSmall,
-        bodyLarge: AppTypography.bodyLarge,
-        bodyMedium: AppTypography.bodyMedium,
-        bodySmall: AppTypography.bodySmall,
-        labelLarge: AppTypography.labelLarge,
-        labelMedium: AppTypography.labelMedium,
-        labelSmall: AppTypography.labelSmall,
-      ).apply(
-        bodyColor: AppColors.textPrimaryDark,
-        displayColor: AppColors.textPrimaryDark,
-      ),
+      textTheme:
+          TextTheme(
+            displayLarge: AppTypography.displayLarge,
+            displayMedium: AppTypography.displayMedium,
+            displaySmall: AppTypography.displaySmall,
+            headlineLarge: AppTypography.headlineLarge,
+            headlineMedium: AppTypography.headlineMedium,
+            headlineSmall: AppTypography.headlineSmall,
+            titleLarge: AppTypography.titleLarge,
+            titleMedium: AppTypography.titleMedium,
+            titleSmall: AppTypography.titleSmall,
+            bodyLarge: AppTypography.bodyLarge,
+            bodyMedium: AppTypography.bodyMedium,
+            bodySmall: AppTypography.bodySmall,
+            labelLarge: AppTypography.labelLarge,
+            labelMedium: AppTypography.labelMedium,
+            labelSmall: AppTypography.labelSmall,
+          ).apply(
+            bodyColor: AppColors.textPrimaryDark,
+            displayColor: AppColors.textPrimaryDark,
+          ),
     );
   }
 }
