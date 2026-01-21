@@ -71,6 +71,16 @@ class AppLocalizations {
       'errorInvalid': 'Please enter a valid phone number',
       'otpSent': 'OTP sent successfully!',
     },
+    'otpVerification': {
+      'title': 'Verify your number',
+      'subtitle': 'Enter the code sent to',
+      'verifyButton': 'Verify',
+      'resendCode': 'Resend Code',
+      'resendTimer': 'Resend code in {seconds}s',
+      'errorIncomplete': 'Please enter the complete code',
+      'verified': 'Phone number verified successfully!',
+      'otpResent': 'Code resent successfully!',
+    },
     'onboarding': {
       'page1': {
         'title': 'Your Personal Ad Channel',
@@ -112,6 +122,16 @@ class AppLocalizations {
       'errorEmpty': 'الرجاء إدخال رقم هاتفك',
       'errorInvalid': 'الرجاء إدخال رقم هاتف صحيح',
       'otpSent': 'تم إرسال رمز التحقق بنجاح!',
+    },
+    'otpVerification': {
+      'title': 'تحقق من رقمك',
+      'subtitle': 'أدخل الرمز المرسل إلى',
+      'verifyButton': 'تحقق',
+      'resendCode': 'إعادة إرسال الرمز',
+      'resendTimer': 'إعادة الإرسال بعد {seconds} ثانية',
+      'errorIncomplete': 'الرجاء إدخال الرمز كاملاً',
+      'verified': 'تم التحقق من رقم الهاتف بنجاح!',
+      'otpResent': 'تم إعادة إرسال الرمز بنجاح!',
     },
     'onboarding': {
       'page1': {

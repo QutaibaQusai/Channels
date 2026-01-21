@@ -6,10 +6,13 @@ import 'package:channels/core/router/route_names.dart';
 import 'package:channels/core/api/dio_consumer.dart';
 import 'package:channels/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:channels/features/authentication/presentation/views/phone_auth_view.dart';
-import 'package:channels/features/authentication/presentation/views/otp_verification_view.dart';
+import 'package:channels/features/authentication/presentation/views/otp_verification/otp_verification_view.dart';
 import 'package:channels/features/authentication/presentation/views/country_picker/country_picker_view.dart';
 import 'package:channels/features/authentication/data/data_sources/countries_remote_data_source.dart';
+import 'package:channels/features/authentication/data/data_sources/otp_remote_data_source.dart';
 import 'package:channels/features/authentication/presentation/cubit/countries/countries_cubit.dart';
+import 'package:channels/features/authentication/presentation/cubit/otp/otp_cubit.dart';
+import 'package:channels/features/authentication/presentation/cubit/otp_verification/otp_verification_cubit.dart';
 
 /// Centralized routing configuration using Go Router
 class AppRouter {
@@ -59,7 +62,16 @@ class AppRouter {
       GoRoute(
         path: RouteNames.phoneAuth,
         name: RouteNames.phoneAuth,
-        builder: (context, state) => const PhoneAuthView(),
+        builder: (context, state) {
+          return BlocProvider(
+            create: (context) => OtpCubit(
+              otpRemoteDataSource: OtpRemoteDataSourceImpl(
+                apiConsumer: DioConsumer(dio: Dio()),
+              ),
+            ),
+            child: const PhoneAuthView(),
+          );
+        },
       ),
 
       GoRoute(
@@ -85,7 +97,13 @@ class AppRouter {
       GoRoute(
         path: RouteNames.otpVerification,
         name: RouteNames.otpVerification,
-        builder: (context, state) => const OtpVerificationView(),
+        builder: (context, state) {
+          final phoneNumber = state.extra as String? ?? '';
+          return BlocProvider(
+            create: (context) => OtpVerificationCubit(),
+            child: OtpVerificationView(phoneNumber: phoneNumber),
+          );
+        },
       ),
 
       // ==================== MAIN APP ====================

@@ -1,6 +1,7 @@
 class EndPoint {
   static String baseUrl = "https://thedate.to/channels/api/";
   static String countries = "countries";
+  static String requestOtp = "auth/request-otp";
 }
 
 class ApiKey {
@@ -13,4 +14,9 @@ class ApiKey {
   static String dialingCode = "dialing_code";
   static String placeholder = "placeholder";
   static String flagUrl = "flag_url";
+
+  // OTP keys
+  static String phone = "phone";
+  static String countryCode = "country_code";
+  static String message = "message";
 }
