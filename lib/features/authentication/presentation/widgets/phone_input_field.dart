@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:channels/core/theme/app_colors.dart';
+import 'package:channels/core/router/route_names.dart';
+import 'package:channels/features/authentication/data/models/country_model.dart';
 
 /// Custom phone input field with country code selector
 class PhoneInputField extends StatefulWidget {
   final TextEditingController? controller;
   final void Function(String)? onChanged;
-  final void Function(String)? onCountryChanged;
+  final void Function(CountryModel)? onCountryChanged;
   final String? initialCountryCode;
-  final String? hintText;
+  final String? initialPlaceholder;
   final String? errorText;
 
   const PhoneInputField({
@@ -18,7 +21,7 @@ class PhoneInputField extends StatefulWidget {
     this.onChanged,
     this.onCountryChanged,
     this.initialCountryCode = '+962',
-    this.hintText,
+    this.initialPlaceholder = '7X XXX XXXX',
     this.errorText,
   });
 
@@ -28,11 +31,32 @@ class PhoneInputField extends StatefulWidget {
 
 class _PhoneInputFieldState extends State<PhoneInputField> {
   late String _selectedCountryCode;
+  late String _placeholder;
 
   @override
   void initState() {
     super.initState();
     _selectedCountryCode = widget.initialCountryCode ?? '+962';
+    _placeholder = widget.initialPlaceholder ?? '7X XXX XXXX';
+  }
+
+  Future<void> _openCountryPicker() async {
+    final selectedCountry = await context.push<CountryModel>(
+      RouteNames.countryPicker,
+    );
+
+    if (selectedCountry != null) {
+      setState(() {
+        _selectedCountryCode = selectedCountry.dialingCode;
+        _placeholder = selectedCountry.placeholder;
+      });
+
+      // Notify parent widget
+      widget.onCountryChanged?.call(selectedCountry);
+
+      // Clear phone input when country changes
+      widget.controller?.clear();
+    }
   }
 
   @override
@@ -55,10 +79,7 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
             children: [
               // Country code selector button
               InkWell(
-                onTap: () {
-                  // TODO: Open country picker modal
-                  // For now, it's fixed to +962
-                },
+                onTap: _openCountryPicker,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(12.r),
                   bottomLeft: Radius.circular(12.r),
@@ -111,7 +132,7 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
                     color: AppColors.textPrimaryLight,
                   ),
                   decoration: InputDecoration(
-                    hintText: widget.hintText ?? '7X XXX XXXX',
+                    hintText: _placeholder,
                     hintStyle: TextStyle(
                       fontSize: 16.sp,
                       color: AppColors.textHintLight,

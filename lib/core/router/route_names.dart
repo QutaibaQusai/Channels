@@ -10,6 +10,7 @@ class RouteNames {
   static const String login = '/login';
   static const String signup = '/signup';
   static const String phoneAuth = '/phone-auth';
+  static const String countryPicker = '/country-picker';
   static const String otpVerification = '/otp-verification';
   static const String forgotPassword = '/forgot-password';
 

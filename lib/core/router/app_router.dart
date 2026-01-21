@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:channels/core/router/route_names.dart';
+import 'package:channels/core/api/dio_consumer.dart';
 import 'package:channels/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:channels/features/authentication/presentation/views/phone_auth_view.dart';
 import 'package:channels/features/authentication/presentation/views/otp_verification_view.dart';
+import 'package:channels/features/authentication/presentation/views/country_picker_view.dart';
+import 'package:channels/features/authentication/data/data_sources/countries_remote_data_source.dart';
+import 'package:channels/features/authentication/presentation/cubit/countries/countries_cubit.dart';
 
 /// Centralized routing configuration using Go Router
 class AppRouter {
@@ -54,6 +60,19 @@ class AppRouter {
         path: RouteNames.phoneAuth,
         name: RouteNames.phoneAuth,
         builder: (context, state) => const PhoneAuthView(),
+      ),
+
+      GoRoute(
+        path: RouteNames.countryPicker,
+        name: RouteNames.countryPicker,
+        builder: (context, state) => BlocProvider(
+          create: (context) => CountriesCubit(
+            countriesRemoteDataSource: CountriesRemoteDataSourceImpl(
+              apiConsumer: DioConsumer(dio: Dio()),
+            ),
+          ),
+          child: const CountryPickerView(),
+        ),
       ),
 
       GoRoute(
