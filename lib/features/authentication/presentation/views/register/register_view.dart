@@ -7,6 +7,7 @@ import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/helpers/spacing.dart';
 import 'package:channels/core/shared/widgets/app_button.dart';
 import 'package:channels/core/shared/widgets/custom_app_bar.dart';
+import 'package:channels/core/shared/widgets/custom_text_field.dart';
 import 'package:channels/core/localization/app_localizations.dart';
 import 'package:channels/core/router/route_names.dart';
 import 'package:channels/features/authentication/presentation/cubit/register/register_cubit.dart';
@@ -16,10 +17,7 @@ import 'package:channels/features/authentication/presentation/cubit/register/reg
 class RegisterView extends StatefulWidget {
   final String token;
 
-  const RegisterView({
-    super.key,
-    required this.token,
-  });
+  const RegisterView({super.key, required this.token});
 
   @override
   State<RegisterView> createState() => _RegisterViewState();
@@ -38,26 +36,16 @@ class _RegisterViewState extends State<RegisterView> {
   }
 
   void _handleRegister() {
-    debugPrint('🔵 Register button pressed');
-    debugPrint('🔵 Token: ${widget.token}');
-
     if (_formKey.currentState?.validate() ?? false) {
       final name = _nameController.text.trim();
       final address = _addressController.text.trim();
 
-      debugPrint('🔵 Form validated successfully');
-      debugPrint('🔵 Name: $name');
-      debugPrint('🔵 Address: $address');
-
       // Call register API with token
-      debugPrint('🔵 Calling register API...');
       context.read<RegisterCubit>().register(
-            token: widget.token,
-            name: name,
-            address: address,
-          );
-    } else {
-      debugPrint('🔴 Form validation failed');
+        token: widget.token,
+        name: name,
+        address: address,
+      );
     }
   }
 
@@ -82,145 +70,107 @@ class _RegisterViewState extends State<RegisterView> {
         backgroundColor: AppColors.backgroundLight,
         appBar: const CustomAppBar(showBackButton: true),
         body: SafeArea(
-        bottom: false,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: AppSizes.screenPaddingH),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                verticalSpace(AppSizes.s20),
+          bottom: false,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: AppSizes.screenPaddingH),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  verticalSpace(AppSizes.s20),
 
-                // Title
-                Text(
-                  'register.title'.tr(context),
-                  style: TextStyle(
-                    fontSize: 28.sp,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.textPrimaryLight,
+                  // Title
+                  Text(
+                    'register.title'.tr(context),
+                    style: TextStyle(
+                      fontSize: 28.sp,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.textPrimaryLight,
+                    ),
                   ),
-                ),
 
-                verticalSpace(AppSizes.s12),
+                  verticalSpace(AppSizes.s12),
 
-                // Subtitle
-                Text(
-                  'register.subtitle'.tr(context),
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    color: AppColors.textSecondaryLight,
-                    height: 1.5,
+                  // Subtitle
+                  Text(
+                    'register.subtitle'.tr(context),
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      color: AppColors.textSecondaryLight,
+                      height: 1.5,
+                    ),
                   ),
-                ),
 
-                verticalSpace(AppSizes.s40),
+                  verticalSpace(AppSizes.s40),
 
-                // Name field
-                Text(
-                  'register.nameLabel'.tr(context),
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.textPrimaryLight,
+                  // Name field
+                  Text(
+                    'register.nameLabel'.tr(context),
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimaryLight,
+                    ),
                   ),
-                ),
-                verticalSpace(AppSizes.s8),
-                TextFormField(
-                  controller: _nameController,
-                  decoration: InputDecoration(
+                  verticalSpace(AppSizes.s8),
+                  CustomTextField(
+                    controller: _nameController,
                     hintText: 'register.namePlaceholder'.tr(context),
-                    hintStyle: TextStyle(
-                      color: AppColors.textSecondaryLight.withOpacity(0.5),
-                    ),
-                    filled: true,
-                    fillColor: AppColors.surfaceLight,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(AppSizes.r12),
-                      borderSide: BorderSide.none,
-                    ),
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: AppSizes.s16,
-                      vertical: AppSizes.s16,
-                    ),
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return 'register.nameRequired'.tr(context);
+                      }
+                      return null;
+                    },
                   ),
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    color: AppColors.textPrimaryLight,
-                  ),
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'register.nameRequired'.tr(context);
-                    }
-                    return null;
-                  },
-                ),
 
-                verticalSpace(AppSizes.s24),
+                  verticalSpace(AppSizes.s24),
 
-                // Address field
-                Text(
-                  'register.addressLabel'.tr(context),
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.textPrimaryLight,
+                  // Address field
+                  Text(
+                    'register.addressLabel'.tr(context),
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimaryLight,
+                    ),
                   ),
-                ),
-                verticalSpace(AppSizes.s8),
-                TextFormField(
-                  controller: _addressController,
-                  maxLines: 3,
-                  decoration: InputDecoration(
+                  verticalSpace(AppSizes.s8),
+                  CustomTextField(
+                    controller: _addressController,
                     hintText: 'register.addressPlaceholder'.tr(context),
-                    hintStyle: TextStyle(
-                      color: AppColors.textSecondaryLight.withOpacity(0.5),
-                    ),
-                    filled: true,
-                    fillColor: AppColors.surfaceLight,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(AppSizes.r12),
-                      borderSide: BorderSide.none,
-                    ),
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: AppSizes.s16,
-                      vertical: AppSizes.s16,
-                    ),
+                    maxLines: 3,
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return 'register.addressRequired'.tr(context);
+                      }
+                      return null;
+                    },
                   ),
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    color: AppColors.textPrimaryLight,
+
+                  const Spacer(),
+
+                  // Register button
+                  BlocBuilder<RegisterCubit, RegisterState>(
+                    builder: (context, state) {
+                      return AppButton(
+                        text: 'register.registerButton'.tr(context),
+                        onPressed: _handleRegister,
+                        isLoading: state is RegisterLoading,
+                        backgroundColor: AppColors.primary,
+                        textColor: Colors.white,
+                      );
+                    },
                   ),
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'register.addressRequired'.tr(context);
-                    }
-                    return null;
-                  },
-                ),
 
-                const Spacer(),
-
-                // Register button
-                BlocBuilder<RegisterCubit, RegisterState>(
-                  builder: (context, state) {
-                    return AppButton(
-                      text: 'register.registerButton'.tr(context),
-                      onPressed: _handleRegister,
-                      isLoading: state is RegisterLoading,
-                      backgroundColor: AppColors.primary,
-                      textColor: Colors.white,
-                    );
-                  },
-                ),
-
-                verticalSpace(AppSizes.s32),
-              ],
+                  verticalSpace(AppSizes.s32),
+                ],
+              ),
             ),
           ),
         ),
       ),
-    ),
     );
   }
 }

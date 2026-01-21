@@ -6,7 +6,6 @@ import 'package:channels/core/theme/app_colors.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/helpers/spacing.dart';
 import 'package:channels/core/shared/widgets/app_button.dart';
-import 'package:channels/core/shared/widgets/custom_app_bar.dart';
 import 'package:channels/core/localization/app_localizations.dart';
 import 'package:channels/core/router/route_names.dart';
 import 'package:channels/features/authentication/presentation/widgets/phone_input_field.dart';
@@ -66,9 +65,9 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
 
     // Call OTP API
     context.read<OtpCubit>().requestOtp(
-          phone: fullPhoneNumber,
-          countryCode: _selectedCountryISOCode,
-        );
+      phone: fullPhoneNumber,
+      countryCode: _selectedCountryISOCode,
+    );
   }
 
   @override
@@ -96,80 +95,79 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
       },
       child: Scaffold(
         backgroundColor: AppColors.backgroundLight,
-        appBar: const CustomAppBar(showBackButton: true),
         body: SafeArea(
-        bottom: false,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: AppSizes.screenPaddingH),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              verticalSpace(AppSizes.s20),
+          bottom: false,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: AppSizes.screenPaddingH),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                verticalSpace(AppSizes.s20),
 
-              // Title
-              Text(
-                'phoneAuth.title'.tr(context),
-                style: TextStyle(
-                  fontSize: 28.sp,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.textPrimaryLight,
+                // Title
+                Text(
+                  'phoneAuth.title'.tr(context),
+                  style: TextStyle(
+                    fontSize: 28.sp,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textPrimaryLight,
+                  ),
                 ),
-              ),
 
-              verticalSpace(AppSizes.s12),
+                verticalSpace(AppSizes.s12),
 
-              // Subtitle
-              Text(
-                'phoneAuth.subtitle'.tr(context),
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  color: AppColors.textSecondaryLight,
-                  height: 1.5,
+                // Subtitle
+                Text(
+                  'phoneAuth.subtitle'.tr(context),
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    color: AppColors.textSecondaryLight,
+                    height: 1.5,
+                  ),
                 ),
-              ),
 
-              verticalSpace(AppSizes.s40),
+                verticalSpace(AppSizes.s40),
 
-              // Phone input field
-              PhoneInputField(
-                controller: _phoneController,
-                errorText: _errorText,
-                onChanged: (value) {
-                  if (_errorText != null) {
+                // Phone input field
+                PhoneInputField(
+                  controller: _phoneController,
+                  errorText: _errorText,
+                  onChanged: (value) {
+                    if (_errorText != null) {
+                      setState(() {
+                        _errorText = null;
+                      });
+                    }
+                  },
+                  onCountryChanged: (country) {
                     setState(() {
-                      _errorText = null;
+                      _selectedCountryCode = country.dialingCode;
+                      _selectedCountryISOCode = country.code;
                     });
-                  }
-                },
-                onCountryChanged: (country) {
-                  setState(() {
-                    _selectedCountryCode = country.dialingCode;
-                    _selectedCountryISOCode = country.code;
-                  });
-                },
-              ),
+                  },
+                ),
 
-              const Spacer(),
+                const Spacer(),
 
-              // Send OTP button
-              BlocBuilder<OtpCubit, OtpState>(
-                builder: (context, state) {
-                  return AppButton(
-                    text: 'phoneAuth.sendButton'.tr(context),
-                    onPressed: _sendOTP,
-                    isLoading: state is OtpLoading,
-                    backgroundColor: AppColors.primary,
-                    textColor: Colors.white,
-                  );
-                },
-              ),
+                // Send OTP button
+                BlocBuilder<OtpCubit, OtpState>(
+                  builder: (context, state) {
+                    return AppButton(
+                      text: 'phoneAuth.sendButton'.tr(context),
+                      onPressed: _sendOTP,
+                      isLoading: state is OtpLoading,
+                      backgroundColor: AppColors.primary,
+                      textColor: Colors.white,
+                    );
+                  },
+                ),
 
-              verticalSpace(AppSizes.s32),
-            ],
+                verticalSpace(AppSizes.s32),
+              ],
+            ),
           ),
         ),
       ),
-    ),
     );
   }
 }

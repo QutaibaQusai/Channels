@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:channels/features/authentication/presentation/cubit/otp_verification/otp_verification_state.dart';
 import 'package:channels/features/authentication/data/data_sources/verify_otp_remote_data_source.dart';
 import 'package:channels/features/authentication/data/data_sources/otp_remote_data_source.dart';
+import 'package:channels/core/services/secure_storage_service.dart';
 
 class OtpVerificationCubit extends Cubit<OtpVerificationState> {
   final VerifyOtpRemoteDataSource verifyOtpRemoteDataSource;
@@ -53,6 +54,10 @@ class OtpVerificationCubit extends Cubit<OtpVerificationState> {
         phone: phone,
         otp: otpCode,
       );
+
+      // Save token and user ID to secure storage
+      await SecureStorageService.saveAuthToken(response.token);
+      await SecureStorageService.saveUserId(response.user.id);
 
       // Emit success with user data and token
       emit(OtpVerificationSuccess(
