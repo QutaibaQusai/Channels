@@ -1,0 +1,48 @@
+{
+  "@@locale": "ar",
+
+  "commonNext": "التالي",
+  "commonSkip": "تخطي",
+  "commonGetStarted": "ابدأ الآن",
+  "commonCancel": "إلغاء",
+  "commonDone": "تم",
+
+  "countryPickerTitle": "اختر الدولة",
+  "countryPickerSearchHint": "ابحث عن دولة...",
+  "countryPickerNoResults": "لم يتم العثور على دول",
+  "countryPickerError": "فشل تحميل الدول",
+  "countryPickerLoading": "جاري تحميل الدول...",
+
+  "phoneAuthTitle": "أدخل رقم هاتفك",
+  "phoneAuthSubtitle": "سنرسل لك رمز تحقق لتأكيد رقمك",
+  "phoneAuthSendButton": "إرسال رمز التحقق",
+  "phoneAuthErrorEmpty": "الرجاء إدخال رقم هاتفك",
+  "phoneAuthErrorInvalid": "الرجاء إدخال رقم هاتف صحيح",
+  "phoneAuthOtpSent": "تم إرسال رمز التحقق بنجاح!",
+
+  "otpVerificationTitle": "تحقق من رقمك",
+  "otpVerificationSubtitle": "أدخل الرمز المرسل إلى",
+  "otpVerificationVerifyButton": "تحقق",
+  "otpVerificationResendCode": "إعادة إرسال الرمز",
+  "otpVerificationResendTimer": "إعادة الإرسال بعد {seconds} ثانية",
+  "otpVerificationErrorIncomplete": "الرجاء إدخال الرمز كاملاً",
+  "otpVerificationVerified": "تم التحقق من رقم الهاتف بنجاح!",
+  "otpVerificationOtpResent": "تم إعادة إرسال الرمز بنجاح!",
+
+  "registerTitle": "أكمل ملفك الشخصي",
+  "registerSubtitle": "أخبرنا قليلاً عن نفسك",
+  "registerNameLabel": "الاسم",
+  "registerNamePlaceholder": "أدخل اسمك",
+  "registerNameRequired": "الاسم مطلوب",
+  "registerDateOfBirthLabel": "تاريخ الميلاد",
+  "registerDateOfBirthPlaceholder": "اختر تاريخ ميلادك",
+  "registerDateOfBirthRequired": "تاريخ الميلاد مطلوب",
+  "registerButton": "إكمال التسجيل",
+
+  "onboardingPage1Title": "قناتك الشخصية للإعلانات",
+  "onboardingPage1Subtitle": "اشترك في الفئات التي تهمك واحصل على إشعارات فورية للإعلانات الجديدة",
+  "onboardingPage2Title": "أنشئ قنوات، ابقَ على اطلاع",
+  "onboardingPage2Subtitle": "اختر فئاتك المفضلة وحدد الفلاتر لتستقبل فقط الإعلانات التي تهمك",
+  "onboardingPage3Title": "انشر إعلانات في ثوانٍ",
+  "onboardingPage3Subtitle": "التقط بعض الصور، أضف التفاصيل، وتواصل مع آلاف المشترين المحتملين فوراً"
+}

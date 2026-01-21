@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:channels/core/theme/app_colors.dart';
-import 'package:channels/core/localization/app_localizations.dart';
+import 'package:channels/l10n/app_localizations.dart';
 
 /// Resend OTP widget with timer
 class OtpResendWidget extends StatelessWidget {
@@ -20,6 +20,8 @@ class OtpResendWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Center(
       child: canResend
           ? GestureDetector(
@@ -36,7 +38,7 @@ class OtpResendWidget extends StatelessWidget {
                       ),
                     )
                   : Text(
-                      'otpVerification.resendCode'.tr(context),
+                      l10n.otpVerificationResendCode,
                       style: TextStyle(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w600,
@@ -45,9 +47,7 @@ class OtpResendWidget extends StatelessWidget {
                     ),
             )
           : Text(
-              'otpVerification.resendTimer'
-                  .tr(context)
-                  .replaceAll('{seconds}', resendTimer.toString()),
+              l10n.otpVerificationResendTimer(resendTimer),
               style: TextStyle(
                 fontSize: 16.sp,
                 color: AppColors.textSecondaryLight,

@@ -4,7 +4,7 @@ import 'package:channels/core/theme/app_colors.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/theme/app_typography.dart';
 import 'package:channels/core/helpers/spacing.dart';
-import 'package:channels/core/localization/app_localizations.dart';
+import 'package:channels/l10n/app_localizations.dart';
 import 'package:channels/features/onboarding/domain/entities/onboarding_page.dart';
 
 /// Individual onboarding page widget
@@ -15,6 +15,28 @@ class OnboardingPageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
+    // Map the page title/subtitle keys to actual translations
+    String getTranslatedText(String key) {
+      switch (key) {
+        case 'onboarding.page1.title':
+          return l10n.onboardingPage1Title;
+        case 'onboarding.page1.subtitle':
+          return l10n.onboardingPage1Subtitle;
+        case 'onboarding.page2.title':
+          return l10n.onboardingPage2Title;
+        case 'onboarding.page2.subtitle':
+          return l10n.onboardingPage2Subtitle;
+        case 'onboarding.page3.title':
+          return l10n.onboardingPage3Title;
+        case 'onboarding.page3.subtitle':
+          return l10n.onboardingPage3Subtitle;
+        default:
+          return key;
+      }
+    }
+
     return Column(
       children: [
         // Large black container - takes most of the vertical space, no padding
@@ -46,7 +68,7 @@ class OnboardingPageWidget extends StatelessWidget {
               children: [
                 // Title - translated from key
                 Text(
-                  page.title.tr(context),
+                  getTranslatedText(page.title),
                   textAlign: TextAlign.center,
                   style: AppTypography.onboardingTitle,
                 ),
@@ -55,7 +77,7 @@ class OnboardingPageWidget extends StatelessWidget {
 
                 // Subtitle - translated from key
                 Text(
-                  page.subtitle.tr(context),
+                  getTranslatedText(page.subtitle),
                   textAlign: TextAlign.center,
                   maxLines: 2,
                   style: AppTypography.onboardingSubtitle,

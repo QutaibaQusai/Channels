@@ -1,0 +1,204 @@
+{
+  "@@locale": "en",
+
+  "commonNext": "Next",
+  "@commonNext": {
+    "description": "Next button text"
+  },
+
+  "commonSkip": "Skip",
+  "@commonSkip": {
+    "description": "Skip button text"
+  },
+
+  "commonGetStarted": "Get Started",
+  "@commonGetStarted": {
+    "description": "Get started button text"
+  },
+
+  "commonCancel": "Cancel",
+  "@commonCancel": {
+    "description": "Cancel button text"
+  },
+
+  "commonDone": "Done",
+  "@commonDone": {
+    "description": "Done button text"
+  },
+
+  "countryPickerTitle": "Select Country",
+  "@countryPickerTitle": {
+    "description": "Country picker dialog title"
+  },
+
+  "countryPickerSearchHint": "Search country...",
+  "@countryPickerSearchHint": {
+    "description": "Country picker search field hint"
+  },
+
+  "countryPickerNoResults": "No countries found",
+  "@countryPickerNoResults": {
+    "description": "Country picker no results message"
+  },
+
+  "countryPickerError": "Failed to load countries",
+  "@countryPickerError": {
+    "description": "Country picker error message"
+  },
+
+  "countryPickerLoading": "Loading countries...",
+  "@countryPickerLoading": {
+    "description": "Country picker loading message"
+  },
+
+  "phoneAuthTitle": "Enter your phone number",
+  "@phoneAuthTitle": {
+    "description": "Phone authentication screen title"
+  },
+
+  "phoneAuthSubtitle": "We'll send you a verification code to confirm your number",
+  "@phoneAuthSubtitle": {
+    "description": "Phone authentication screen subtitle"
+  },
+
+  "phoneAuthSendButton": "Send OTP",
+  "@phoneAuthSendButton": {
+    "description": "Send OTP button text"
+  },
+
+  "phoneAuthErrorEmpty": "Please enter your phone number",
+  "@phoneAuthErrorEmpty": {
+    "description": "Empty phone number error"
+  },
+
+  "phoneAuthErrorInvalid": "Please enter a valid phone number",
+  "@phoneAuthErrorInvalid": {
+    "description": "Invalid phone number error"
+  },
+
+  "phoneAuthOtpSent": "OTP sent successfully!",
+  "@phoneAuthOtpSent": {
+    "description": "OTP sent success message"
+  },
+
+  "otpVerificationTitle": "Verify your number",
+  "@otpVerificationTitle": {
+    "description": "OTP verification screen title"
+  },
+
+  "otpVerificationSubtitle": "Enter the code sent to",
+  "@otpVerificationSubtitle": {
+    "description": "OTP verification screen subtitle"
+  },
+
+  "otpVerificationVerifyButton": "Verify",
+  "@otpVerificationVerifyButton": {
+    "description": "Verify button text"
+  },
+
+  "otpVerificationResendCode": "Resend Code",
+  "@otpVerificationResendCode": {
+    "description": "Resend code button text"
+  },
+
+  "otpVerificationResendTimer": "Resend code in {seconds}s",
+  "@otpVerificationResendTimer": {
+    "description": "Resend timer text with countdown",
+    "placeholders": {
+      "seconds": {
+        "type": "int",
+        "example": "30"
+      }
+    }
+  },
+
+  "otpVerificationErrorIncomplete": "Please enter the complete code",
+  "@otpVerificationErrorIncomplete": {
+    "description": "Incomplete OTP error"
+  },
+
+  "otpVerificationVerified": "Phone number verified successfully!",
+  "@otpVerificationVerified": {
+    "description": "Phone verification success message"
+  },
+
+  "otpVerificationOtpResent": "Code resent successfully!",
+  "@otpVerificationOtpResent": {
+    "description": "OTP resent success message"
+  },
+
+  "registerTitle": "Complete Your Profile",
+  "@registerTitle": {
+    "description": "Registration screen title"
+  },
+
+  "registerSubtitle": "Tell us a bit about yourself",
+  "@registerSubtitle": {
+    "description": "Registration screen subtitle"
+  },
+
+  "registerNameLabel": "Name",
+  "@registerNameLabel": {
+    "description": "Name field label"
+  },
+
+  "registerNamePlaceholder": "Enter your name",
+  "@registerNamePlaceholder": {
+    "description": "Name field placeholder"
+  },
+
+  "registerNameRequired": "Name is required",
+  "@registerNameRequired": {
+    "description": "Name required error"
+  },
+
+  "registerDateOfBirthLabel": "Date of Birth",
+  "@registerDateOfBirthLabel": {
+    "description": "Date of birth field label"
+  },
+
+  "registerDateOfBirthPlaceholder": "Select your date of birth",
+  "@registerDateOfBirthPlaceholder": {
+    "description": "Date of birth field placeholder"
+  },
+
+  "registerDateOfBirthRequired": "Date of birth is required",
+  "@registerDateOfBirthRequired": {
+    "description": "Date of birth required error"
+  },
+
+  "registerButton": "Complete Registration",
+  "@registerButton": {
+    "description": "Complete registration button text"
+  },
+
+  "onboardingPage1Title": "Your Personal Ad Channel",
+  "@onboardingPage1Title": {
+    "description": "Onboarding page 1 title"
+  },
+
+  "onboardingPage1Subtitle": "Subscribe to categories that matter to you and get instant notifications for new ads",
+  "@onboardingPage1Subtitle": {
+    "description": "Onboarding page 1 subtitle"
+  },
+
+  "onboardingPage2Title": "Create Channels, Stay Updated",
+  "@onboardingPage2Title": {
+    "description": "Onboarding page 2 title"
+  },
+
+  "onboardingPage2Subtitle": "Pick your favorite categories and set filters to receive only the ads you care about",
+  "@onboardingPage2Subtitle": {
+    "description": "Onboarding page 2 subtitle"
+  },
+
+  "onboardingPage3Title": "Post Ads in Seconds",
+  "@onboardingPage3Title": {
+    "description": "Onboarding page 3 title"
+  },
+
+  "onboardingPage3Subtitle": "Snap a few photos, add details, and reach thousands of potential buyers instantly",
+  "@onboardingPage3Subtitle": {
+    "description": "Onboarding page 3 subtitle"
+  }
+}

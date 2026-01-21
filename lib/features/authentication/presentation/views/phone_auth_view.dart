@@ -6,7 +6,7 @@ import 'package:channels/core/theme/app_colors.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/helpers/spacing.dart';
 import 'package:channels/core/shared/widgets/app_button.dart';
-import 'package:channels/core/localization/app_localizations.dart';
+import 'package:channels/l10n/app_localizations.dart';
 import 'package:channels/core/router/route_names.dart';
 import 'package:channels/features/authentication/presentation/widgets/phone_input_field.dart';
 import 'package:channels/features/authentication/presentation/cubit/otp/otp_cubit.dart';
@@ -39,16 +39,18 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
 
     // Validate phone number
     final phone = _phoneController.text.trim();
+    final l10n = AppLocalizations.of(context)!;
+
     if (phone.isEmpty) {
       setState(() {
-        _errorText = 'phoneAuth.errorEmpty'.tr(context);
+        _errorText = l10n.phoneAuthErrorEmpty;
       });
       return;
     }
 
     if (phone.length < 9) {
       setState(() {
-        _errorText = 'phoneAuth.errorInvalid'.tr(context);
+        _errorText = l10n.phoneAuthErrorInvalid;
       });
       return;
     }
@@ -72,6 +74,8 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return BlocListener<OtpCubit, OtpState>(
       listener: (context, state) {
         if (state is OtpSuccess) {
@@ -106,7 +110,7 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
 
                 // Title
                 Text(
-                  'phoneAuth.title'.tr(context),
+                  l10n.phoneAuthTitle,
                   style: TextStyle(
                     fontSize: 28.sp,
                     fontWeight: FontWeight.bold,
@@ -118,7 +122,7 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
 
                 // Subtitle
                 Text(
-                  'phoneAuth.subtitle'.tr(context),
+                  l10n.phoneAuthSubtitle,
                   style: TextStyle(
                     fontSize: 16.sp,
                     color: AppColors.textSecondaryLight,
@@ -153,7 +157,7 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
                 BlocBuilder<OtpCubit, OtpState>(
                   builder: (context, state) {
                     return AppButton(
-                      text: 'phoneAuth.sendButton'.tr(context),
+                      text: l10n.phoneAuthSendButton,
                       onPressed: _sendOTP,
                       isLoading: state is OtpLoading,
                       backgroundColor: AppColors.primary,

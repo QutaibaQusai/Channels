@@ -3,7 +3,7 @@ import 'package:channels/core/theme/app_colors.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/theme/app_typography.dart';
 import 'package:channels/core/helpers/spacing.dart';
-import 'package:channels/core/localization/app_localizations.dart';
+import 'package:channels/l10n/app_localizations.dart';
 
 /// Error state widget for countries
 class CountriesErrorWidget extends StatelessWidget {
@@ -16,6 +16,8 @@ class CountriesErrorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -27,7 +29,7 @@ class CountriesErrorWidget extends StatelessWidget {
           ),
           verticalSpace(AppSizes.s16),
           Text(
-            'countryPicker.error'.tr(context),
+            l10n.countryPickerError,
             style: AppTypography.titleMedium,
           ),
           verticalSpace(AppSizes.s8),
