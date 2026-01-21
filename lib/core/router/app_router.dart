@@ -8,11 +8,16 @@ import 'package:channels/features/onboarding/presentation/views/onboarding_view.
 import 'package:channels/features/authentication/presentation/views/phone_auth_view.dart';
 import 'package:channels/features/authentication/presentation/views/otp_verification/otp_verification_view.dart';
 import 'package:channels/features/authentication/presentation/views/country_picker/country_picker_view.dart';
+import 'package:channels/features/authentication/presentation/views/register/register_view.dart';
+import 'package:channels/features/home/presentation/views/home_view.dart';
 import 'package:channels/features/authentication/data/data_sources/countries_remote_data_source.dart';
 import 'package:channels/features/authentication/data/data_sources/otp_remote_data_source.dart';
+import 'package:channels/features/authentication/data/data_sources/verify_otp_remote_data_source.dart';
+import 'package:channels/features/authentication/data/data_sources/update_preferences_remote_data_source.dart';
 import 'package:channels/features/authentication/presentation/cubit/countries/countries_cubit.dart';
 import 'package:channels/features/authentication/presentation/cubit/otp/otp_cubit.dart';
 import 'package:channels/features/authentication/presentation/cubit/otp_verification/otp_verification_cubit.dart';
+import 'package:channels/features/authentication/presentation/cubit/register/register_cubit.dart';
 
 /// Centralized routing configuration using Go Router
 class AppRouter {
@@ -100,8 +105,32 @@ class AppRouter {
         builder: (context, state) {
           final phoneNumber = state.extra as String? ?? '';
           return BlocProvider(
-            create: (context) => OtpVerificationCubit(),
+            create: (context) => OtpVerificationCubit(
+              verifyOtpRemoteDataSource: VerifyOtpRemoteDataSourceImpl(
+                apiConsumer: DioConsumer(dio: Dio()),
+              ),
+              otpRemoteDataSource: OtpRemoteDataSourceImpl(
+                apiConsumer: DioConsumer(dio: Dio()),
+              ),
+            ),
             child: OtpVerificationView(phoneNumber: phoneNumber),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RouteNames.register,
+        name: RouteNames.register,
+        builder: (context, state) {
+          final token = state.extra as String? ?? '';
+          return BlocProvider(
+            create: (context) => RegisterCubit(
+              updatePreferencesRemoteDataSource:
+                  UpdatePreferencesRemoteDataSourceImpl(
+                apiConsumer: DioConsumer(dio: Dio()),
+              ),
+            ),
+            child: RegisterView(token: token),
           );
         },
       ),
@@ -110,9 +139,7 @@ class AppRouter {
       GoRoute(
         path: RouteNames.home,
         name: RouteNames.home,
-        builder: (context, state) => const Scaffold(
-          body: Center(child: Text('Home Screen')),
-        ),
+        builder: (context, state) => const HomeView(),
       ),
 
       GoRoute(

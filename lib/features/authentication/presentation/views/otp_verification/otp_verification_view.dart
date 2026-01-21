@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:channels/core/theme/app_colors.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/helpers/spacing.dart';
 import 'package:channels/core/shared/widgets/app_button.dart';
 import 'package:channels/core/shared/widgets/custom_app_bar.dart';
 import 'package:channels/core/localization/app_localizations.dart';
+import 'package:channels/core/router/route_names.dart';
 import 'package:channels/features/authentication/presentation/cubit/otp_verification/otp_verification_cubit.dart';
 import 'package:channels/features/authentication/presentation/cubit/otp_verification/otp_verification_state.dart';
 import 'package:channels/features/authentication/presentation/views/otp_verification/widgets/otp_input_widget.dart';
@@ -40,10 +42,15 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
     return BlocListener<OtpVerificationCubit, OtpVerificationState>(
       listener: (context, state) {
         if (state is OtpVerificationSuccess) {
-          // TODO: Navigate to home or next screen
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('otpVerification.verified'.tr(context))),
-          );
+          // Navigate based on user data
+          if (state.user.needsRegistration) {
+            // New user - navigate to register view (allow back navigation)
+            // Pass token as extra data
+            context.push(RouteNames.register, extra: state.token);
+          } else {
+            // Existing user - navigate to home (replace stack)
+            context.pushReplacement(RouteNames.home);
+          }
         } else if (state is OtpResendSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('otpVerification.otpResent'.tr(context))),
@@ -170,7 +177,10 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
                     return AppButton(
                       text: 'otpVerification.verifyButton'.tr(context),
                       onPressed: () {
-                        context.read<OtpVerificationCubit>().verifyOtp(_otpCode);
+                        context.read<OtpVerificationCubit>().verifyOtp(
+                              _otpCode,
+                              widget.phoneNumber,
+                            );
                       },
                       isLoading: state is OtpVerificationLoading,
                       backgroundColor: AppColors.primary,

@@ -81,6 +81,17 @@ class AppLocalizations {
       'verified': 'Phone number verified successfully!',
       'otpResent': 'Code resent successfully!',
     },
+    'register': {
+      'title': 'Complete Your Profile',
+      'subtitle': 'Help us personalize your experience',
+      'nameLabel': 'Full Name',
+      'namePlaceholder': 'Enter your full name',
+      'nameRequired': 'Name is required',
+      'addressLabel': 'Address',
+      'addressPlaceholder': 'Enter your address',
+      'addressRequired': 'Address is required',
+      'registerButton': 'Complete Registration',
+    },
     'onboarding': {
       'page1': {
         'title': 'Your Personal Ad Channel',
@@ -132,6 +143,17 @@ class AppLocalizations {
       'errorIncomplete': 'الرجاء إدخال الرمز كاملاً',
       'verified': 'تم التحقق من رقم الهاتف بنجاح!',
       'otpResent': 'تم إعادة إرسال الرمز بنجاح!',
+    },
+    'register': {
+      'title': 'أكمل ملفك الشخصي',
+      'subtitle': 'ساعدنا في تخصيص تجربتك',
+      'nameLabel': 'الاسم الكامل',
+      'namePlaceholder': 'أدخل اسمك الكامل',
+      'nameRequired': 'الاسم مطلوب',
+      'addressLabel': 'العنوان',
+      'addressPlaceholder': 'أدخل عنوانك',
+      'addressRequired': 'العنوان مطلوب',
+      'registerButton': 'إكمال التسجيل',
     },
     'onboarding': {
       'page1': {

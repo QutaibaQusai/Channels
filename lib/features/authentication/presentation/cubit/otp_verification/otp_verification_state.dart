@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:channels/features/authentication/data/models/user_model.dart';
 
 abstract class OtpVerificationState extends Equatable {
   const OtpVerificationState();
@@ -36,12 +37,16 @@ class OtpVerificationTimerTick extends OtpVerificationState {
 class OtpVerificationLoading extends OtpVerificationState {}
 
 class OtpVerificationSuccess extends OtpVerificationState {
-  final String message;
+  final String token;
+  final UserModel user;
 
-  const OtpVerificationSuccess({required this.message});
+  const OtpVerificationSuccess({
+    required this.token,
+    required this.user,
+  });
 
   @override
-  List<Object?> get props => [message];
+  List<Object?> get props => [token, user];
 }
 
 class OtpVerificationFailure extends OtpVerificationState {

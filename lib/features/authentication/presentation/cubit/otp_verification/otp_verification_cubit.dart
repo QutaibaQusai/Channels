@@ -1,12 +1,19 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:channels/features/authentication/presentation/cubit/otp_verification/otp_verification_state.dart';
+import 'package:channels/features/authentication/data/data_sources/verify_otp_remote_data_source.dart';
+import 'package:channels/features/authentication/data/data_sources/otp_remote_data_source.dart';
 
 class OtpVerificationCubit extends Cubit<OtpVerificationState> {
+  final VerifyOtpRemoteDataSource verifyOtpRemoteDataSource;
+  final OtpRemoteDataSource otpRemoteDataSource;
   Timer? _timer;
   int _resendTimer = 60;
 
-  OtpVerificationCubit() : super(const OtpVerificationInitial());
+  OtpVerificationCubit({
+    required this.verifyOtpRemoteDataSource,
+    required this.otpRemoteDataSource,
+  }) : super(const OtpVerificationInitial());
 
   void startResendTimer() {
     _resendTimer = 60;
@@ -30,7 +37,7 @@ class OtpVerificationCubit extends Cubit<OtpVerificationState> {
     });
   }
 
-  Future<void> verifyOtp(String otpCode) async {
+  Future<void> verifyOtp(String otpCode, String phone) async {
     // Validate OTP code length
     if (otpCode.length < 4) {
       emit(const OtpVerificationFailure(
@@ -41,12 +48,16 @@ class OtpVerificationCubit extends Cubit<OtpVerificationState> {
 
     emit(OtpVerificationLoading());
     try {
-      // TODO: Implement actual OTP verification API call
-      await Future.delayed(const Duration(seconds: 2));
+      // Call verify OTP API
+      final response = await verifyOtpRemoteDataSource.verifyOtp(
+        phone: phone,
+        otp: otpCode,
+      );
 
-      // Simulate success
-      emit(const OtpVerificationSuccess(
-        message: 'Phone number verified successfully!',
+      // Emit success with user data and token
+      emit(OtpVerificationSuccess(
+        token: response.token,
+        user: response.user,
       ));
     } catch (e) {
       emit(OtpVerificationFailure(errorMessage: e.toString()));
@@ -59,8 +70,11 @@ class OtpVerificationCubit extends Cubit<OtpVerificationState> {
   }) async {
     emit(OtpResendLoading());
     try {
-      // TODO: Implement actual resend OTP API call
-      await Future.delayed(const Duration(seconds: 2));
+      // Call resend OTP API
+      await otpRemoteDataSource.requestOtp(
+        phone: phone,
+        countryCode: countryCode,
+      );
 
       // Restart timer
       startResendTimer();
