@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:channels/core/theme/app_colors.dart';
+import 'package:channels/core/theme/app_sizes.dart';
+import 'package:channels/core/helpers/spacing.dart';
 import 'package:channels/core/shared/widgets/app_button.dart';
+import 'package:channels/core/shared/widgets/custom_app_bar.dart';
 import 'package:channels/features/authentication/presentation/widgets/phone_input_field.dart';
 
 /// Phone authentication view - User enters phone number
@@ -56,9 +59,9 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
           _isLoading = false;
         });
         // TODO: Navigate to OTP verification view
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('OTP sent successfully!')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('OTP sent successfully!')));
       }
     });
   }
@@ -67,21 +70,15 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundLight,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.textPrimaryLight),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
+      appBar: const CustomAppBar(showBackButton: true),
       body: SafeArea(
+        bottom: false,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.w),
+          padding: EdgeInsets.symmetric(horizontal: AppSizes.screenPaddingH),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 20.h),
+              verticalSpace(AppSizes.s20),
 
               // Title
               Text(
@@ -93,7 +90,7 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
                 ),
               ),
 
-              SizedBox(height: 12.h),
+              verticalSpace(AppSizes.s12),
 
               // Subtitle
               Text(
@@ -105,7 +102,7 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
                 ),
               ),
 
-              SizedBox(height: 40.h),
+              verticalSpace(AppSizes.s40),
 
               // Phone input field
               PhoneInputField(
@@ -131,7 +128,7 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
                 textColor: Colors.white,
               ),
 
-              SizedBox(height: 32.h),
+              verticalSpace(AppSizes.s32),
             ],
           ),
         ),

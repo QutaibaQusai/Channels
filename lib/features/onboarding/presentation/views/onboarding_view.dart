@@ -15,6 +15,8 @@ import 'package:channels/features/onboarding/presentation/cubit/onboarding_state
 import 'package:channels/features/onboarding/presentation/widgets/onboarding_page_widget.dart';
 import 'package:channels/features/onboarding/presentation/widgets/page_indicator.dart';
 import 'package:channels/core/theme/app_colors.dart';
+import 'package:channels/core/theme/app_sizes.dart';
+import 'package:channels/core/helpers/spacing.dart';
 
 /// Main onboarding view with page view
 class OnboardingView extends ConsumerStatefulWidget {
@@ -99,12 +101,12 @@ class _OnboardingViewState extends ConsumerState<OnboardingView> {
                         currentPage: state.currentPage,
                       ),
 
-                      SizedBox(height: 40.h),
+                      verticalSpace(AppSizes.s40),
 
                       // Next/Get Started button
                       _buildBottomButton(context, state),
 
-                      SizedBox(height: 32.h),
+                      verticalSpace(AppSizes.s32),
                     ],
                   ),
 
@@ -143,25 +145,28 @@ class _OnboardingViewState extends ConsumerState<OnboardingView> {
                   onTap: () async {
                     // Toggle language using official Flutter approach
                     final newLanguage = isArabic ? 'en' : 'ar';
-                    await ref.read(localeProvider.notifier).changeLanguage(newLanguage);
+                    await ref
+                        .read(localeProvider.notifier)
+                        .changeLanguage(newLanguage);
                   },
                   borderRadius: BorderRadius.circular(20.r),
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.w,
+                      vertical: 10.h,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white.withValues(alpha: 0.3),
                       borderRadius: BorderRadius.circular(20.r),
                       border: Border.all(
-                          color: Colors.white.withValues(alpha: 0.5), width: 1),
+                        color: Colors.white.withValues(alpha: 0.5),
+                        width: 1,
+                      ),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(
-                          Icons.language,
-                          color: Colors.white,
-                          size: 20.sp,
-                        ),
+                        Icon(Icons.language, color: Colors.white, size: 20.sp),
                         SizedBox(width: 6.w),
                         Text(
                           isArabic ? 'English' : 'العربية',
@@ -185,7 +190,7 @@ class _OnboardingViewState extends ConsumerState<OnboardingView> {
 
   Widget _buildBottomButton(BuildContext context, OnboardingLoaded state) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24.w),
+      padding: EdgeInsets.symmetric(horizontal: AppSizes.screenPaddingH),
       child: AppButton(
         text: state.isLastPage
             ? 'common.getStarted'.tr(context)

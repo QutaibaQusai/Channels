@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:channels/core/theme/app_colors.dart';
+import 'package:channels/core/theme/app_sizes.dart';
+import 'package:channels/core/theme/app_typography.dart';
 
 /// Reusable app button with consistent styling
 /// Can be used across all features
@@ -34,7 +35,7 @@ class AppButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width ?? double.infinity,
-      height: height ?? 48.h,
+      height: height ?? AppSizes.buttonHeightMedium,
       child: isOutlined ? _buildOutlinedButton() : _buildFilledButton(),
     );
   }
@@ -48,10 +49,12 @@ class AppButton extends StatelessWidget {
         disabledBackgroundColor: AppColors.borderLight,
         disabledForegroundColor: AppColors.textDisabledLight,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(28.r),
+          borderRadius: BorderRadius.circular(AppSizes.rFull),
         ),
         elevation: 0,
-        padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppSizes.s24,
+        ),
       ),
       child: _buildContent(),
     );
@@ -67,9 +70,11 @@ class AppButton extends StatelessWidget {
           width: 1.5,
         ),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(28.r),
+          borderRadius: BorderRadius.circular(AppSizes.rFull),
         ),
-        padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppSizes.s24,
+        ),
       ),
       child: _buildContent(),
     );
@@ -78,8 +83,8 @@ class AppButton extends StatelessWidget {
   Widget _buildContent() {
     if (isLoading) {
       return SizedBox(
-        height: 20.h,
-        width: 20.w,
+        height: AppSizes.icon20,
+        width: AppSizes.icon20,
         child: CircularProgressIndicator(
           strokeWidth: 2,
           valueColor: AlwaysStoppedAnimation<Color>(textColor ?? Colors.white),
@@ -92,16 +97,14 @@ class AppButton extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, size: 20.sp),
-          SizedBox(width: 8.w),
+          Icon(icon, size: AppSizes.icon20),
+          SizedBox(width: AppSizes.s8),
           Text(
             text,
-            style: TextStyle(
-              fontSize: 16.sp,
+            style: AppTypography.buttonText.copyWith(
               color: isOutlined
                   ? (backgroundColor ?? AppColors.primary)
                   : (textColor ?? Colors.white),
-              fontWeight: FontWeight.w600,
             ),
           ),
         ],
@@ -110,12 +113,10 @@ class AppButton extends StatelessWidget {
 
     return Text(
       text,
-      style: TextStyle(
-        fontSize: 16.sp,
+      style: AppTypography.buttonText.copyWith(
         color: isOutlined
             ? (backgroundColor ?? AppColors.primary)
             : (textColor ?? Colors.white),
-        fontWeight: FontWeight.w600,
       ),
     );
   }

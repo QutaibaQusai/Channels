@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:channels/core/theme/app_colors.dart';
+import 'package:channels/core/theme/app_sizes.dart';
+import 'package:channels/core/theme/app_typography.dart';
+import 'package:channels/core/helpers/spacing.dart';
 import 'package:channels/core/localization/app_localizations.dart';
 import 'package:channels/features/onboarding/domain/entities/onboarding_page.dart';
 
@@ -32,7 +35,7 @@ class OnboardingPageWidget extends StatelessWidget {
           ),
         ),
 
-        SizedBox(height: 24.h),
+        verticalSpace(AppSizes.s24),
 
         // Text content below the container
         Expanded(
@@ -45,26 +48,17 @@ class OnboardingPageWidget extends StatelessWidget {
                 Text(
                   page.title.tr(context),
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.textPrimaryLight,
-                    height: 1.3,
-                  ),
+                  style: AppTypography.onboardingTitle,
                 ),
 
-                SizedBox(height: 12.h),
+                verticalSpace(AppSizes.s12),
 
                 // Subtitle - translated from key
                 Text(
                   page.subtitle.tr(context),
                   textAlign: TextAlign.center,
                   maxLines: 2,
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    color: AppColors.textSecondaryLight,
-                    height: 1.4,
-                  ),
+                  style: AppTypography.onboardingSubtitle,
                 ),
               ],
             ),

@@ -64,13 +64,13 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
                   bottomLeft: Radius.circular(12.r),
                 ),
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                    vertical: 16.h,
+                  ),
                   decoration: BoxDecoration(
                     border: Border(
-                      right: BorderSide(
-                        color: AppColors.borderLight,
-                        width: 1,
-                      ),
+                      right: BorderSide(color: AppColors.borderLight, width: 1),
                     ),
                   ),
                   child: Row(
