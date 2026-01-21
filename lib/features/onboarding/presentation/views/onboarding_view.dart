@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:channels/core/services/language_service.dart';
 import 'package:channels/core/services/theme_service.dart';
 import 'package:channels/core/shared/widgets/app_button.dart';
-import 'package:channels/core/localization/app_localizations.dart';
+import 'package:channels/l10n/app_localizations.dart';
 import 'package:channels/core/router/route_names.dart';
 import 'package:channels/features/onboarding/data/datasources/onboarding_local_datasource.dart';
 import 'package:channels/features/onboarding/data/repositories/onboarding_repository_impl.dart';
@@ -189,12 +189,12 @@ class _OnboardingViewState extends ConsumerState<OnboardingView> {
   }
 
   Widget _buildBottomButton(BuildContext context, OnboardingLoaded state) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: AppSizes.screenPaddingH),
       child: AppButton(
-        text: state.isLastPage
-            ? 'common.getStarted'.tr(context)
-            : 'common.next'.tr(context),
+        text: state.isLastPage ? l10n.commonGetStarted : l10n.commonNext,
         onPressed: () {
           if (state.isLastPage) {
             context.read<OnboardingCubit>().completeOnboarding();

@@ -4,7 +4,7 @@ import 'package:channels/core/theme/app_colors.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/shared/widgets/custom_app_bar.dart';
 import 'package:channels/core/shared/widgets/search_bar_widget.dart';
-import 'package:channels/core/localization/app_localizations.dart';
+import 'package:channels/l10n/app_localizations.dart';
 import 'package:channels/features/authentication/data/models/country_model.dart';
 import 'package:channels/features/authentication/presentation/cubit/countries/countries_cubit.dart';
 import 'package:channels/features/authentication/presentation/cubit/countries/countries_state.dart';
@@ -40,10 +40,12 @@ class _CountryPickerViewState extends State<CountryPickerView> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       backgroundColor: AppColors.backgroundLight,
       appBar: CustomAppBar(
-        title: 'countryPicker.title'.tr(context),
+        title: l10n.countryPickerTitle,
         showBackButton: true,
       ),
       body: SafeArea(
@@ -57,7 +59,7 @@ class _CountryPickerViewState extends State<CountryPickerView> {
                 vertical: AppSizes.s16,
               ),
               child: SearchBarWidget(
-                hintText: 'countryPicker.searchHint'.tr(context),
+                hintText: l10n.countryPickerSearchHint,
                 onChanged: (value) {
                   setState(() {
                     _searchQuery = value;

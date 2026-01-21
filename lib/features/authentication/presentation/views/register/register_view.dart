@@ -9,7 +9,7 @@ import 'package:channels/core/helpers/spacing.dart';
 import 'package:channels/core/shared/widgets/app_button.dart';
 import 'package:channels/core/shared/widgets/custom_app_bar.dart';
 import 'package:channels/core/shared/widgets/custom_text_field.dart';
-import 'package:channels/core/localization/app_localizations.dart';
+import 'package:channels/l10n/app_localizations.dart';
 import 'package:channels/core/router/route_names.dart';
 import 'package:channels/features/authentication/presentation/cubit/register/register_cubit.dart';
 import 'package:channels/features/authentication/presentation/cubit/register/register_state.dart';
@@ -37,6 +37,7 @@ class _RegisterViewState extends State<RegisterView> {
   }
 
   Future<void> _selectDate(BuildContext context) async {
+    final l10n = AppLocalizations.of(context)!;
     DateTime selectedDate = DateTime.now().subtract(
       const Duration(days: 365 * 18),
     );
@@ -72,7 +73,7 @@ class _RegisterViewState extends State<RegisterView> {
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(),
                       child: Text(
-                        'common.cancel'.tr(context),
+                        l10n.commonCancel,
                         style: TextStyle(
                           color: AppColors.textSecondaryLight,
                           fontSize: 16.sp,
@@ -89,7 +90,7 @@ class _RegisterViewState extends State<RegisterView> {
                         Navigator.of(context).pop();
                       },
                       child: Text(
-                        'common.done'.tr(context),
+                        l10n.commonDone,
                         style: TextStyle(
                           color: AppColors.primary,
                           fontSize: 16.sp,
@@ -146,6 +147,8 @@ class _RegisterViewState extends State<RegisterView> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return BlocListener<RegisterCubit, RegisterState>(
       listener: (context, state) {
         if (state is RegisterSuccess) {
@@ -177,7 +180,7 @@ class _RegisterViewState extends State<RegisterView> {
 
                   // Title
                   Text(
-                    'register.title'.tr(context),
+                    l10n.registerTitle,
                     style: TextStyle(
                       fontSize: 28.sp,
                       fontWeight: FontWeight.bold,
@@ -189,7 +192,7 @@ class _RegisterViewState extends State<RegisterView> {
 
                   // Subtitle
                   Text(
-                    'register.subtitle'.tr(context),
+                    l10n.registerSubtitle,
                     style: TextStyle(
                       fontSize: 16.sp,
                       color: AppColors.textSecondaryLight,
@@ -201,7 +204,7 @@ class _RegisterViewState extends State<RegisterView> {
 
                   // Name field
                   Text(
-                    'register.nameLabel'.tr(context),
+                    l10n.registerNameLabel,
                     style: TextStyle(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
@@ -211,10 +214,10 @@ class _RegisterViewState extends State<RegisterView> {
                   verticalSpace(AppSizes.s8),
                   CustomTextField(
                     controller: _nameController,
-                    hintText: 'register.namePlaceholder'.tr(context),
+                    hintText: l10n.registerNamePlaceholder,
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return 'register.nameRequired'.tr(context);
+                        return l10n.registerNameRequired;
                       }
                       return null;
                     },
@@ -224,7 +227,7 @@ class _RegisterViewState extends State<RegisterView> {
 
                   // Date of birth field
                   Text(
-                    'register.dateOfBirthLabel'.tr(context),
+                    l10n.registerDateOfBirthLabel,
                     style: TextStyle(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
@@ -234,12 +237,12 @@ class _RegisterViewState extends State<RegisterView> {
                   verticalSpace(AppSizes.s8),
                   CustomTextField(
                     controller: _dateOfBirthController,
-                    hintText: 'register.dateOfBirthPlaceholder'.tr(context),
+                    hintText: l10n.registerDateOfBirthPlaceholder,
                     readOnly: true,
                     onTap: () => _selectDate(context),
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return 'register.dateOfBirthRequired'.tr(context);
+                        return l10n.registerDateOfBirthRequired;
                       }
                       return null;
                     },
@@ -251,7 +254,7 @@ class _RegisterViewState extends State<RegisterView> {
                   BlocBuilder<RegisterCubit, RegisterState>(
                     builder: (context, state) {
                       return AppButton(
-                        text: 'register.registerButton'.tr(context),
+                        text: l10n.registerButton,
                         onPressed: _handleRegister,
                         isLoading: state is RegisterLoading,
                         backgroundColor: AppColors.primary,

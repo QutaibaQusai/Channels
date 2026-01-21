@@ -7,7 +7,7 @@ import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/helpers/spacing.dart';
 import 'package:channels/core/shared/widgets/app_button.dart';
 import 'package:channels/core/shared/widgets/custom_app_bar.dart';
-import 'package:channels/core/localization/app_localizations.dart';
+import 'package:channels/l10n/app_localizations.dart';
 import 'package:channels/core/router/route_names.dart';
 import 'package:channels/features/authentication/presentation/cubit/otp_verification/otp_verification_cubit.dart';
 import 'package:channels/features/authentication/presentation/cubit/otp_verification/otp_verification_state.dart';
@@ -39,6 +39,8 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return BlocListener<OtpVerificationCubit, OtpVerificationState>(
       listener: (context, state) {
         if (state is OtpVerificationSuccess) {
@@ -53,7 +55,7 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
           }
         } else if (state is OtpResendSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('otpVerification.otpResent'.tr(context))),
+            SnackBar(content: Text(l10n.otpVerificationOtpResent)),
           );
         } else if (state is OtpResendFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -78,7 +80,7 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
 
                 // Title
                 Text(
-                  'otpVerification.title'.tr(context),
+                  l10n.otpVerificationTitle,
                   style: TextStyle(
                     fontSize: 28.sp,
                     fontWeight: FontWeight.bold,
@@ -98,7 +100,7 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
                     ),
                     children: [
                       TextSpan(
-                        text: 'otpVerification.subtitle'.tr(context),
+                        text: l10n.otpVerificationSubtitle,
                       ),
                       TextSpan(
                         text: ' ${widget.phoneNumber}',
@@ -175,7 +177,7 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
                 BlocBuilder<OtpVerificationCubit, OtpVerificationState>(
                   builder: (context, state) {
                     return AppButton(
-                      text: 'otpVerification.verifyButton'.tr(context),
+                      text: l10n.otpVerificationVerifyButton,
                       onPressed: () {
                         context.read<OtpVerificationCubit>().verifyOtp(
                               _otpCode,

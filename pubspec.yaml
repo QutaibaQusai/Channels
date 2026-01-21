@@ -47,12 +47,12 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  generate: true
 
   assets:
     - assets/images/
     - assets/icons/
     - assets/animations/
-    - assets/locales/
 
 flutter_launcher_icons:
   android: true
