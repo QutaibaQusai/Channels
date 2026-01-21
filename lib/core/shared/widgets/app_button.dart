@@ -35,7 +35,7 @@ class AppButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width ?? double.infinity,
-      height: height ?? AppSizes.buttonHeightMedium,
+      height: height ?? AppSizes.buttonHeightLarge,
       child: isOutlined ? _buildOutlinedButton() : _buildFilledButton(),
     );
   }
@@ -52,9 +52,7 @@ class AppButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(AppSizes.rFull),
         ),
         elevation: 0,
-        padding: EdgeInsets.symmetric(
-          horizontal: AppSizes.s24,
-        ),
+        padding: EdgeInsets.symmetric(horizontal: AppSizes.s24),
       ),
       child: _buildContent(),
     );
@@ -72,9 +70,7 @@ class AppButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppSizes.rFull),
         ),
-        padding: EdgeInsets.symmetric(
-          horizontal: AppSizes.s24,
-        ),
+        padding: EdgeInsets.symmetric(horizontal: AppSizes.s24),
       ),
       child: _buildContent(),
     );
