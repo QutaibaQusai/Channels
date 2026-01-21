@@ -7,7 +7,7 @@ class UserModel {
   final String status;
   final String languageCode;
   final String countryCode;
-  final String? address;
+  final String? dateOfBirth;
 
   UserModel({
     required this.id,
@@ -16,7 +16,7 @@ class UserModel {
     required this.status,
     required this.languageCode,
     required this.countryCode,
-    this.address,
+    this.dateOfBirth,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -27,7 +27,7 @@ class UserModel {
       status: json[ApiKey.status] as String,
       languageCode: json[ApiKey.languageCode] as String,
       countryCode: json[ApiKey.countryCode] as String,
-      address: json[ApiKey.address] as String?,
+      dateOfBirth: json[ApiKey.dateOfBirth] as String?,
     );
   }
 
@@ -39,10 +39,10 @@ class UserModel {
       ApiKey.status: status,
       ApiKey.languageCode: languageCode,
       ApiKey.countryCode: countryCode,
-      ApiKey.address: address,
+      ApiKey.dateOfBirth: dateOfBirth,
     };
   }
 
   // Helper method to check if user needs to complete registration
-  bool get needsRegistration => name == null || address == null;
+  bool get needsRegistration => name == null || dateOfBirth == null;
 }

@@ -6,7 +6,7 @@ abstract class UpdatePreferencesRemoteDataSource {
   Future<UpdatePreferencesResponseModel> updatePreferences({
     required String token,
     required String name,
-    required String address,
+    required String dateOfBirth,
   });
 }
 
@@ -20,12 +20,12 @@ class UpdatePreferencesRemoteDataSourceImpl
   Future<UpdatePreferencesResponseModel> updatePreferences({
     required String token,
     required String name,
-    required String address,
+    required String dateOfBirth,
   }) async {
     // Create request model
     final requestModel = UpdatePreferencesRequestModel(
       name: name,
-      address: address,
+      dateOfBirth: dateOfBirth,
     );
 
     // Make API call with Authorization header

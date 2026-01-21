@@ -9,10 +9,25 @@ class RegisterCubit extends Cubit<RegisterState> {
     required this.updatePreferencesRemoteDataSource,
   }) : super(const RegisterInitial());
 
+  // Update selected date
+  void selectDate(DateTime date) {
+    emit(RegisterInitial(selectedDate: date));
+  }
+
+  // Get formatted date string (YYYY-MM-DD)
+  String? getFormattedDate() {
+    final currentState = state;
+    if (currentState is RegisterInitial && currentState.selectedDate != null) {
+      final date = currentState.selectedDate!;
+      return "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
+    }
+    return null;
+  }
+
   Future<void> register({
     required String token,
     required String name,
-    required String address,
+    required String dateOfBirth,
   }) async {
     emit(RegisterLoading());
 
@@ -21,7 +36,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       await updatePreferencesRemoteDataSource.updatePreferences(
         token: token,
         name: name,
-        address: address,
+        dateOfBirth: dateOfBirth,
       );
 
       // Emit success - just signal that registration completed

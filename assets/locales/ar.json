@@ -2,7 +2,9 @@
   "common": {
     "next": "التالي",
     "skip": "تخطي",
-    "getStarted": "ابدأ الآن"
+    "getStarted": "ابدأ الآن",
+    "cancel": "إلغاء",
+    "done": "تم"
   },
   "onboarding": {
     "page1": {
@@ -17,5 +19,16 @@
       "title": "انشر إعلانات في ثوانٍ",
       "subtitle": "التقط بعض الصور، أضف التفاصيل، وتواصل مع آلاف المشترين المحتملين فوراً"
     }
+  },
+  "register": {
+    "title": "أكمل ملفك الشخصي",
+    "subtitle": "أخبرنا قليلاً عن نفسك",
+    "nameLabel": "الاسم",
+    "namePlaceholder": "أدخل اسمك",
+    "nameRequired": "الاسم مطلوب",
+    "dateOfBirthLabel": "تاريخ الميلاد",
+    "dateOfBirthPlaceholder": "اختر تاريخ ميلادك",
+    "dateOfBirthRequired": "تاريخ الميلاد مطلوب",
+    "registerButton": "إكمال التسجيل"
   }
 }

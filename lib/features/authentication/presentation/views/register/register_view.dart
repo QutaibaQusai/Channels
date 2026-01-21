@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -13,7 +14,7 @@ import 'package:channels/core/router/route_names.dart';
 import 'package:channels/features/authentication/presentation/cubit/register/register_cubit.dart';
 import 'package:channels/features/authentication/presentation/cubit/register/register_state.dart';
 
-/// Register view - New users complete their profile with name and address
+/// Register view - New users complete their profile with name and date of birth
 class RegisterView extends StatefulWidget {
   final String token;
 
@@ -25,26 +26,120 @@ class RegisterView extends StatefulWidget {
 
 class _RegisterViewState extends State<RegisterView> {
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _dateOfBirthController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
     _nameController.dispose();
-    _addressController.dispose();
+    _dateOfBirthController.dispose();
     super.dispose();
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime selectedDate = DateTime.now().subtract(
+      const Duration(days: 365 * 18),
+    );
+
+    await showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext builder) {
+        return Container(
+          height: 300.h,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(AppSizes.r16),
+              topRight: Radius.circular(AppSizes.r16),
+            ),
+          ),
+          child: Column(
+            children: [
+              // Header with Cancel and Done buttons
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: AppColors.textSecondaryLight.withOpacity(0.2),
+                    ),
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: Text(
+                        'common.cancel'.tr(context),
+                        style: TextStyle(
+                          color: AppColors.textSecondaryLight,
+                          fontSize: 16.sp,
+                        ),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        context.read<RegisterCubit>().selectDate(selectedDate);
+                        setState(() {
+                          _dateOfBirthController.text =
+                              "${selectedDate.year}-${selectedDate.month.toString().padLeft(2, '0')}-${selectedDate.day.toString().padLeft(2, '0')}";
+                        });
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        'common.done'.tr(context),
+                        style: TextStyle(
+                          color: AppColors.primary,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // Cupertino Date Picker
+              Expanded(
+                child: CupertinoTheme(
+                  data: CupertinoThemeData(
+                    textTheme: CupertinoTextThemeData(
+                      dateTimePickerTextStyle: TextStyle(
+                        color: Colors.black,
+                        fontSize: 22.sp,
+                      ),
+                    ),
+                  ),
+                  child: CupertinoDatePicker(
+                    mode: CupertinoDatePickerMode.date,
+                    initialDateTime: selectedDate,
+                    minimumDate: DateTime(1900),
+                    maximumDate: DateTime.now(),
+                    backgroundColor: Colors.white,
+                    onDateTimeChanged: (DateTime newDate) {
+                      selectedDate = newDate;
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   void _handleRegister() {
     if (_formKey.currentState?.validate() ?? false) {
       final name = _nameController.text.trim();
-      final address = _addressController.text.trim();
+      final dateOfBirth = _dateOfBirthController.text.trim();
 
       // Call register API with token
       context.read<RegisterCubit>().register(
         token: widget.token,
         name: name,
-        address: address,
+        dateOfBirth: dateOfBirth,
       );
     }
   }
@@ -127,9 +222,9 @@ class _RegisterViewState extends State<RegisterView> {
 
                   verticalSpace(AppSizes.s24),
 
-                  // Address field
+                  // Date of birth field
                   Text(
-                    'register.addressLabel'.tr(context),
+                    'register.dateOfBirthLabel'.tr(context),
                     style: TextStyle(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
@@ -138,12 +233,13 @@ class _RegisterViewState extends State<RegisterView> {
                   ),
                   verticalSpace(AppSizes.s8),
                   CustomTextField(
-                    controller: _addressController,
-                    hintText: 'register.addressPlaceholder'.tr(context),
-                    maxLines: 3,
+                    controller: _dateOfBirthController,
+                    hintText: 'register.dateOfBirthPlaceholder'.tr(context),
+                    readOnly: true,
+                    onTap: () => _selectDate(context),
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return 'register.addressRequired'.tr(context);
+                        return 'register.dateOfBirthRequired'.tr(context);
                       }
                       return null;
                     },

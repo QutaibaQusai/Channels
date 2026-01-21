@@ -2,7 +2,9 @@
   "common": {
     "next": "Next",
     "skip": "Skip",
-    "getStarted": "Get Started"
+    "getStarted": "Get Started",
+    "cancel": "Cancel",
+    "done": "Done"
   },
   "onboarding": {
     "page1": {
@@ -17,5 +19,16 @@
       "title": "Post Ads in Seconds",
       "subtitle": "Snap a few photos, add details, and reach thousands of potential buyers instantly"
     }
+  },
+  "register": {
+    "title": "Complete Your Profile",
+    "subtitle": "Tell us a bit about yourself",
+    "nameLabel": "Name",
+    "namePlaceholder": "Enter your name",
+    "nameRequired": "Name is required",
+    "dateOfBirthLabel": "Date of Birth",
+    "dateOfBirthPlaceholder": "Select your date of birth",
+    "dateOfBirthRequired": "Date of birth is required",
+    "registerButton": "Complete Registration"
   }
 }

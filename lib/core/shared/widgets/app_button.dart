@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:channels/core/theme/app_colors.dart';
 import 'package:channels/core/theme/app_sizes.dart';
-import 'package:channels/core/theme/app_typography.dart';
 
 /// Reusable app button with consistent styling
 /// Can be used across all features
@@ -36,11 +35,13 @@ class AppButton extends StatelessWidget {
     return SizedBox(
       width: width ?? double.infinity,
       height: height ?? AppSizes.buttonHeightLarge,
-      child: isOutlined ? _buildOutlinedButton() : _buildFilledButton(),
+      child: isOutlined
+          ? _buildOutlinedButton(context)
+          : _buildFilledButton(context),
     );
   }
 
-  Widget _buildFilledButton() {
+  Widget _buildFilledButton(BuildContext context) {
     return ElevatedButton(
       onPressed: (disabled || isLoading) ? null : onPressed,
       style: ElevatedButton.styleFrom(
@@ -54,11 +55,11 @@ class AppButton extends StatelessWidget {
         elevation: 0,
         padding: EdgeInsets.symmetric(horizontal: AppSizes.s24),
       ),
-      child: _buildContent(),
+      child: _buildContent(context),
     );
   }
 
-  Widget _buildOutlinedButton() {
+  Widget _buildOutlinedButton(BuildContext context) {
     return OutlinedButton(
       onPressed: (disabled || isLoading) ? null : onPressed,
       style: OutlinedButton.styleFrom(
@@ -72,11 +73,18 @@ class AppButton extends StatelessWidget {
         ),
         padding: EdgeInsets.symmetric(horizontal: AppSizes.s24),
       ),
-      child: _buildContent(),
+      child: _buildContent(context),
     );
   }
 
-  Widget _buildContent() {
+  Widget _buildContent(BuildContext context) {
+    final textStyle =
+        Theme.of(context).textTheme.labelLarge ??
+        const TextStyle(fontSize: 16, fontWeight: FontWeight.w600);
+    final resolvedTextColor = isOutlined
+        ? (backgroundColor ?? AppColors.primary)
+        : (textColor ?? Colors.white);
+
     if (isLoading) {
       return SizedBox(
         height: AppSizes.icon20,
@@ -95,25 +103,11 @@ class AppButton extends StatelessWidget {
         children: [
           Icon(icon, size: AppSizes.icon20),
           SizedBox(width: AppSizes.s8),
-          Text(
-            text,
-            style: AppTypography.buttonText.copyWith(
-              color: isOutlined
-                  ? (backgroundColor ?? AppColors.primary)
-                  : (textColor ?? Colors.white),
-            ),
-          ),
+          Text(text, style: textStyle.copyWith(color: resolvedTextColor)),
         ],
       );
     }
 
-    return Text(
-      text,
-      style: AppTypography.buttonText.copyWith(
-        color: isOutlined
-            ? (backgroundColor ?? AppColors.primary)
-            : (textColor ?? Colors.white),
-      ),
-    );
+    return Text(text, style: textStyle.copyWith(color: resolvedTextColor));
   }
 }
