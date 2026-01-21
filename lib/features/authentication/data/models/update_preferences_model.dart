@@ -2,17 +2,17 @@ import 'package:channels/core/api/end_ponits.dart';
 
 class UpdatePreferencesRequestModel {
   final String name;
-  final String address;
+  final String dateOfBirth;
 
   UpdatePreferencesRequestModel({
     required this.name,
-    required this.address,
+    required this.dateOfBirth,
   });
 
   Map<String, dynamic> toJson() {
     return {
       ApiKey.name: name,
-      ApiKey.address: address,
+      ApiKey.dateOfBirth: dateOfBirth,
     };
   }
 }

@@ -28,5 +28,5 @@ class ApiKey {
   static String user = "user";
   static String id = "id";
   static String languageCode = "language_code";
-  static String address = "address";
+  static String dateOfBirth = "day-of-dirth";
 }

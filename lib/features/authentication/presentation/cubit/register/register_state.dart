@@ -8,7 +8,12 @@ abstract class RegisterState extends Equatable {
 }
 
 class RegisterInitial extends RegisterState {
-  const RegisterInitial();
+  final DateTime? selectedDate;
+
+  const RegisterInitial({this.selectedDate});
+
+  @override
+  List<Object?> get props => [selectedDate];
 }
 
 class RegisterLoading extends RegisterState {}

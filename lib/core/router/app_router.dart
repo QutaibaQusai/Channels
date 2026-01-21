@@ -9,7 +9,7 @@ import 'package:channels/features/authentication/presentation/views/phone_auth_v
 import 'package:channels/features/authentication/presentation/views/otp_verification/otp_verification_view.dart';
 import 'package:channels/features/authentication/presentation/views/country_picker/country_picker_view.dart';
 import 'package:channels/features/authentication/presentation/views/register/register_view.dart';
-import 'package:channels/features/home/presentation/views/home_view.dart';
+import 'package:channels/features/layout/presentation/views/main_layout.dart';
 import 'package:channels/features/authentication/data/data_sources/countries_remote_data_source.dart';
 import 'package:channels/features/authentication/data/data_sources/otp_remote_data_source.dart';
 import 'package:channels/features/authentication/data/data_sources/verify_otp_remote_data_source.dart';
@@ -139,7 +139,7 @@ class AppRouter {
       GoRoute(
         path: RouteNames.home,
         name: RouteNames.home,
-        builder: (context, state) => const HomeView(),
+        builder: (context, state) => const MainLayout(),
       ),
 
       GoRoute(
