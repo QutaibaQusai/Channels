@@ -331,6 +331,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Snap a few photos, add details, and reach thousands of potential buyers instantly'**
   String get onboardingPage3Subtitle;
+
+  /// Broadcasts tab title in main layout
+  ///
+  /// In en, this message translates to:
+  /// **'Broadcasts'**
+  String get layoutBroadcastsTitle;
+
+  /// Explore tab title in main layout
+  ///
+  /// In en, this message translates to:
+  /// **'Explore'**
+  String get layoutExploreTitle;
+
+  /// AI tab title in main layout
+  ///
+  /// In en, this message translates to:
+  /// **'AI Assistant'**
+  String get layoutAiTitle;
 }
 
 class _AppLocalizationsDelegate
