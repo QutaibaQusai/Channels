@@ -130,4 +130,13 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get onboardingPage3Subtitle =>
       'Snap a few photos, add details, and reach thousands of potential buyers instantly';
+
+  @override
+  String get layoutBroadcastsTitle => 'Broadcasts';
+
+  @override
+  String get layoutExploreTitle => 'Explore';
+
+  @override
+  String get layoutAiTitle => 'AI Assistant';
 }

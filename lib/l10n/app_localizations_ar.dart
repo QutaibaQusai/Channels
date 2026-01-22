@@ -129,4 +129,13 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get onboardingPage3Subtitle =>
       'التقط بعض الصور، أضف التفاصيل، وتواصل مع آلاف المشترين المحتملين فوراً';
+
+  @override
+  String get layoutBroadcastsTitle => 'البث';
+
+  @override
+  String get layoutExploreTitle => 'استكشف';
+
+  @override
+  String get layoutAiTitle => 'المساعد الذكي';
 }

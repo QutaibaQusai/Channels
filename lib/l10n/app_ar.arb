@@ -44,5 +44,9 @@
   "onboardingPage2Title": "أنشئ قنوات، ابقَ على اطلاع",
   "onboardingPage2Subtitle": "اختر فئاتك المفضلة وحدد الفلاتر لتستقبل فقط الإعلانات التي تهمك",
   "onboardingPage3Title": "انشر إعلانات في ثوانٍ",
-  "onboardingPage3Subtitle": "التقط بعض الصور، أضف التفاصيل، وتواصل مع آلاف المشترين المحتملين فوراً"
+  "onboardingPage3Subtitle": "التقط بعض الصور، أضف التفاصيل، وتواصل مع آلاف المشترين المحتملين فوراً",
+
+  "layoutBroadcastsTitle": "البث",
+  "layoutExploreTitle": "استكشف",
+  "layoutAiTitle": "المساعد الذكي"
 }

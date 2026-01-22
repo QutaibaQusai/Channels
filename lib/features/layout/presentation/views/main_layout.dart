@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:channels/features/layout/presentation/widgets/floating_nav_bar.dart';
+import 'package:channels/features/layout/presentation/widgets/layout_app_bar.dart';
 import 'package:channels/features/broadcasts/presentation/views/broadcasts_view.dart';
 import 'package:channels/features/explore/presentation/views/explore_view.dart';
 import 'package:channels/features/ai/presentation/views/ai_view.dart';
@@ -56,6 +57,7 @@ class _MainLayoutState extends State<MainLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: LayoutAppBar(currentIndex: _currentIndex),
       body: PageView(
         controller: _pageController,
         onPageChanged: _onPageChanged,

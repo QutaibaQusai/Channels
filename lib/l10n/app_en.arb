@@ -200,5 +200,20 @@
   "onboardingPage3Subtitle": "Snap a few photos, add details, and reach thousands of potential buyers instantly",
   "@onboardingPage3Subtitle": {
     "description": "Onboarding page 3 subtitle"
+  },
+
+  "layoutBroadcastsTitle": "Broadcasts",
+  "@layoutBroadcastsTitle": {
+    "description": "Broadcasts tab title in main layout"
+  },
+
+  "layoutExploreTitle": "Explore",
+  "@layoutExploreTitle": {
+    "description": "Explore tab title in main layout"
+  },
+
+  "layoutAiTitle": "AI Assistant",
+  "@layoutAiTitle": {
+    "description": "AI tab title in main layout"
   }
 }
