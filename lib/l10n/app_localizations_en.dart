@@ -135,7 +135,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get layoutBroadcastsTitle => 'Broadcasts';
 
   @override
-  String get layoutExploreTitle => 'Explore';
+  String get layoutCategoriesTitle => 'Categories';
 
   @override
   String get layoutAiTitle => 'AI Assistant';

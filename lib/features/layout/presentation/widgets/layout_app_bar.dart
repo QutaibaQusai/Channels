@@ -19,7 +19,7 @@ class LayoutAppBar extends StatelessWidget implements PreferredSizeWidget {
       case 0:
         return l10n.layoutBroadcastsTitle;
       case 1:
-        return l10n.layoutExploreTitle;
+        return l10n.layoutCategoriesTitle;
       case 2:
         return l10n.layoutAiTitle;
       default:

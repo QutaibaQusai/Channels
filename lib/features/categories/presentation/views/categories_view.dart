@@ -4,9 +4,9 @@ import 'package:channels/core/theme/app_theme_extensions.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/helpers/spacing.dart';
 
-/// Explore view - Screen for exploring and browsing ads
-class ExploreView extends StatelessWidget {
-  const ExploreView({super.key});
+/// Categories view - browse ad categories
+class CategoriesView extends StatelessWidget {
+  const CategoriesView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class ExploreView extends StatelessWidget {
 
               // Title
               Text(
-                'Explore',
+                'Categories',
                 style: TextStyle(
                   fontSize: 24.sp,
                   fontWeight: FontWeight.bold,
@@ -38,7 +38,7 @@ class ExploreView extends StatelessWidget {
 
               // Subtitle
               Text(
-                'Discover new ads and products',
+                'Browse categories to find ads you care about',
                 style: TextStyle(
                   fontSize: 16.sp,
                   color: textExtension.textSecondary,

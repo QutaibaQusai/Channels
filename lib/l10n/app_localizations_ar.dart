@@ -134,7 +134,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get layoutBroadcastsTitle => 'البث';
 
   @override
-  String get layoutExploreTitle => 'استكشف';
+  String get layoutCategoriesTitle => 'الفئات';
 
   @override
   String get layoutAiTitle => 'المساعد الذكي';
