@@ -20,4 +20,14 @@ class CountriesCubit extends Cubit<CountriesState> {
       emit(CountriesFailure(errorMessage: e.toString()));
     }
   }
+
+  /// Refresh countries without showing loading state
+  Future<void> refreshCountries() async {
+    try {
+      final countries = await countriesRemoteDataSource.getCountries(languageCode);
+      emit(CountriesSuccess(countries: countries));
+    } catch (e) {
+      emit(CountriesFailure(errorMessage: e.toString()));
+    }
+  }
 }

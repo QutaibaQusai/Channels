@@ -11,6 +11,8 @@ import 'package:channels/features/categories/presentation/views/widgets/categori
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:channels/core/router/route_names.dart';
 
 /// Categories view - browse ad categories
 class CategoriesView extends StatelessWidget {
@@ -67,7 +69,17 @@ class _CategoriesBody extends StatelessWidget {
                 return CategoriesSuccessContent(
                   data: state.data,
                   onCategoryTap: (id) {
-                    // TODO: Navigate to category details / subcategories
+                    // Find the category name by id
+                    final category = state.data.categories.firstWhere(
+                      (cat) => cat.id == id,
+                    );
+                    context.push(
+                      RouteNames.categoryAds,
+                      extra: {
+                        'categoryId': id,
+                        'categoryName': category.name,
+                      },
+                    );
                   },
                 );
               }

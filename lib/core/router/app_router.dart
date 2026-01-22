@@ -19,6 +19,7 @@ import 'package:channels/features/authentication/presentation/cubit/countries/co
 import 'package:channels/features/authentication/presentation/cubit/otp/otp_cubit.dart';
 import 'package:channels/features/authentication/presentation/cubit/otp_verification/otp_verification_cubit.dart';
 import 'package:channels/features/authentication/presentation/cubit/register/register_cubit.dart';
+import 'package:channels/features/ads/presentation/views/category_ads_view.dart';
 
 /// Centralized routing configuration using Go Router
 class AppRouter {
@@ -157,6 +158,20 @@ class AppRouter {
         builder: (context, state) => const Scaffold(
           body: Center(child: Text('Settings Screen')),
         ),
+      ),
+
+      GoRoute(
+        path: RouteNames.categoryAds,
+        name: RouteNames.categoryAds,
+        builder: (context, state) {
+          final extra = state.extra as Map<String, String>;
+          final categoryId = extra['categoryId'] ?? '';
+          final categoryName = extra['categoryName'] ?? '';
+          return CategoryAdsView(
+            categoryId: categoryId,
+            categoryName: categoryName,
+          );
+        },
       ),
     ],
 

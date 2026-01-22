@@ -28,4 +28,18 @@ class CategoriesCubit extends Cubit<CategoriesState> {
       emit(CategoriesFailure(e.toString()));
     }
   }
+
+  /// Refresh categories without showing loading state
+  Future<void> refreshCategories() async {
+    try {
+      final result = await getCategoriesUseCase(
+        lang: lang,
+        country: country,
+        parentId: parentId,
+      );
+      emit(CategoriesSuccess(result));
+    } catch (e) {
+      emit(CategoriesFailure(e.toString()));
+    }
+  }
 }

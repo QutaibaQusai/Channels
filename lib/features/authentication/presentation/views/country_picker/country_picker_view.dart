@@ -4,13 +4,14 @@ import 'package:channels/core/theme/app_theme_extensions.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/shared/widgets/custom_app_bar.dart';
 import 'package:channels/core/shared/widgets/search_bar_widget.dart';
+import 'package:channels/core/shared/widgets/refresh_wrapper.dart';
 import 'package:channels/l10n/app_localizations.dart';
 import 'package:channels/features/authentication/data/models/country_model.dart';
 import 'package:channels/features/authentication/presentation/cubit/countries/countries_cubit.dart';
 import 'package:channels/features/authentication/presentation/cubit/countries/countries_state.dart';
 import 'package:channels/core/shared/widgets/loading_widget.dart';
 import 'package:channels/core/shared/widgets/error_widget.dart';
-import 'package:channels/features/authentication/presentation/views/country_picker/widgets/countries_empty_widget.dart';
+import 'package:channels/core/shared/widgets/empty_state_widget.dart';
 import 'package:channels/features/authentication/presentation/views/country_picker/widgets/country_list_item.dart';
 
 /// Country picker view - User selects their country
@@ -91,27 +92,34 @@ class _CountryPickerViewState extends State<CountryPickerView> {
                     final filteredCountries = _filterCountries(state.countries);
 
                     if (filteredCountries.isEmpty) {
-                      return const CountriesEmptyWidget();
+                      return EmptyStateWidget(
+                        icon: Icons.search_off_outlined,
+                        message: l10n.countryPickerNoResults,
+                        subtitle: 'Try searching with a different keyword',
+                      );
                     }
 
-                    return ListView.separated(
-                      padding: EdgeInsets.only(
-                        left: AppSizes.screenPaddingH,
-                        right: AppSizes.screenPaddingH,
-                        bottom: 0,
+                    return RefreshWrapper(
+                      onRefresh: () => context.read<CountriesCubit>().refreshCountries(),
+                      child: ListView.separated(
+                        padding: EdgeInsets.only(
+                          left: AppSizes.screenPaddingH,
+                          right: AppSizes.screenPaddingH,
+                          bottom: 0,
+                        ),
+                        itemCount: filteredCountries.length,
+                        separatorBuilder: (context, index) =>
+                            Divider(height: 1, color: textExtension.divider),
+                        itemBuilder: (context, index) {
+                          final country = filteredCountries[index];
+                          return CountryListItem(
+                            country: country,
+                            onTap: () {
+                              Navigator.pop(context, country);
+                            },
+                          );
+                        },
                       ),
-                      itemCount: filteredCountries.length,
-                      separatorBuilder: (context, index) =>
-                          Divider(height: 1, color: textExtension.divider),
-                      itemBuilder: (context, index) {
-                        final country = filteredCountries[index];
-                        return CountryListItem(
-                          country: country,
-                          onTap: () {
-                            Navigator.pop(context, country);
-                          },
-                        );
-                      },
                     );
                   }
 
