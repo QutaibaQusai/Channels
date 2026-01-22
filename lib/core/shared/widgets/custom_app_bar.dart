@@ -45,6 +45,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       context,
                     ).colorScheme.surfaceContainerHighest,
                     shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Theme.of(context).colorScheme.outline,
+                      width: 1,
+                    ),
                   ),
                   child: Icon(
                     CupertinoIcons.back,
@@ -55,7 +59,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             )
           : null,
       title: title != null
-          ? Text(title!, style: AppTypography.appBarTitle)
+          ? Text(
+              title!,
+              style: AppTypography.appBarTitle.copyWith(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+            )
           : null,
       actions: actions != null
           ? [

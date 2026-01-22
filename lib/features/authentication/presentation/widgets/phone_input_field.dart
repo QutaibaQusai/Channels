@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:channels/core/helpers/spacing.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/theme/app_theme_extensions.dart';
 import 'package:channels/core/router/route_names.dart';
@@ -147,7 +148,7 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
 
         // Error message
         if (widget.errorText != null) ...[
-          SizedBox(height: 8.h),
+          verticalSpace(AppSizes.s8),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 4.w),
             child: Text(

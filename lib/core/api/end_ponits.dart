@@ -5,6 +5,7 @@ class EndPoint {
   static String requestOtp = "auth/request-otp";
   static String verifyOtp = "auth/verify-otp";
   static String updatePreferences = "user/preferences";
+  static String categoryAds(String categoryId) => "ads/category/$categoryId";
 }
 
 class ApiKey {
@@ -38,4 +39,19 @@ class ApiKey {
   static String id = "id";
   static String languageCode = "language_code";
   static String dateOfBirth = "day-of-dirth";
+
+  // Ad keys
+  static String userId = "user_id";
+  static String categoryId = "category_id";
+  static String subcategoryId = "subcategory_id";
+  static String title = "title";
+  static String description = "description";
+  static String images = "images";
+  static String attributes = "attributes";
+  static String amount = "amount";
+  static String priceCurrency = "price_currency";
+  static String adStatus = "status";
+  static String reportCount = "report_count";
+  static String createdAt = "created_at";
+  static String phoneE164 = "phone_e164";
 }

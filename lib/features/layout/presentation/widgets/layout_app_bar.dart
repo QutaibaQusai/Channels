@@ -53,6 +53,10 @@ class LayoutAppBar extends StatelessWidget implements PreferredSizeWidget {
             decoration: BoxDecoration(
               color: colorScheme.surfaceContainerHighest,
               shape: BoxShape.circle,
+              border: Border.all(
+                color: colorScheme.outline,
+                width: 1,
+              ),
             ),
             child: Icon(
               LucideIcons.user,
@@ -62,7 +66,12 @@ class LayoutAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
       ),
-      title: Text(_getTitle(context), style: AppTypography.appBarTitle),
+      title: Text(
+        _getTitle(context),
+        style: AppTypography.appBarTitle.copyWith(
+          color: colorScheme.onSurface,
+        ),
+      ),
       actions: [
         Padding(
           padding: EdgeInsets.symmetric(horizontal: AppSizes.screenPaddingH),
@@ -77,6 +86,10 @@ class LayoutAppBar extends StatelessWidget implements PreferredSizeWidget {
               decoration: BoxDecoration(
                 color: colorScheme.surfaceContainerHighest,
                 shape: BoxShape.circle,
+                border: Border.all(
+                  color: colorScheme.outline,
+                  width: 1,
+                ),
               ),
               child: Icon(
                 LucideIcons.bell,
