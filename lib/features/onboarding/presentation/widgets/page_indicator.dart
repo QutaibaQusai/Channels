@@ -27,7 +27,11 @@ class PageIndicator extends StatelessWidget {
     );
   }
 
-  Widget _buildDot(bool isActive, ColorScheme colorScheme, AppColorsExtension textExtension) {
+  Widget _buildDot(
+    bool isActive,
+    ColorScheme colorScheme,
+    AppColorsExtension textExtension,
+  ) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       margin: EdgeInsets.symmetric(horizontal: 4.w),
