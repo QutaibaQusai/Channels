@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:channels/core/theme/app_colors.dart';
+import 'package:channels/core/theme/app_theme_extensions.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/shared/widgets/custom_app_bar.dart';
 import 'package:channels/core/shared/widgets/search_bar_widget.dart';
@@ -41,9 +41,11 @@ class _CountryPickerViewState extends State<CountryPickerView> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    final textExtension = theme.extension<AppColorsExtension>()!;
 
     return Scaffold(
-      backgroundColor: AppColors.backgroundLight,
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: CustomAppBar(
         title: l10n.countryPickerTitle,
         showBackButton: true,
@@ -100,7 +102,7 @@ class _CountryPickerViewState extends State<CountryPickerView> {
                       ),
                       itemCount: filteredCountries.length,
                       separatorBuilder: (context, index) =>
-                          Divider(height: 1, color: AppColors.dividerLight),
+                          Divider(height: 1, color: textExtension.divider),
                       itemBuilder: (context, index) {
                         final country = filteredCountries[index];
                         return CountryListItem(

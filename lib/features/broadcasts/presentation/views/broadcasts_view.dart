@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:channels/core/theme/app_colors.dart';
+import 'package:channels/core/theme/app_theme_extensions.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/helpers/spacing.dart';
 
@@ -10,8 +10,12 @@ class BroadcastsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textExtension = theme.extension<AppColorsExtension>()!;
+
     return Scaffold(
-      backgroundColor: AppColors.backgroundLight,
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: AppSizes.screenPaddingH),
@@ -26,7 +30,7 @@ class BroadcastsView extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 24.sp,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.textPrimaryLight,
+                  color: colorScheme.onSurface,
                 ),
               ),
 
@@ -37,7 +41,7 @@ class BroadcastsView extends StatelessWidget {
                 'Your personalized ad channels',
                 style: TextStyle(
                   fontSize: 16.sp,
-                  color: AppColors.textSecondaryLight,
+                  color: textExtension.textSecondary,
                 ),
               ),
             ],

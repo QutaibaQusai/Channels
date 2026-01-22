@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:channels/core/theme/app_colors.dart';
+import 'package:channels/core/theme/app_theme_extensions.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/helpers/spacing.dart';
 import 'package:channels/core/shared/widgets/app_button.dart';
@@ -75,6 +75,9 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textExtension = theme.extension<AppColorsExtension>()!;
 
     return BlocListener<OtpCubit, OtpState>(
       listener: (context, state) {
@@ -92,13 +95,13 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.errorMessage),
-              backgroundColor: AppColors.error,
+              backgroundColor: colorScheme.error,
             ),
           );
         }
       },
       child: Scaffold(
-        backgroundColor: AppColors.backgroundLight,
+        backgroundColor: theme.scaffoldBackgroundColor,
         body: SafeArea(
           bottom: false,
           child: Padding(
@@ -114,7 +117,7 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
                   style: TextStyle(
                     fontSize: 28.sp,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.textPrimaryLight,
+                    color: colorScheme.onSurface,
                   ),
                 ),
 
@@ -125,7 +128,7 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
                   l10n.phoneAuthSubtitle,
                   style: TextStyle(
                     fontSize: 16.sp,
-                    color: AppColors.textSecondaryLight,
+                    color: textExtension.textSecondary,
                     height: 1.5,
                   ),
                 ),
@@ -160,8 +163,8 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
                       text: l10n.phoneAuthSendButton,
                       onPressed: _sendOTP,
                       isLoading: state is OtpLoading,
-                      backgroundColor: AppColors.primary,
-                      textColor: Colors.white,
+                      backgroundColor: colorScheme.primary,
+                      textColor: colorScheme.onPrimary,
                     );
                   },
                 ),

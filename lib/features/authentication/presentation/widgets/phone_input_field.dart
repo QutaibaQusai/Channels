@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:channels/core/theme/app_colors.dart';
+import 'package:channels/core/theme/app_theme_extensions.dart';
 import 'package:channels/core/router/route_names.dart';
 import 'package:channels/features/authentication/data/models/country_model.dart';
 
@@ -61,17 +61,21 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textExtension = theme.extension<AppColorsExtension>()!;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
           decoration: BoxDecoration(
-            color: AppColors.surfaceLight,
+            color: colorScheme.surface,
             borderRadius: BorderRadius.circular(12.r),
             border: Border.all(
               color: widget.errorText != null
-                  ? AppColors.error
-                  : AppColors.borderLight,
+                  ? colorScheme.error
+                  : textExtension.border,
               width: 1.5,
             ),
           ),
@@ -91,7 +95,7 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
                   ),
                   decoration: BoxDecoration(
                     border: Border(
-                      right: BorderSide(color: AppColors.borderLight, width: 1),
+                      right: BorderSide(color: textExtension.border, width: 1),
                     ),
                   ),
                   child: Row(
@@ -102,13 +106,13 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
                         style: TextStyle(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w600,
-                          color: AppColors.textPrimaryLight,
+                          color: colorScheme.onSurface,
                         ),
                       ),
                       SizedBox(width: 4.w),
                       Icon(
                         Icons.arrow_drop_down,
-                        color: AppColors.textSecondaryLight,
+                        color: textExtension.textSecondary,
                         size: 20.sp,
                       ),
                     ],
@@ -129,13 +133,13 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
-                    color: AppColors.textPrimaryLight,
+                    color: colorScheme.onSurface,
                   ),
                   decoration: InputDecoration(
                     hintText: _placeholder,
                     hintStyle: TextStyle(
                       fontSize: 16.sp,
-                      color: AppColors.textHintLight,
+                      color: textExtension.textHint,
                     ),
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.symmetric(
@@ -158,7 +162,7 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
               widget.errorText!,
               style: TextStyle(
                 fontSize: 12.sp,
-                color: AppColors.error,
+                color: colorScheme.error,
                 fontWeight: FontWeight.w500,
               ),
             ),

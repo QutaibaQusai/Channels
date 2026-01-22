@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:channels/core/theme/app_colors.dart';
 import 'package:channels/core/helpers/spacing.dart';
 import 'package:channels/core/shared/widgets/app_button.dart';
 
@@ -18,6 +17,9 @@ class ErrorStateWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Center(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 32.w),
@@ -28,14 +30,14 @@ class ErrorStateWidget extends StatelessWidget {
             Icon(
               Icons.error_outline,
               size: 64.sp,
-              color: AppColors.error,
+              color: colorScheme.error,
             ),
             verticalSpace(16),
             Text(
               message,
               style: TextStyle(
                 fontSize: 16.sp,
-                color: AppColors.textPrimaryLight,
+                color: colorScheme.onSurface,
               ),
               textAlign: TextAlign.center,
             ),
@@ -43,8 +45,8 @@ class ErrorStateWidget extends StatelessWidget {
             AppButton(
               text: 'Retry',
               onPressed: onRetry,
-              backgroundColor: AppColors.primary,
-              textColor: Colors.white,
+              backgroundColor: colorScheme.primary,
+              textColor: colorScheme.onPrimary,
             ),
           ],
         ),

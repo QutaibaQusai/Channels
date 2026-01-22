@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:channels/core/theme/app_colors.dart';
+import 'package:channels/core/theme/app_theme_extensions.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 
 /// Reusable custom text field widget
@@ -32,6 +32,10 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textExtension = theme.extension<AppColorsExtension>()!;
+
     return TextFormField(
       controller: controller,
       maxLines: maxLines,
@@ -42,10 +46,10 @@ class CustomTextField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: TextStyle(
-          color: AppColors.textSecondaryLight.withOpacity(0.5),
+          color: textExtension.textSecondary.withValues(alpha: 0.5),
         ),
         filled: true,
-        fillColor: AppColors.surfaceLight,
+        fillColor: colorScheme.surface,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppSizes.r12),
           borderSide: BorderSide.none,
@@ -57,21 +61,21 @@ class CustomTextField extends StatelessWidget {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppSizes.r12),
           borderSide: BorderSide(
-            color: AppColors.primary,
+            color: colorScheme.primary,
             width: 2,
           ),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppSizes.r12),
           borderSide: BorderSide(
-            color: AppColors.error,
+            color: colorScheme.error,
             width: 2,
           ),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppSizes.r12),
           borderSide: BorderSide(
-            color: AppColors.error,
+            color: colorScheme.error,
             width: 2,
           ),
         ),
@@ -84,7 +88,7 @@ class CustomTextField extends StatelessWidget {
       ),
       style: TextStyle(
         fontSize: 16.sp,
-        color: AppColors.textPrimaryLight,
+        color: colorScheme.onSurface,
       ),
       validator: validator,
     );

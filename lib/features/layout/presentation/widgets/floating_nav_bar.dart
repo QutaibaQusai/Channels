@@ -63,7 +63,7 @@ class FloatingNavBar extends StatelessWidget {
               height: 54.h,
               decoration: BoxDecoration(
                 color: currentIndex == 2
-                    ? colorScheme.onPrimaryContainer
+                    ? colorScheme.primary
                     : colorScheme.surface,
                 shape: BoxShape.circle,
                 border: Border.all(color: colorScheme.outline, width: 1),
@@ -71,7 +71,7 @@ class FloatingNavBar extends StatelessWidget {
               child: Icon(
                 LucideIcons.sparkles,
                 color: currentIndex == 2
-                    ? colorScheme.primary
+                    ? colorScheme.onPrimary
                     : colorScheme.onSurface,
                 size: 24.sp,
               ),
@@ -106,13 +106,13 @@ class _SegmentedNavItem extends StatelessWidget {
         padding: EdgeInsets.all(12.w),
         decoration: BoxDecoration(
           color: isSelected
-              ? colorScheme.onPrimaryContainer
+              ? colorScheme.primary
               : Colors.transparent,
           borderRadius: BorderRadius.circular(28.r),
         ),
         child: Icon(
           icon,
-          color: isSelected ? colorScheme.primary : colorScheme.onSurface,
+          color: isSelected ? colorScheme.onPrimary : colorScheme.onSurface,
           size: 22.sp,
         ),
       ),

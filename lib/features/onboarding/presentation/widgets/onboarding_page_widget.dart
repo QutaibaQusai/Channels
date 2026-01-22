@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:channels/core/theme/app_colors.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/theme/app_typography.dart';
 import 'package:channels/core/helpers/spacing.dart';
@@ -16,6 +15,7 @@ class OnboardingPageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
 
     // Map the page title/subtitle keys to actual translations
     String getTranslatedText(String key) {
@@ -43,8 +43,8 @@ class OnboardingPageWidget extends StatelessWidget {
         Expanded(
           flex: 4,
           child: Container(
-            decoration: const BoxDecoration(
-              color: AppColors.primary, // Black container
+            decoration: BoxDecoration(
+              color: colorScheme.primary, // Black container
             ),
             child: Center(
               child: Image.asset(

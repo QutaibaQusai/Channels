@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:channels/core/theme/app_colors.dart';
+import 'package:channels/core/theme/app_theme_extensions.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/helpers/spacing.dart';
 import 'package:channels/core/shared/widgets/app_button.dart';
@@ -40,6 +40,9 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textExtension = theme.extension<AppColorsExtension>()!;
 
     return BlocListener<OtpVerificationCubit, OtpVerificationState>(
       listener: (context, state) {
@@ -61,13 +64,13 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.errorMessage),
-              backgroundColor: AppColors.error,
+              backgroundColor: colorScheme.error,
             ),
           );
         }
       },
       child: Scaffold(
-        backgroundColor: AppColors.backgroundLight,
+        backgroundColor: theme.scaffoldBackgroundColor,
         appBar: const CustomAppBar(showBackButton: true),
         body: SafeArea(
           bottom: false,
@@ -84,7 +87,7 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
                   style: TextStyle(
                     fontSize: 28.sp,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.textPrimaryLight,
+                    color: colorScheme.onSurface,
                   ),
                 ),
 
@@ -95,7 +98,7 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
                   text: TextSpan(
                     style: TextStyle(
                       fontSize: 16.sp,
-                      color: AppColors.textSecondaryLight,
+                      color: textExtension.textSecondary,
                       height: 1.5,
                     ),
                     children: [
@@ -106,7 +109,7 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
                         text: ' ${widget.phoneNumber}',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          color: AppColors.textPrimaryLight,
+                          color: colorScheme.onSurface,
                         ),
                       ),
                     ],
@@ -185,8 +188,8 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
                             );
                       },
                       isLoading: state is OtpVerificationLoading,
-                      backgroundColor: AppColors.primary,
-                      textColor: Colors.white,
+                      backgroundColor: colorScheme.primary,
+                      textColor: colorScheme.onPrimary,
                     );
                   },
                 ),

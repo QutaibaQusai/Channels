@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:channels/core/theme/app_colors.dart';
+import 'package:channels/core/theme/app_theme_extensions.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 
 /// Reusable app button with consistent styling
@@ -42,13 +42,17 @@ class AppButton extends StatelessWidget {
   }
 
   Widget _buildFilledButton(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textExtension = theme.extension<AppColorsExtension>()!;
+
     return ElevatedButton(
       onPressed: (disabled || isLoading) ? null : onPressed,
       style: ElevatedButton.styleFrom(
-        backgroundColor: backgroundColor ?? AppColors.primary,
-        foregroundColor: textColor ?? Colors.white,
-        disabledBackgroundColor: AppColors.borderLight,
-        disabledForegroundColor: AppColors.textDisabledLight,
+        backgroundColor: backgroundColor ?? colorScheme.primary,
+        foregroundColor: textColor ?? colorScheme.onPrimary,
+        disabledBackgroundColor: textExtension.border,
+        disabledForegroundColor: textExtension.textTertiary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppSizes.rFull),
         ),
@@ -60,12 +64,14 @@ class AppButton extends StatelessWidget {
   }
 
   Widget _buildOutlinedButton(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return OutlinedButton(
       onPressed: (disabled || isLoading) ? null : onPressed,
       style: OutlinedButton.styleFrom(
-        foregroundColor: backgroundColor ?? AppColors.primary,
+        foregroundColor: backgroundColor ?? colorScheme.primary,
         side: BorderSide(
-          color: backgroundColor ?? AppColors.primary,
+          color: backgroundColor ?? colorScheme.primary,
           width: 1.5,
         ),
         shape: RoundedRectangleBorder(
@@ -78,12 +84,14 @@ class AppButton extends StatelessWidget {
   }
 
   Widget _buildContent(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     final textStyle =
-        Theme.of(context).textTheme.labelLarge ??
+        theme.textTheme.labelLarge ??
         const TextStyle(fontSize: 16, fontWeight: FontWeight.w600);
     final resolvedTextColor = isOutlined
-        ? (backgroundColor ?? AppColors.primary)
-        : (textColor ?? Colors.white);
+        ? (backgroundColor ?? colorScheme.primary)
+        : (textColor ?? colorScheme.onPrimary);
 
     if (isLoading) {
       return SizedBox(
@@ -91,7 +99,9 @@ class AppButton extends StatelessWidget {
         width: AppSizes.icon20,
         child: CircularProgressIndicator(
           strokeWidth: 2,
-          valueColor: AlwaysStoppedAnimation<Color>(textColor ?? Colors.white),
+          valueColor: AlwaysStoppedAnimation<Color>(
+            textColor ?? colorScheme.onPrimary,
+          ),
         ),
       );
     }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:channels/core/theme/app_colors.dart';
+import 'package:channels/core/theme/app_theme_extensions.dart';
 import 'package:channels/core/theme/app_typography.dart';
 import 'package:channels/l10n/app_localizations.dart';
 
@@ -10,12 +10,13 @@ class CountriesEmptyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final textExtension = Theme.of(context).extension<AppColorsExtension>()!;
 
     return Center(
       child: Text(
         l10n.countryPickerNoResults,
         style: AppTypography.bodyMedium.copyWith(
-          color: AppColors.textSecondaryLight,
+          color: textExtension.textSecondary,
         ),
       ),
     );
