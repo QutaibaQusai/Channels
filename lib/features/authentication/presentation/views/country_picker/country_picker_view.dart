@@ -8,8 +8,8 @@ import 'package:channels/l10n/app_localizations.dart';
 import 'package:channels/features/authentication/data/models/country_model.dart';
 import 'package:channels/features/authentication/presentation/cubit/countries/countries_cubit.dart';
 import 'package:channels/features/authentication/presentation/cubit/countries/countries_state.dart';
-import 'package:channels/features/authentication/presentation/views/country_picker/widgets/countries_loading_widget.dart';
-import 'package:channels/features/authentication/presentation/views/country_picker/widgets/countries_error_widget.dart';
+import 'package:channels/core/shared/widgets/loading_widget.dart';
+import 'package:channels/core/shared/widgets/error_widget.dart';
 import 'package:channels/features/authentication/presentation/views/country_picker/widgets/countries_empty_widget.dart';
 import 'package:channels/features/authentication/presentation/views/country_picker/widgets/country_list_item.dart';
 
@@ -73,12 +73,15 @@ class _CountryPickerViewState extends State<CountryPickerView> {
               child: BlocBuilder<CountriesCubit, CountriesState>(
                 builder: (context, state) {
                   if (state is CountriesLoading) {
-                    return const CountriesLoadingWidget();
+                    return const LoadingWidget();
                   }
 
                   if (state is CountriesFailure) {
-                    return CountriesErrorWidget(
-                      errorMessage: state.errorMessage,
+                    return ErrorStateWidget(
+                      message: state.errorMessage,
+                      onRetry: () {
+                        context.read<CountriesCubit>().getCountries();
+                      },
                     );
                   }
 

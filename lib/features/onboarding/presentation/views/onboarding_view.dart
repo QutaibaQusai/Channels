@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:channels/core/services/language_service.dart';
 import 'package:channels/core/services/theme_service.dart';
 import 'package:channels/core/shared/widgets/app_button.dart';
+import 'package:channels/core/shared/widgets/loading_widget.dart';
 import 'package:channels/l10n/app_localizations.dart';
 import 'package:channels/core/router/route_names.dart';
 import 'package:channels/features/onboarding/data/datasources/onboarding_local_datasource.dart';
@@ -60,9 +61,7 @@ class _OnboardingViewState extends ConsumerState<OnboardingView> {
         },
         builder: (context, state) {
           if (state is OnboardingInitial) {
-            return const Scaffold(
-              body: Center(child: CircularProgressIndicator()),
-            );
+            return const Scaffold(body: LoadingWidget());
           }
 
           if (state is OnboardingError) {
