@@ -77,6 +77,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get otpVerificationErrorIncomplete => 'الرجاء إدخال الرمز كاملاً';
 
   @override
+  String get categoriesSearchHint => 'ابحث عن الفئات';
+
+  @override
+  String get categoriesSectionTitle => 'الفئات';
+
+  @override
+  String get categoriesSeeMore => 'المزيد';
+
+  @override
   String get otpVerificationVerified => 'تم التحقق من رقم الهاتف بنجاح!';
 
   @override

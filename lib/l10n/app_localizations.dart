@@ -230,6 +230,24 @@ abstract class AppLocalizations {
   /// **'Please enter the complete code'**
   String get otpVerificationErrorIncomplete;
 
+  /// Search hint text for categories screen
+  ///
+  /// In en, this message translates to:
+  /// **'Search categories'**
+  String get categoriesSearchHint;
+
+  /// Section title for categories grid
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get categoriesSectionTitle;
+
+  /// See more link on categories section
+  ///
+  /// In en, this message translates to:
+  /// **'More'**
+  String get categoriesSeeMore;
+
   /// Phone verification success message
   ///
   /// In en, this message translates to:

@@ -117,6 +117,21 @@
     "description": "Incomplete OTP error"
   },
 
+  "categoriesSearchHint": "Search categories",
+  "@categoriesSearchHint": {
+    "description": "Search hint text for categories screen"
+  },
+
+  "categoriesSectionTitle": "Categories",
+  "@categoriesSectionTitle": {
+    "description": "Section title for categories grid"
+  },
+
+  "categoriesSeeMore": "More",
+  "@categoriesSeeMore": {
+    "description": "See more link on categories section"
+  },
+
   "otpVerificationVerified": "Phone number verified successfully!",
   "@otpVerificationVerified": {
     "description": "Phone verification success message"

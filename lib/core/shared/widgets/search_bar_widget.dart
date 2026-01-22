@@ -30,6 +30,7 @@ class SearchBarWidget extends StatelessWidget {
     return TextField(
       controller: controller,
       onChanged: onChanged,
+      style: AppTypography.bodyMedium.copyWith(color: colorScheme.onSurface),
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: AppTypography.bodyMedium.copyWith(
@@ -37,25 +38,33 @@ class SearchBarWidget extends StatelessWidget {
         ),
         prefixIcon:
             prefixIcon ??
-            Icon(
-              LucideIcons.search,
-              color: textExtension.textSecondary,
-              size: AppSizes.icon16,
+            Container(
+              width: AppSizes.icon40,
+              height: AppSizes.icon40,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: colorScheme.onSurface.withValues(alpha: 0.08),
+              ),
+              child: Icon(
+                LucideIcons.search,
+                color: textExtension.textSecondary,
+                size: AppSizes.icon20,
+              ),
             ),
         suffixIcon: suffixIcon,
         filled: true,
-        fillColor: colorScheme.surface,
+        fillColor: colorScheme.onSurface.withValues(alpha: 0.06),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppSizes.r12),
-          borderSide: BorderSide(color: textExtension.border),
+          borderRadius: BorderRadius.circular(AppSizes.rFull),
+          borderSide: BorderSide.none,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppSizes.r12),
-          borderSide: BorderSide(color: textExtension.border),
+          borderRadius: BorderRadius.circular(AppSizes.rFull),
+          borderSide: BorderSide.none,
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppSizes.r12),
-          borderSide: BorderSide(color: colorScheme.primary, width: 2),
+          borderRadius: BorderRadius.circular(AppSizes.rFull),
+          borderSide: BorderSide.none,
         ),
         contentPadding: EdgeInsets.symmetric(
           horizontal: AppSizes.s16,

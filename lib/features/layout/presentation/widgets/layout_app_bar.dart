@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 import 'package:go_router/go_router.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/theme/app_typography.dart';
@@ -38,6 +39,29 @@ class LayoutAppBar extends StatelessWidget implements PreferredSizeWidget {
       scrolledUnderElevation: 0,
       centerTitle: true,
       automaticallyImplyLeading: false,
+      leadingWidth: AppSizes.icon40 + (AppSizes.screenPaddingH * 2),
+      leading: Padding(
+        padding: EdgeInsets.symmetric(horizontal: AppSizes.screenPaddingH),
+        child: CupertinoButton(
+          padding: EdgeInsets.zero,
+          onPressed: () {
+            context.push(RouteNames.profile);
+          },
+          child: Container(
+            width: AppSizes.icon40,
+            height: AppSizes.icon40,
+            decoration: BoxDecoration(
+              color: colorScheme.surfaceContainerHighest,
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              LucideIcons.user,
+              color: colorScheme.onSurface,
+              size: AppSizes.icon20,
+            ),
+          ),
+        ),
+      ),
       title: Text(_getTitle(context), style: AppTypography.appBarTitle),
       actions: [
         Padding(
@@ -45,7 +69,7 @@ class LayoutAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: CupertinoButton(
             padding: EdgeInsets.zero,
             onPressed: () {
-              context.push(RouteNames.profile);
+              // TODO: Navigate to notifications
             },
             child: Container(
               width: AppSizes.icon40,
@@ -55,9 +79,9 @@ class LayoutAppBar extends StatelessWidget implements PreferredSizeWidget {
                 shape: BoxShape.circle,
               ),
               child: Icon(
-                CupertinoIcons.person_fill,
+                LucideIcons.bell,
                 color: colorScheme.onSurface,
-                size: 20,
+                size: AppSizes.icon20,
               ),
             ),
           ),

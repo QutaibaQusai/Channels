@@ -18,6 +18,11 @@ class AppSizes {
   static double get s32 => 32.h;
   static double get s40 => 40.h;
   static double get s48 => 48.h;
+  static double get s56 => 56.h;
+  static double get s64 => 64.h;
+  static double get s72 => 72.h;
+  static double get s80 => 80.h;
+  static double get s96 => 96.h;
 
   // ==================== BORDER RADIUS ====================
 
@@ -46,7 +51,7 @@ class AppSizes {
 
   /// Main screen horizontal padding (left & right edges of screens)
   /// Use with SafeArea for best results
-  static double get screenPaddingH => 24.w;
+  static double get screenPaddingH => 20.w;
 
   // ==================== COMPONENT HEIGHTS ====================
 

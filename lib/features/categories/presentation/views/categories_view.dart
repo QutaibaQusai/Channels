@@ -1,8 +1,16 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:channels/core/theme/app_theme_extensions.dart';
+import 'package:channels/core/api/dio_consumer.dart';
+import 'package:channels/core/shared/widgets/error_widget.dart';
+import 'package:channels/core/shared/widgets/loading_widget.dart';
 import 'package:channels/core/theme/app_sizes.dart';
-import 'package:channels/core/helpers/spacing.dart';
+import 'package:channels/features/categories/data/data_sources/categories_remote_data_source.dart';
+import 'package:channels/features/categories/data/repositories/categories_repository_impl.dart';
+import 'package:channels/features/categories/domain/usecases/get_categories.dart';
+import 'package:channels/features/categories/presentation/cubit/categories_cubit.dart';
+import 'package:channels/features/categories/presentation/cubit/categories_state.dart';
+import 'package:channels/features/categories/presentation/views/widgets/categories_success.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// Categories view - browse ad categories
 class CategoriesView extends StatelessWidget {
@@ -10,41 +18,62 @@ class CategoriesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final langCode = Localizations.localeOf(context).languageCode;
+
+    return BlocProvider(
+      create: (_) => CategoriesCubit(
+        getCategoriesUseCase: GetCategories(
+          CategoriesRepositoryImpl(
+            remoteDataSource: CategoriesRemoteDataSourceImpl(
+              apiConsumer: DioConsumer(dio: Dio()),
+            ),
+          ),
+        ),
+        lang: langCode,
+      )..fetchCategories(),
+      child: const _CategoriesBody(),
+    );
+  }
+}
+
+class _CategoriesBody extends StatelessWidget {
+  const _CategoriesBody();
+
+  @override
+  Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-    final textExtension = theme.extension<AppColorsExtension>()!;
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
+        bottom: false,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: AppSizes.screenPaddingH),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              verticalSpace(AppSizes.s24),
+          child: BlocBuilder<CategoriesCubit, CategoriesState>(
+            builder: (context, state) {
+              if (state is CategoriesLoading || state is CategoriesInitial) {
+                return const LoadingWidget();
+              }
 
-              // Title
-              Text(
-                'Categories',
-                style: TextStyle(
-                  fontSize: 24.sp,
-                  fontWeight: FontWeight.bold,
-                  color: colorScheme.onSurface,
-                ),
-              ),
+              if (state is CategoriesFailure) {
+                return ErrorStateWidget(
+                  message: state.message,
+                  onRetry: () =>
+                      context.read<CategoriesCubit>().fetchCategories(),
+                );
+              }
 
-              verticalSpace(AppSizes.s16),
+              if (state is CategoriesSuccess) {
+                return CategoriesSuccessContent(
+                  data: state.data,
+                  onCategoryTap: (id) {
+                    // TODO: Navigate to category details / subcategories
+                  },
+                );
+              }
 
-              // Subtitle
-              Text(
-                'Browse categories to find ads you care about',
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  color: textExtension.textSecondary,
-                ),
-              ),
-            ],
+              return const SizedBox.shrink();
+            },
           ),
         ),
       ),
