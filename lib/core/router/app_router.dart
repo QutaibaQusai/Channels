@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:channels/core/router/route_names.dart';
 import 'package:channels/core/api/dio_consumer.dart';
+import 'package:channels/core/shared/widgets/loading_widget.dart';
 import 'package:channels/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:channels/features/authentication/presentation/views/phone_auth_view.dart';
 import 'package:channels/features/authentication/presentation/views/otp_verification/otp_verification_view.dart';
@@ -36,7 +37,7 @@ class AppRouter {
         path: RouteNames.splash,
         name: RouteNames.splash,
         builder: (context, state) => const Scaffold(
-          body: Center(child: CircularProgressIndicator()),
+          body: LoadingWidget(),
         ),
       ),
 
