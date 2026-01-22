@@ -29,6 +29,21 @@
   "otpVerificationVerified": "تم التحقق من رقم الهاتف بنجاح!",
   "otpVerificationOtpResent": "تم إعادة إرسال الرمز بنجاح!",
 
+  "categoriesSearchHint": "ابحث عن الفئات",
+  "@categoriesSearchHint": {
+    "description": "Search hint text for categories screen"
+  },
+
+  "categoriesSectionTitle": "الفئات",
+  "@categoriesSectionTitle": {
+    "description": "Section title for categories grid"
+  },
+
+  "categoriesSeeMore": "المزيد",
+  "@categoriesSeeMore": {
+    "description": "See more link on categories section"
+  },
+
   "registerTitle": "أكمل ملفك الشخصي",
   "registerSubtitle": "أخبرنا قليلاً عن نفسك",
   "registerNameLabel": "الاسم",

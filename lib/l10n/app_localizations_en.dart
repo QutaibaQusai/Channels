@@ -78,6 +78,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get otpVerificationErrorIncomplete => 'Please enter the complete code';
 
   @override
+  String get categoriesSearchHint => 'Search categories';
+
+  @override
+  String get categoriesSectionTitle => 'Categories';
+
+  @override
+  String get categoriesSeeMore => 'More';
+
+  @override
   String get otpVerificationVerified => 'Phone number verified successfully!';
 
   @override
