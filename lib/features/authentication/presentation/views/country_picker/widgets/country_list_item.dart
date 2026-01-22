@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:channels/core/theme/app_colors.dart';
+import 'package:channels/core/theme/app_theme_extensions.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/theme/app_typography.dart';
 import 'package:channels/core/helpers/spacing.dart';
@@ -19,6 +19,10 @@ class CountryListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textExtension = theme.extension<AppColorsExtension>()!;
+
     return InkWell(
       onTap: onTap,
       child: Padding(
@@ -34,13 +38,13 @@ class CountryListItem extends StatelessWidget {
                 width: AppSizes.icon32,
                 height: AppSizes.icon32,
                 decoration: BoxDecoration(
-                  color: AppColors.surfaceLight,
+                  color: colorScheme.surface,
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
                   Icons.flag,
                   size: AppSizes.icon20,
-                  color: AppColors.textSecondaryLight,
+                  color: textExtension.textSecondary,
                 ),
               ),
             ),
@@ -56,14 +60,14 @@ class CountryListItem extends StatelessWidget {
                     country.name,
                     style: AppTypography.bodyLarge.copyWith(
                       fontWeight: FontWeight.w600,
-                      color: AppColors.textPrimaryLight,
+                      color: colorScheme.onSurface,
                     ),
                   ),
                   verticalSpace(AppSizes.s4),
                   Text(
                     country.placeholder,
                     style: AppTypography.bodySmall.copyWith(
-                      color: AppColors.textSecondaryLight,
+                      color: textExtension.textSecondary,
                     ),
                   ),
                 ],
@@ -75,7 +79,7 @@ class CountryListItem extends StatelessWidget {
               country.dialingCode,
               style: AppTypography.bodyLarge.copyWith(
                 fontWeight: FontWeight.w600,
-                color: AppColors.primary,
+                color: colorScheme.primary,
               ),
             ),
           ],

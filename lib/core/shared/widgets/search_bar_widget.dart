@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:channels/core/theme/app_colors.dart';
+import 'package:channels/core/theme/app_theme_extensions.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/theme/app_typography.dart';
 
@@ -23,35 +23,39 @@ class SearchBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textExtension = theme.extension<AppColorsExtension>()!;
+
     return TextField(
       controller: controller,
       onChanged: onChanged,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: AppTypography.bodyMedium.copyWith(
-          color: AppColors.textHintLight,
+          color: textExtension.textHint,
         ),
         prefixIcon:
             prefixIcon ??
             Icon(
               LucideIcons.search,
-              color: AppColors.textSecondaryLight,
+              color: textExtension.textSecondary,
               size: AppSizes.icon16,
             ),
         suffixIcon: suffixIcon,
         filled: true,
-        fillColor: AppColors.surfaceLight,
+        fillColor: colorScheme.surface,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppSizes.r12),
-          borderSide: BorderSide(color: AppColors.borderLight),
+          borderSide: BorderSide(color: textExtension.border),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppSizes.r12),
-          borderSide: BorderSide(color: AppColors.borderLight),
+          borderSide: BorderSide(color: textExtension.border),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppSizes.r12),
-          borderSide: BorderSide(color: AppColors.primary, width: 2),
+          borderSide: BorderSide(color: colorScheme.primary, width: 2),
         ),
         contentPadding: EdgeInsets.symmetric(
           horizontal: AppSizes.s16,

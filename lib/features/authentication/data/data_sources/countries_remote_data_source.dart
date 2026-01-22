@@ -19,8 +19,10 @@ class CountriesRemoteDataSourceImpl implements CountriesRemoteDataSource {
       data: {'lang': languageCode},
     );
 
-    // Parse the response as a list of countries
-    final List<dynamic> countriesJson = response as List<dynamic>;
+    // Extract the countries array from the response object
+    final Map<String, dynamic> responseData = response as Map<String, dynamic>;
+    final List<dynamic> countriesJson = responseData['countries'] as List<dynamic>;
+
     return countriesJson
         .map((json) => CountryModel.fromJson(json as Map<String, dynamic>))
         .toList();

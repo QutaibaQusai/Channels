@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:channels/core/theme/app_colors.dart';
+import 'package:channels/core/theme/app_theme_extensions.dart';
 import 'package:channels/l10n/app_localizations.dart';
 
 /// Resend OTP widget with timer
@@ -21,6 +21,8 @@ class OtpResendWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
+    final textExtension = Theme.of(context).extension<AppColorsExtension>()!;
 
     return Center(
       child: canResend
@@ -33,7 +35,7 @@ class OtpResendWidget extends StatelessWidget {
                       child: CircularProgressIndicator(
                         strokeWidth: 2,
                         valueColor: AlwaysStoppedAnimation<Color>(
-                          AppColors.primary,
+                          colorScheme.primary,
                         ),
                       ),
                     )
@@ -42,7 +44,7 @@ class OtpResendWidget extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w600,
-                        color: AppColors.primary,
+                        color: colorScheme.primary,
                       ),
                     ),
             )
@@ -50,7 +52,7 @@ class OtpResendWidget extends StatelessWidget {
               l10n.otpVerificationResendTimer(resendTimer),
               style: TextStyle(
                 fontSize: 16.sp,
-                color: AppColors.textSecondaryLight,
+                color: textExtension.textSecondary,
               ),
             ),
     );

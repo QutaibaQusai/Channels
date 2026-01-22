@@ -15,7 +15,6 @@ import 'package:channels/features/onboarding/presentation/cubit/onboarding_cubit
 import 'package:channels/features/onboarding/presentation/cubit/onboarding_state.dart';
 import 'package:channels/features/onboarding/presentation/widgets/onboarding_page_widget.dart';
 import 'package:channels/features/onboarding/presentation/widgets/page_indicator.dart';
-import 'package:channels/core/theme/app_colors.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/helpers/spacing.dart';
 
@@ -71,8 +70,10 @@ class _OnboardingViewState extends ConsumerState<OnboardingView> {
           }
 
           if (state is OnboardingLoaded) {
+            final theme = Theme.of(context);
+
             return Scaffold(
-              backgroundColor: AppColors.backgroundLight,
+              backgroundColor: theme.scaffoldBackgroundColor,
               body: Stack(
                 children: [
                   // Main content with PageView
@@ -189,6 +190,7 @@ class _OnboardingViewState extends ConsumerState<OnboardingView> {
 
   Widget _buildBottomButton(BuildContext context, OnboardingLoaded state) {
     final l10n = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: AppSizes.screenPaddingH),
@@ -204,8 +206,8 @@ class _OnboardingViewState extends ConsumerState<OnboardingView> {
             );
           }
         },
-        backgroundColor: AppColors.primary,
-        textColor: Colors.white,
+        backgroundColor: colorScheme.primary,
+        textColor: colorScheme.onPrimary,
       ),
     );
   }

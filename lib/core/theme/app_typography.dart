@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:channels/core/theme/app_colors.dart';
 
 /// Centralized typography system using flutter_screenutil
+/// Note: Colors should be applied at the widget level using Theme.of(context)
 class AppTypography {
   AppTypography._();
 
@@ -18,28 +18,28 @@ class AppTypography {
   // ==================== ONBOARDING STYLES ====================
 
   /// Onboarding page title style (centered, bold)
+  /// Apply color using: style.copyWith(color: colorScheme.onSurface)
   static TextStyle onboardingTitle = TextStyle(
     fontSize: 20.sp,
     fontWeight: bold,
     height: 1.3,
-    color: AppColors.textPrimaryLight,
   );
 
   /// Onboarding page subtitle/description style (centered, secondary color)
+  /// Apply color using: style.copyWith(color: textExtension.textSecondary)
   static TextStyle onboardingSubtitle = TextStyle(
     fontSize: 14.sp,
     fontWeight: regular,
     height: 1.4,
-    color: AppColors.textSecondaryLight,
   );
 
   // ==================== APP BAR STYLES ====================
 
   /// App bar title style (centered, semi-bold)
+  /// Apply color using: style.copyWith(color: colorScheme.onSurface)
   static TextStyle appBarTitle = TextStyle(
     fontSize: 16.sp,
     fontWeight: semiBold,
-    color: AppColors.textPrimaryLight,
   );
 
   // ==================== BUTTON STYLES ====================
