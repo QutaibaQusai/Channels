@@ -5,7 +5,7 @@ import 'package:channels/core/helpers/spacing.dart';
 import 'package:channels/core/theme/app_theme_extensions.dart';
 import 'package:channels/features/ads/domain/entities/ad.dart';
 import 'package:channels/features/ads/presentation/views/widgets/ad_image_indicator.dart';
-import 'package:intl/intl.dart';
+import 'package:channels/core/utils/formatters.dart';
 
 import '../../../../../core/theme/app_sizes.dart';
 
@@ -28,7 +28,7 @@ class _AdCardState extends State<AdCard> {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final textExtension = theme.extension<AppColorsExtension>()!;
-    final createdAtText = DateFormat.yMMMd().format(widget.ad.createdAt);
+    final createdAtText = Formatters.date(widget.ad.createdAt);
 
     return GestureDetector(
       onTap: widget.onTap,

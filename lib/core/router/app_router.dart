@@ -23,7 +23,8 @@ import 'package:channels/features/ads/presentation/views/category_ads_view.dart'
 
 /// Centralized routing configuration using Go Router
 class AppRouter {
-  static final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
+  static final GlobalKey<NavigatorState> _rootNavigatorKey =
+      GlobalKey<NavigatorState>();
 
   static GoRouter get router => _router;
 
@@ -37,9 +38,7 @@ class AppRouter {
       GoRoute(
         path: RouteNames.splash,
         name: RouteNames.splash,
-        builder: (context, state) => const Scaffold(
-          body: LoadingWidget(),
-        ),
+        builder: (context, state) => const Scaffold(body: LoadingWidget()),
       ),
 
       // ==================== ONBOARDING ====================
@@ -53,17 +52,15 @@ class AppRouter {
       GoRoute(
         path: RouteNames.login,
         name: RouteNames.login,
-        builder: (context, state) => const Scaffold(
-          body: Center(child: Text('Login Screen')),
-        ),
+        builder: (context, state) =>
+            const Scaffold(body: Center(child: Text('Login Screen'))),
       ),
 
       GoRoute(
         path: RouteNames.signup,
         name: RouteNames.signup,
-        builder: (context, state) => const Scaffold(
-          body: Center(child: Text('Signup Screen')),
-        ),
+        builder: (context, state) =>
+            const Scaffold(body: Center(child: Text('Signup Screen'))),
       ),
 
       GoRoute(
@@ -129,8 +126,8 @@ class AppRouter {
             create: (context) => RegisterCubit(
               updatePreferencesRemoteDataSource:
                   UpdatePreferencesRemoteDataSourceImpl(
-                apiConsumer: DioConsumer(dio: Dio()),
-              ),
+                    apiConsumer: DioConsumer(dio: Dio()),
+                  ),
             ),
             child: RegisterView(token: token),
           );
@@ -147,17 +144,15 @@ class AppRouter {
       GoRoute(
         path: RouteNames.profile,
         name: RouteNames.profile,
-        builder: (context, state) => const Scaffold(
-          body: Center(child: Text('Profile Screen')),
-        ),
+        builder: (context, state) =>
+            const Scaffold(body: Center(child: Text('Profile Screen'))),
       ),
 
       GoRoute(
         path: RouteNames.settings,
         name: RouteNames.settings,
-        builder: (context, state) => const Scaffold(
-          body: Center(child: Text('Settings Screen')),
-        ),
+        builder: (context, state) =>
+            const Scaffold(body: Center(child: Text('Settings Screen'))),
       ),
 
       GoRoute(
@@ -177,9 +172,7 @@ class AppRouter {
 
     // ==================== ERROR HANDLING ====================
     errorBuilder: (context, state) => Scaffold(
-      body: Center(
-        child: Text('Page not found: ${state.uri.path}'),
-      ),
+      body: Center(child: Text('Page not found: ${state.uri.path}')),
     ),
   );
 }
