@@ -207,9 +207,9 @@
     "description": "Broadcasts tab title in main layout"
   },
 
-  "layoutExploreTitle": "Explore",
-  "@layoutExploreTitle": {
-    "description": "Explore tab title in main layout"
+  "layoutCategoriesTitle": "Categories",
+  "@layoutCategoriesTitle": {
+    "description": "Categories tab title in main layout"
   },
 
   "layoutAiTitle": "AI Assistant",

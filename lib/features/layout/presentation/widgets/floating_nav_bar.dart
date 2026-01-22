@@ -23,7 +23,7 @@ class FloatingNavBar extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: AppSizes.s20),
       child: Row(
         children: [
-          // Left segmented pill with Broadcasts and Explore
+          // Left segmented pill with Broadcasts and Categories
           Container(
             height: 54.h,
             padding: EdgeInsets.all(4.w),
@@ -42,7 +42,7 @@ class FloatingNavBar extends StatelessWidget {
                   onTap: () => onTap(0),
                 ),
                 SizedBox(width: 2.w),
-                // Explore tab (index 1)
+                // Categories tab (index 1)
                 _SegmentedNavItem(
                   icon: LucideIcons.compass,
                   isSelected: currentIndex == 1,

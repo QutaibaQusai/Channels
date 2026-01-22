@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:channels/features/layout/presentation/widgets/floating_nav_bar.dart';
 import 'package:channels/features/layout/presentation/widgets/layout_app_bar.dart';
 import 'package:channels/features/broadcasts/presentation/views/broadcasts_view.dart';
-import 'package:channels/features/explore/presentation/views/explore_view.dart';
+import 'package:channels/features/categories/presentation/views/categories_view.dart';
 import 'package:channels/features/ai/presentation/views/ai_view.dart';
 
 /// Main layout with floating navigation bar and page navigation
@@ -25,7 +25,7 @@ class _MainLayoutState extends State<MainLayout> {
     _pageController = PageController(initialPage: 0);
     _pages = [
       const BroadcastsView(), // Index 0 - Broadcasts
-      const ExploreView(), // Index 1 - Explore
+      const CategoriesView(), // Index 1 - Categories
       const AiView(), // Index 2 - AI (plus button on right)
     ];
   }

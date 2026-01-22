@@ -338,11 +338,11 @@ abstract class AppLocalizations {
   /// **'Broadcasts'**
   String get layoutBroadcastsTitle;
 
-  /// Explore tab title in main layout
+  /// Categories tab title in main layout
   ///
   /// In en, this message translates to:
-  /// **'Explore'**
-  String get layoutExploreTitle;
+  /// **'Categories'**
+  String get layoutCategoriesTitle;
 
   /// AI tab title in main layout
   ///
