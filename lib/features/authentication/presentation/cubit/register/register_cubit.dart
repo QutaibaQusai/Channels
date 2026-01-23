@@ -1,12 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:channels/features/authentication/presentation/cubit/register/register_state.dart';
-import 'package:channels/features/authentication/data/data_sources/update_preferences_remote_data_source.dart';
+import 'package:channels/features/authentication/domain/usecases/update_preferences_usecase.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
-  final UpdatePreferencesRemoteDataSource updatePreferencesRemoteDataSource;
+  final UpdatePreferencesUseCase updatePreferencesUseCase;
 
   RegisterCubit({
-    required this.updatePreferencesRemoteDataSource,
+    required this.updatePreferencesUseCase,
   }) : super(const RegisterInitial());
 
   // Update selected date
@@ -32,8 +32,8 @@ class RegisterCubit extends Cubit<RegisterState> {
     emit(RegisterLoading());
 
     try {
-      // Call update preferences API
-      await updatePreferencesRemoteDataSource.updatePreferences(
+      // Call update preferences use case
+      await updatePreferencesUseCase(
         token: token,
         name: name,
         dateOfBirth: dateOfBirth,

@@ -4,11 +4,11 @@ import 'package:channels/core/theme/app_theme_extensions.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/theme/app_typography.dart';
 import 'package:channels/core/helpers/spacing.dart';
-import 'package:channels/features/authentication/data/models/country_model.dart';
+import 'package:channels/features/authentication/domain/entities/country_entity.dart';
 
 /// Country list item widget
 class CountryListItem extends StatelessWidget {
-  final CountryModel country;
+  final CountryEntity country;
   final VoidCallback onTap;
 
   const CountryListItem({
@@ -76,7 +76,7 @@ class CountryListItem extends StatelessWidget {
 
             // Dialing code
             Text(
-              country.dialingCode,
+              country.dialCode,
               style: AppTypography.bodyLarge.copyWith(
                 fontWeight: FontWeight.w600,
                 color: colorScheme.primary,

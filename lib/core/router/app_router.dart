@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dio/dio.dart';
 import 'package:channels/core/router/route_names.dart';
-import 'package:channels/core/api/dio_consumer.dart';
 import 'package:channels/core/shared/widgets/loading_widget.dart';
+import 'package:channels/core/di/service_locator.dart';
 import 'package:channels/features/onboarding/presentation/views/onboarding_view.dart';
-import 'package:channels/features/authentication/presentation/views/phone_auth_view.dart';
+import 'package:channels/features/authentication/presentation/views/phone_auth/phone_auth_view.dart';
 import 'package:channels/features/authentication/presentation/views/otp_verification/otp_verification_view.dart';
 import 'package:channels/features/authentication/presentation/views/country_picker/country_picker_view.dart';
 import 'package:channels/features/authentication/presentation/views/register/register_view.dart';
+import 'package:channels/features/authentication/domain/usecases/request_otp_usecase.dart';
+import 'package:channels/features/authentication/domain/usecases/verify_otp_usecase.dart';
+import 'package:channels/features/authentication/domain/usecases/get_countries_usecase.dart';
+import 'package:channels/features/authentication/domain/usecases/update_preferences_usecase.dart';
 import 'package:channels/features/layout/presentation/views/main_layout.dart';
-import 'package:channels/features/authentication/data/data_sources/countries_remote_data_source.dart';
-import 'package:channels/features/authentication/data/data_sources/otp_remote_data_source.dart';
-import 'package:channels/features/authentication/data/data_sources/verify_otp_remote_data_source.dart';
-import 'package:channels/features/authentication/data/data_sources/update_preferences_remote_data_source.dart';
 import 'package:channels/features/authentication/presentation/cubit/countries/countries_cubit.dart';
 import 'package:channels/features/authentication/presentation/cubit/otp/otp_cubit.dart';
 import 'package:channels/features/authentication/presentation/cubit/otp_verification/otp_verification_cubit.dart';
@@ -69,9 +68,7 @@ class AppRouter {
         builder: (context, state) {
           return BlocProvider(
             create: (context) => OtpCubit(
-              otpRemoteDataSource: OtpRemoteDataSourceImpl(
-                apiConsumer: DioConsumer(dio: Dio()),
-              ),
+              requestOtpUseCase: sl<RequestOtpUseCase>(),
             ),
             child: const PhoneAuthView(),
           );
@@ -88,9 +85,7 @@ class AppRouter {
 
           return BlocProvider(
             create: (context) => CountriesCubit(
-              countriesRemoteDataSource: CountriesRemoteDataSourceImpl(
-                apiConsumer: DioConsumer(dio: Dio()),
-              ),
+              getCountriesUseCase: sl<GetCountriesUseCase>(),
               languageCode: languageCode,
             ),
             child: const CountryPickerView(),
@@ -105,12 +100,8 @@ class AppRouter {
           final phoneNumber = state.extra as String? ?? '';
           return BlocProvider(
             create: (context) => OtpVerificationCubit(
-              verifyOtpRemoteDataSource: VerifyOtpRemoteDataSourceImpl(
-                apiConsumer: DioConsumer(dio: Dio()),
-              ),
-              otpRemoteDataSource: OtpRemoteDataSourceImpl(
-                apiConsumer: DioConsumer(dio: Dio()),
-              ),
+              verifyOtpUseCase: sl<VerifyOtpUseCase>(),
+              requestOtpUseCase: sl<RequestOtpUseCase>(),
             ),
             child: OtpVerificationView(phoneNumber: phoneNumber),
           );
@@ -124,10 +115,7 @@ class AppRouter {
           final token = state.extra as String? ?? '';
           return BlocProvider(
             create: (context) => RegisterCubit(
-              updatePreferencesRemoteDataSource:
-                  UpdatePreferencesRemoteDataSourceImpl(
-                    apiConsumer: DioConsumer(dio: Dio()),
-                  ),
+              updatePreferencesUseCase: sl<UpdatePreferencesUseCase>(),
             ),
             child: RegisterView(token: token),
           );

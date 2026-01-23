@@ -24,8 +24,8 @@ class AppColorTokens {
   static const Color neutralBlack = Color(0xFF000000);
 
   /// Light mode backgrounds
-  static const Color neutral50 = Color(0xFFFAFAFA);  // Main background
-  static const Color neutral100 = Color(0xFFF5F5F5); // Secondary surfaces
+  static const Color neutral50 = Color(0xFFF5F5F5); // Main background
+  static const Color neutral100 = Color(0xFFF0F0F0); // Secondary surfaces
   static const Color neutral200 = Color(0xFFF0F0F0); // Subtle dividers
   static const Color neutral300 = Color(0xFFE5E5E5); // Borders
 
@@ -45,7 +45,7 @@ class AppColorTokens {
   static const Color dark700 = Color(0xFF333333); // Borders
 
   /// Dark mode text colors
-  static const Color dark50 = Color(0xFFF5F5F5);  // Primary text
+  static const Color dark50 = Color(0xFFF5F5F5); // Primary text
   static const Color dark200 = Color(0xFFB8B8B8); // Secondary text
   static const Color dark300 = Color(0xFF8E8E8E); // Tertiary text
   static const Color dark400 = Color(0xFF666666); // Hint text
