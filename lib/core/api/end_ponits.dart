@@ -24,6 +24,7 @@ class ApiKey {
   static String imageUrl = "image_url";
   static String count = "count";
   static String categories = "categories";
+  static String countries = "countries";
   static String country = "country";
   static String sortOrder = "sort_order";
 

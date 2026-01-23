@@ -34,6 +34,7 @@ class AppSizes {
   static double get r16 => 16.r;
   static double get r20 => 20.r;
   static double get r24 => 24.r;
+  static double get r32 => 32.r;
   static double get rFull => 9999.r;
 
   // ==================== ICON SIZES ====================

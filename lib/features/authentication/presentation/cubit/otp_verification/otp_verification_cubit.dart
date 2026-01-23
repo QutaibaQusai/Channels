@@ -1,19 +1,19 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:channels/features/authentication/presentation/cubit/otp_verification/otp_verification_state.dart';
-import 'package:channels/features/authentication/data/data_sources/verify_otp_remote_data_source.dart';
-import 'package:channels/features/authentication/data/data_sources/otp_remote_data_source.dart';
+import 'package:channels/features/authentication/domain/usecases/verify_otp_usecase.dart';
+import 'package:channels/features/authentication/domain/usecases/request_otp_usecase.dart';
 import 'package:channels/core/services/secure_storage_service.dart';
 
 class OtpVerificationCubit extends Cubit<OtpVerificationState> {
-  final VerifyOtpRemoteDataSource verifyOtpRemoteDataSource;
-  final OtpRemoteDataSource otpRemoteDataSource;
+  final VerifyOtpUseCase verifyOtpUseCase;
+  final RequestOtpUseCase requestOtpUseCase;
   Timer? _timer;
   int _resendTimer = 60;
 
   OtpVerificationCubit({
-    required this.verifyOtpRemoteDataSource,
-    required this.otpRemoteDataSource,
+    required this.verifyOtpUseCase,
+    required this.requestOtpUseCase,
   }) : super(const OtpVerificationInitial());
 
   void startResendTimer() {
@@ -49,20 +49,20 @@ class OtpVerificationCubit extends Cubit<OtpVerificationState> {
 
     emit(OtpVerificationLoading());
     try {
-      // Call verify OTP API
-      final response = await verifyOtpRemoteDataSource.verifyOtp(
+      // Call verify OTP use case
+      final user = await verifyOtpUseCase(
         phone: phone,
         otp: otpCode,
       );
 
       // Save token and user ID to secure storage
-      await SecureStorageService.saveAuthToken(response.token);
-      await SecureStorageService.saveUserId(response.user.id);
+      await SecureStorageService.saveAuthToken(user.token);
+      await SecureStorageService.saveUserId(user.id);
 
       // Emit success with user data and token
       emit(OtpVerificationSuccess(
-        token: response.token,
-        user: response.user,
+        token: user.token,
+        user: user,
       ));
     } catch (e) {
       emit(OtpVerificationFailure(errorMessage: e.toString()));
@@ -75,8 +75,8 @@ class OtpVerificationCubit extends Cubit<OtpVerificationState> {
   }) async {
     emit(OtpResendLoading());
     try {
-      // Call resend OTP API
-      await otpRemoteDataSource.requestOtp(
+      // Call resend OTP use case
+      await requestOtpUseCase(
         phone: phone,
         countryCode: countryCode,
       );

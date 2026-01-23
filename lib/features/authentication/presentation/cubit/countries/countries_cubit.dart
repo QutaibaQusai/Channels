@@ -1,20 +1,20 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:channels/features/authentication/data/data_sources/countries_remote_data_source.dart';
+import 'package:channels/features/authentication/domain/usecases/get_countries_usecase.dart';
 import 'package:channels/features/authentication/presentation/cubit/countries/countries_state.dart';
 
 class CountriesCubit extends Cubit<CountriesState> {
-  final CountriesRemoteDataSource countriesRemoteDataSource;
+  final GetCountriesUseCase getCountriesUseCase;
   final String languageCode;
 
   CountriesCubit({
-    required this.countriesRemoteDataSource,
+    required this.getCountriesUseCase,
     required this.languageCode,
   }) : super(CountriesInitial());
 
   Future<void> getCountries() async {
     emit(CountriesLoading());
     try {
-      final countries = await countriesRemoteDataSource.getCountries(languageCode);
+      final countries = await getCountriesUseCase(languageCode: languageCode);
       emit(CountriesSuccess(countries: countries));
     } catch (e) {
       emit(CountriesFailure(errorMessage: e.toString()));
@@ -24,7 +24,7 @@ class CountriesCubit extends Cubit<CountriesState> {
   /// Refresh countries without showing loading state
   Future<void> refreshCountries() async {
     try {
-      final countries = await countriesRemoteDataSource.getCountries(languageCode);
+      final countries = await getCountriesUseCase(languageCode: languageCode);
       emit(CountriesSuccess(countries: countries));
     } catch (e) {
       emit(CountriesFailure(errorMessage: e.toString()));

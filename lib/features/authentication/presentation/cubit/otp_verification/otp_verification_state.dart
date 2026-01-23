@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:channels/features/authentication/data/models/user_model.dart';
+import 'package:channels/features/authentication/domain/entities/user_entity.dart';
 
 abstract class OtpVerificationState extends Equatable {
   const OtpVerificationState();
@@ -38,7 +38,7 @@ class OtpVerificationLoading extends OtpVerificationState {}
 
 class OtpVerificationSuccess extends OtpVerificationState {
   final String token;
-  final UserModel user;
+  final UserEntity user;
 
   const OtpVerificationSuccess({
     required this.token,

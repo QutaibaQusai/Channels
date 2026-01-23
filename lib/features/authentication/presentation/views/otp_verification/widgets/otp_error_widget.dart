@@ -5,10 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class OtpErrorWidget extends StatelessWidget {
   final String errorMessage;
 
-  const OtpErrorWidget({
-    super.key,
-    required this.errorMessage,
-  });
+  const OtpErrorWidget({super.key, required this.errorMessage});
 
   @override
   Widget build(BuildContext context) {

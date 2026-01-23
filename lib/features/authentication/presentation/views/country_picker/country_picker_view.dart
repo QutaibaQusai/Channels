@@ -6,7 +6,7 @@ import 'package:channels/core/shared/widgets/custom_app_bar.dart';
 import 'package:channels/core/shared/widgets/search_bar_widget.dart';
 import 'package:channels/core/shared/widgets/refresh_wrapper.dart';
 import 'package:channels/l10n/app_localizations.dart';
-import 'package:channels/features/authentication/data/models/country_model.dart';
+import 'package:channels/features/authentication/domain/entities/country_entity.dart';
 import 'package:channels/features/authentication/presentation/cubit/countries/countries_cubit.dart';
 import 'package:channels/features/authentication/presentation/cubit/countries/countries_state.dart';
 import 'package:channels/core/shared/widgets/loading_widget.dart';
@@ -31,11 +31,11 @@ class _CountryPickerViewState extends State<CountryPickerView> {
     context.read<CountriesCubit>().getCountries();
   }
 
-  List<CountryModel> _filterCountries(List<CountryModel> countries) {
+  List<CountryEntity> _filterCountries(List<CountryEntity> countries) {
     if (_searchQuery.isEmpty) return countries;
     return countries.where((country) {
       return country.name.toLowerCase().contains(_searchQuery.toLowerCase()) ||
-          country.dialingCode.contains(_searchQuery);
+          country.dialCode.contains(_searchQuery);
     }).toList();
   }
 

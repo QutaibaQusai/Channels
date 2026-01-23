@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:channels/features/authentication/data/models/country_model.dart';
+import 'package:channels/features/authentication/domain/entities/country_entity.dart';
 
 abstract class CountriesState extends Equatable {
   const CountriesState();
@@ -13,7 +13,7 @@ class CountriesInitial extends CountriesState {}
 class CountriesLoading extends CountriesState {}
 
 class CountriesSuccess extends CountriesState {
-  final List<CountryModel> countries;
+  final List<CountryEntity> countries;
 
   const CountriesSuccess({required this.countries});
 

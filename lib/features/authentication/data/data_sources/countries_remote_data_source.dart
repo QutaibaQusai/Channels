@@ -21,7 +21,7 @@ class CountriesRemoteDataSourceImpl implements CountriesRemoteDataSource {
 
     // Extract the countries array from the response object
     final Map<String, dynamic> responseData = response as Map<String, dynamic>;
-    final List<dynamic> countriesJson = responseData['countries'] as List<dynamic>;
+    final List<dynamic> countriesJson = responseData[ApiKey.countries] as List<dynamic>;
 
     return countriesJson
         .map((json) => CountryModel.fromJson(json as Map<String, dynamic>))

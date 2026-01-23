@@ -1,24 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:channels/core/services/language_service.dart';
 import 'package:channels/core/services/theme_service.dart';
 import 'package:channels/core/shared/widgets/app_button.dart';
-import 'package:channels/core/shared/widgets/loading_widget.dart';
 import 'package:channels/l10n/app_localizations.dart';
 import 'package:channels/core/router/route_names.dart';
-import 'package:channels/features/onboarding/data/datasources/onboarding_local_datasource.dart';
-import 'package:channels/features/onboarding/data/repositories/onboarding_repository_impl.dart';
-import 'package:channels/features/onboarding/presentation/cubit/onboarding_cubit.dart';
-import 'package:channels/features/onboarding/presentation/cubit/onboarding_state.dart';
-import 'package:channels/features/onboarding/presentation/widgets/onboarding_page_widget.dart';
+import 'package:channels/features/onboarding/constants/onboarding_data.dart';
 import 'package:channels/features/onboarding/presentation/widgets/page_indicator.dart';
+import 'package:channels/features/onboarding/presentation/widgets/language_toggle_button.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/helpers/spacing.dart';
 
-/// Main onboarding view with page view
+/// Simple onboarding view with PageView
 class OnboardingView extends ConsumerStatefulWidget {
   const OnboardingView({super.key});
 
@@ -28,6 +22,7 @@ class OnboardingView extends ConsumerStatefulWidget {
 
 class _OnboardingViewState extends ConsumerState<OnboardingView> {
   late PageController _pageController;
+  int _currentPage = 0;
 
   @override
   void initState() {
@@ -41,164 +36,148 @@ class _OnboardingViewState extends ConsumerState<OnboardingView> {
     super.dispose();
   }
 
+  Future<void> _completeOnboarding() async {
+    final storageService = ref.read(storageServiceProvider);
+    await storageService.setBool('onboardingCompleted', true);
+    if (mounted) {
+      context.go(RouteNames.phoneAuth);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) {
-        // Get storage service from Riverpod provider
-        final storageService = ref.read(storageServiceProvider);
-        final dataSource = OnboardingLocalDataSource(storageService);
-        final repository = OnboardingRepositoryImpl(dataSource);
-        return OnboardingCubit(repository);
-      },
-      child: BlocConsumer<OnboardingCubit, OnboardingState>(
-        listener: (context, state) {
-          if (state is OnboardingCompleted) {
-            // Navigate to phone authentication
-            context.go(RouteNames.phoneAuth);
-          }
-        },
-        builder: (context, state) {
-          if (state is OnboardingInitial) {
-            return const Scaffold(body: LoadingWidget());
-          }
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final l10n = AppLocalizations.of(context)!;
 
-          if (state is OnboardingError) {
-            return Scaffold(
-              body: Center(child: Text('Error: ${state.message}')),
-            );
-          }
-
-          if (state is OnboardingLoaded) {
-            final theme = Theme.of(context);
-
-            return Scaffold(
-              backgroundColor: theme.scaffoldBackgroundColor,
-              body: Stack(
-                children: [
-                  // Main content with PageView
-                  Column(
-                    children: [
-                      // Page view
-                      Expanded(
-                        child: PageView.builder(
-                          controller: _pageController,
-                          onPageChanged: (index) {
-                            context.read<OnboardingCubit>().setPage(index);
-                          },
-                          itemCount: state.pages.length,
-                          itemBuilder: (context, index) {
-                            return OnboardingPageWidget(
-                              page: state.pages[index],
-                            );
-                          },
-                        ),
-                      ),
-
-                      // Page indicators
-                      PageIndicator(
-                        pageCount: state.pages.length,
-                        currentPage: state.currentPage,
-                      ),
-
-                      verticalSpace(AppSizes.s40),
-
-                      // Next/Get Started button
-                      _buildBottomButton(context, state),
-
-                      verticalSpace(AppSizes.s32),
-                    ],
+    return Scaffold(
+      backgroundColor: theme.scaffoldBackgroundColor,
+      body: Stack(
+        children: [
+          Column(
+            children: [
+              // Static container with PageView inside
+              Expanded(
+                flex: 4,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: colorScheme.primary,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(AppSizes.r32),
+                      bottomRight: Radius.circular(AppSizes.r32),
+                    ),
                   ),
-
-                  // Language toggle button positioned on top right
-                  _buildTopBar(context, state),
-                ],
-              ),
-            );
-          }
-
-          return const SizedBox.shrink();
-        },
-      ),
-    );
-  }
-
-  Widget _buildTopBar(BuildContext context, OnboardingLoaded state) {
-    return Positioned(
-      top: 0,
-      right: 0,
-      child: SafeArea(
-        top: true,
-        bottom: false,
-        left: false,
-        right: true,
-        child: Padding(
-          padding: EdgeInsets.only(top: 16.h, right: 16.w),
-          child: Consumer(
-            builder: (context, ref, child) {
-              final currentLocale = ref.watch(localeProvider);
-              final isArabic = currentLocale.languageCode == 'ar';
-
-              return Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: () async {
-                    // Toggle language using official Flutter approach
-                    final newLanguage = isArabic ? 'en' : 'ar';
-                    await ref
-                        .read(localeProvider.notifier)
-                        .changeLanguage(newLanguage);
-                  },
-                  borderRadius: BorderRadius.circular(20.r),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 16.w,
-                      vertical: 10.h,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.3),
-                      borderRadius: BorderRadius.circular(20.r),
-                      border: Border.all(
-                        color: Colors.white.withValues(alpha: 0.5),
-                        width: 1,
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.language, color: Colors.white, size: 20.sp),
-                        SizedBox(width: 6.w),
-                        Text(
-                          isArabic ? 'English' : 'العربية',
-                          style: TextStyle(
-                            fontSize: 15.sp,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                          ),
+                  child: PageView.builder(
+                    controller: _pageController,
+                    onPageChanged: (index) {
+                      setState(() {
+                        _currentPage = index;
+                      });
+                    },
+                    itemCount: kOnboardingPages.length,
+                    itemBuilder: (context, index) {
+                      return Center(
+                        child: Image.asset(
+                          'assets/images/splash_screen.png',
+                          width: 200.w,
+                          height: 200.h,
+                          fit: BoxFit.contain,
                         ),
-                      ],
-                    ),
+                      );
+                    },
                   ),
                 ),
-              );
-            },
+              ),
+
+              verticalSpace(AppSizes.s24),
+
+              // Text content below
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 32.w),
+                  child: _buildTextContent(_currentPage),
+                ),
+              ),
+
+              // Page indicators
+              PageIndicator(
+                pageCount: kOnboardingPages.length,
+                currentPage: _currentPage,
+              ),
+
+              verticalSpace(AppSizes.s40),
+
+              // Next/Get Started button
+              _buildBottomButton(l10n),
+
+              verticalSpace(AppSizes.s32),
+            ],
           ),
-        ),
+
+          // Language toggle button
+          const LanguageToggleButton(),
+        ],
       ),
     );
   }
 
-  Widget _buildBottomButton(BuildContext context, OnboardingLoaded state) {
+  Widget _buildTextContent(int pageIndex) {
+    final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context)!;
-    final colorScheme = Theme.of(context).colorScheme;
+    final page = kOnboardingPages[pageIndex];
+
+    String getTranslatedText(String key) {
+      switch (key) {
+        case 'onboarding.page1.title':
+          return l10n.onboardingPage1Title;
+        case 'onboarding.page1.subtitle':
+          return l10n.onboardingPage1Subtitle;
+        case 'onboarding.page2.title':
+          return l10n.onboardingPage2Title;
+        case 'onboarding.page2.subtitle':
+          return l10n.onboardingPage2Subtitle;
+        case 'onboarding.page3.title':
+          return l10n.onboardingPage3Title;
+        case 'onboarding.page3.subtitle':
+          return l10n.onboardingPage3Subtitle;
+        default:
+          return key;
+      }
+    }
+
+    return Column(
+      children: [
+        Text(
+          getTranslatedText(page.title),
+          textAlign: TextAlign.center,
+          style: theme.textTheme.headlineSmall?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        verticalSpace(AppSizes.s12),
+        Text(
+          getTranslatedText(page.subtitle),
+          textAlign: TextAlign.center,
+          maxLines: 2,
+          style: theme.textTheme.bodyLarge?.copyWith(
+            color: theme.colorScheme.onSurface.withOpacity(0.7),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildBottomButton(AppLocalizations l10n) {
+    final isLastPage = _currentPage == kOnboardingPages.length - 1;
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: AppSizes.screenPaddingH),
       child: AppButton(
-        text: state.isLastPage ? l10n.commonGetStarted : l10n.commonNext,
+        text: isLastPage ? l10n.commonGetStarted : l10n.commonNext,
         onPressed: () {
-          if (state.isLastPage) {
-            context.read<OnboardingCubit>().completeOnboarding();
+          if (isLastPage) {
+            _completeOnboarding();
           } else {
             _pageController.nextPage(
               duration: const Duration(milliseconds: 300),
@@ -206,8 +185,6 @@ class _OnboardingViewState extends ConsumerState<OnboardingView> {
             );
           }
         },
-        backgroundColor: colorScheme.primary,
-        textColor: colorScheme.onPrimary,
       ),
     );
   }

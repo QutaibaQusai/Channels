@@ -20,26 +20,31 @@ class OtpInputWidget extends StatelessWidget {
     final colorScheme = theme.colorScheme;
     final textExtension = theme.extension<AppColorsExtension>()!;
 
+    // Force LTR layout for OTP input (digits should always be left-to-right)
     return Center(
-      child: OtpTextField(
-        numberOfFields: 4,
-        borderColor: textExtension.border,
-        focusedBorderColor: colorScheme.primary,
-        enabledBorderColor: textExtension.border,
-        borderWidth: 1.5,
-        showFieldAsBox: true,
-        fieldWidth: 60.w,
-        fieldHeight: 60.h,
-        borderRadius: BorderRadius.circular(12.r),
-        fillColor: colorScheme.surface,
-        filled: true,
-        textStyle: TextStyle(
-          fontSize: 24.sp,
-          fontWeight: FontWeight.bold,
-          color: colorScheme.onSurface,
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: OtpTextField(
+          numberOfFields: 4,
+          autoFocus: true,
+          borderColor: textExtension.border,
+          focusedBorderColor: colorScheme.primary,
+          enabledBorderColor: textExtension.border,
+          borderWidth: 1.5,
+          showFieldAsBox: true,
+          fieldWidth: 60.w,
+          fieldHeight: 60.h,
+          borderRadius: BorderRadius.circular(12.r),
+          fillColor: colorScheme.surface,
+          filled: true,
+          textStyle: TextStyle(
+            fontSize: 24.sp,
+            fontWeight: FontWeight.bold,
+            color: colorScheme.onSurface,
+          ),
+          onCodeChanged: onCodeChanged,
+          onSubmit: onSubmit,
         ),
-        onCodeChanged: onCodeChanged,
-        onSubmit: onSubmit,
       ),
     );
   }

@@ -43,7 +43,7 @@ class SearchBarWidget extends StatelessWidget {
               height: AppSizes.icon40,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: colorScheme.onSurface.withValues(alpha: 0.08),
+                color: colorScheme.secondaryContainer,
               ),
               child: Icon(
                 LucideIcons.search,
@@ -53,7 +53,7 @@ class SearchBarWidget extends StatelessWidget {
             ),
         suffixIcon: suffixIcon,
         filled: true,
-        fillColor: colorScheme.onSurface.withValues(alpha: 0.06),
+        fillColor: colorScheme.surface,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppSizes.rFull),
           borderSide: BorderSide.none,
@@ -64,7 +64,7 @@ class SearchBarWidget extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppSizes.rFull),
-          borderSide: BorderSide.none,
+          borderSide: BorderSide(color: colorScheme.primary, width: 2),
         ),
         contentPadding: EdgeInsets.symmetric(
           horizontal: AppSizes.s16,

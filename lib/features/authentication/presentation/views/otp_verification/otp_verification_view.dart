@@ -106,10 +106,20 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
                         text: l10n.otpVerificationSubtitle,
                       ),
                       TextSpan(
-                        text: ' ${widget.phoneNumber}',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: colorScheme.onSurface,
+                        text: ' ',
+                      ),
+                      // Force LTR for phone number display
+                      WidgetSpan(
+                        child: Directionality(
+                          textDirection: TextDirection.ltr,
+                          child: Text(
+                            widget.phoneNumber,
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w600,
+                              color: colorScheme.onSurface,
+                            ),
+                          ),
                         ),
                       ),
                     ],
