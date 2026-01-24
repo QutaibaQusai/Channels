@@ -250,5 +250,44 @@
   "adDetailsWhatsApp": "WhatsApp",
   "@adDetailsWhatsApp": {
     "description": "WhatsApp button text"
-  }
+  },
+
+  "profileTitle": "Account",
+  "profileStatusActive": "Active",
+  "profileStatusInactive": "Inactive",
+  "profileCountry": "Country",
+  "profileLanguage": "Language",
+  "profileDateOfBirth": "Date of Birth",
+  "profileMemberSince": "Member Since",
+
+  "settingsLanguage": "Language",
+  "settingsTheme": "Theme",
+  "settingsThemeSystem": "System Default",
+  "settingsThemeLight": "Light Mode",
+  "settingsThemeDark": "Dark Mode",
+  "settingsDoNotDisturb": "Do Not Disturb",
+  "settingsDoNotDisturbSubtitle": "Pause notifications temporarily",
+  "settingsHelpCenter": "Help Center",
+  "settingsPrivacyPolicy": "Privacy Policy",
+  "settingsTermsOfService": "Terms of Service",
+  "settingsSignOut": "Sign Out",
+
+  "profileEditTitle": "Profile Data",
+  "profileEditName": "Name",
+  "profileEditPhone": "Phone Number",
+  "profileEditContactSupportPhone": "Contact support to change phone number",
+  "profileEditSave": "Save",
+  "profileEditDeleteAccount": "Delete Account",
+  "profileEditUpdateSuccess": "Profile updated successfully",
+  "profileEditUpdateSuccess": "Profile updated successfully",
+  "profileEditUpdateError": "Failed to update profile",
+
+  "logoutTitle": "Logout",
+  "logoutConfirmation": "Do you want to logout from this device?",
+  "logoutButton": "Logout",
+  "logoutCancel": "Cancel",
+
+  "deleteAccountTitle": "Delete Account",
+  "deleteAccountConfirmation": "Are you sure you want to delete your account? This action cannot be undone.",
+  "deleteAccountButton": "Delete"
 }

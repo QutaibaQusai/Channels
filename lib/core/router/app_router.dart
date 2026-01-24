@@ -21,7 +21,11 @@ import 'package:channels/features/ads/presentation/views/category_ads/category_a
 import 'package:channels/features/ads/presentation/views/ad_details/ad_details_view.dart';
 import 'package:channels/features/ads/presentation/cubit/ad_details/ad_details_cubit.dart';
 import 'package:channels/features/ads/domain/usecases/get_ad_details.dart';
-import 'package:channels/features/profile/presentation/views/profile_view.dart';
+import 'package:channels/features/profile/presentation/views/profile/profile_view.dart';
+import 'package:channels/features/profile/presentation/views/profile_edit/profile_edit_view.dart';
+import 'package:channels/features/profile/presentation/cubit/profile_cubit.dart';
+import 'package:channels/features/profile/domain/usecases/get_profile.dart';
+import 'package:channels/features/profile/domain/usecases/update_profile.dart';
 import 'package:channels/features/notification/presentation/views/notification_view.dart';
 import 'package:channels/core/shared/views/webview_page.dart';
 import 'package:channels/features/ads/presentation/views/image_viewer/image_viewer_view.dart';
@@ -116,7 +120,29 @@ class AppRouter {
       GoRoute(
         path: RouteNames.profile,
         name: RouteNames.profile,
-        builder: (context, state) => const ProfileView(),
+        builder: (context, state) {
+          return BlocProvider(
+            create: (context) => ProfileCubit(
+              getProfileUseCase: sl<GetProfile>(),
+              updateProfileUseCase: sl<UpdateProfile>(),
+            ),
+            child: const ProfileView(),
+          );
+        },
+        routes: [
+          GoRoute(
+            path: 'edit',
+            name: RouteNames.profileEdit,
+            builder: (context, state) {
+              // We expect the parent's ProfileCubit to be passed as extra
+              final cubit = state.extra as ProfileCubit;
+              return BlocProvider.value(
+                value: cubit,
+                child: const ProfileEditView(),
+              );
+            },
+          ),
+        ],
       ),
 
       GoRoute(

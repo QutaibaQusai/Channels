@@ -160,4 +160,105 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get adDetailsWhatsApp => 'WhatsApp';
+
+  @override
+  String get profileTitle => 'Account';
+
+  @override
+  String get profileStatusActive => 'Active';
+
+  @override
+  String get profileStatusInactive => 'Inactive';
+
+  @override
+  String get profileCountry => 'Country';
+
+  @override
+  String get profileLanguage => 'Language';
+
+  @override
+  String get profileDateOfBirth => 'Date of Birth';
+
+  @override
+  String get profileMemberSince => 'Member Since';
+
+  @override
+  String get settingsLanguage => 'Language';
+
+  @override
+  String get settingsTheme => 'Theme';
+
+  @override
+  String get settingsThemeSystem => 'System Default';
+
+  @override
+  String get settingsThemeLight => 'Light Mode';
+
+  @override
+  String get settingsThemeDark => 'Dark Mode';
+
+  @override
+  String get settingsDoNotDisturb => 'Do Not Disturb';
+
+  @override
+  String get settingsDoNotDisturbSubtitle => 'Pause notifications temporarily';
+
+  @override
+  String get settingsHelpCenter => 'Help Center';
+
+  @override
+  String get settingsPrivacyPolicy => 'Privacy Policy';
+
+  @override
+  String get settingsTermsOfService => 'Terms of Service';
+
+  @override
+  String get settingsSignOut => 'Sign Out';
+
+  @override
+  String get profileEditTitle => 'Profile Data';
+
+  @override
+  String get profileEditName => 'Name';
+
+  @override
+  String get profileEditPhone => 'Phone Number';
+
+  @override
+  String get profileEditContactSupportPhone =>
+      'Contact support to change phone number';
+
+  @override
+  String get profileEditSave => 'Save';
+
+  @override
+  String get profileEditDeleteAccount => 'Delete Account';
+
+  @override
+  String get profileEditUpdateSuccess => 'Profile updated successfully';
+
+  @override
+  String get profileEditUpdateError => 'Failed to update profile';
+
+  @override
+  String get logoutTitle => 'Logout';
+
+  @override
+  String get logoutConfirmation => 'Do you want to logout from this device?';
+
+  @override
+  String get logoutButton => 'Logout';
+
+  @override
+  String get logoutCancel => 'Cancel';
+
+  @override
+  String get deleteAccountTitle => 'Delete Account';
+
+  @override
+  String get deleteAccountConfirmation =>
+      'Are you sure you want to delete your account? This action cannot be undone.';
+
+  @override
+  String get deleteAccountButton => 'Delete';
 }
