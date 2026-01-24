@@ -97,7 +97,6 @@
   "profileEditSave": "احفظ",
   "profileEditDeleteAccount": "حذف الحساب",
   "profileEditUpdateSuccess": "تم تحديث الملف الشخصي بنجاح",
-  "profileEditUpdateSuccess": "تم تحديث الملف الشخصي بنجاح",
   "profileEditUpdateError": "فشل تحديث الملف الشخصي",
 
   "logoutTitle": "خروج",

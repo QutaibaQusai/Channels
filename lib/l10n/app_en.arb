@@ -279,7 +279,6 @@
   "profileEditSave": "Save",
   "profileEditDeleteAccount": "Delete Account",
   "profileEditUpdateSuccess": "Profile updated successfully",
-  "profileEditUpdateSuccess": "Profile updated successfully",
   "profileEditUpdateError": "Failed to update profile",
 
   "logoutTitle": "Logout",
