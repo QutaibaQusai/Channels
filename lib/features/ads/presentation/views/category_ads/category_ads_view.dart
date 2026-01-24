@@ -6,8 +6,8 @@ import 'package:channels/core/shared/widgets/app_bar.dart';
 import 'package:channels/features/ads/data/data_sources/ads_remote_data_source.dart';
 import 'package:channels/features/ads/data/repositories/ads_repository_impl.dart';
 import 'package:channels/features/ads/domain/usecases/get_category_ads.dart';
-import 'package:channels/features/ads/presentation/cubit/ads_cubit.dart';
-import 'package:channels/features/ads/presentation/views/widgets/ads_body.dart';
+import 'package:channels/features/ads/presentation/cubit/ads/ads_cubit.dart';
+import 'package:channels/features/ads/presentation/views/category_ads/widgets/ads_body.dart';
 
 /// Category ads view - shows all ads for a specific category
 class CategoryAdsView extends StatelessWidget {

@@ -148,4 +148,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get layoutAiTitle => 'AI Assistant';
+
+  @override
+  String get adDetailsTitle => 'Ad Details';
+
+  @override
+  String get adDetailsAttributes => 'Specifications';
+
+  @override
+  String get adDetailsCall => 'Call';
+
+  @override
+  String get adDetailsWhatsApp => 'WhatsApp';
 }

@@ -6,6 +6,7 @@ class EndPoint {
   static String verifyOtp = "auth/verify-otp";
   static String updatePreferences = "user/preferences";
   static String categoryAds(String categoryId) => "ads/category/$categoryId";
+  static String adDetails(String adId) => "ads/details/$adId";
 }
 
 class ApiKey {
@@ -55,4 +56,9 @@ class ApiKey {
   static String reportCount = "report_count";
   static String createdAt = "created_at";
   static String phoneE164 = "phone_e164";
+
+  // Ad Details extra keys
+  static String userName = "user_name";
+  static String categoryName = "category_name";
+  static String subcategoryName = "subcategory_name";
 }

@@ -17,7 +17,10 @@ import 'package:channels/features/authentication/presentation/cubit/countries/co
 import 'package:channels/features/authentication/presentation/cubit/otp/otp_cubit.dart';
 import 'package:channels/features/authentication/presentation/cubit/otp_verification/otp_verification_cubit.dart';
 import 'package:channels/features/authentication/presentation/cubit/register/register_cubit.dart';
-import 'package:channels/features/ads/presentation/views/category_ads_view.dart';
+import 'package:channels/features/ads/presentation/views/category_ads/category_ads_view.dart';
+import 'package:channels/features/ads/presentation/views/ad_details/ad_details_view.dart';
+import 'package:channels/features/ads/presentation/cubit/ad_details/ad_details_cubit.dart';
+import 'package:channels/features/ads/domain/usecases/get_ad_details.dart';
 import 'package:channels/features/profile/presentation/views/profile_view.dart';
 import 'package:channels/features/notification/presentation/views/notification_view.dart';
 
@@ -34,7 +37,6 @@ class AppRouter {
     debugLogDiagnostics: true,
 
     routes: [
-   
       // ==================== ONBOARDING ====================
       GoRoute(
         path: RouteNames.onboarding,
@@ -48,9 +50,8 @@ class AppRouter {
         name: RouteNames.phoneAuth,
         builder: (context, state) {
           return BlocProvider(
-            create: (context) => OtpCubit(
-              requestOtpUseCase: sl<RequestOtpUseCase>(),
-            ),
+            create: (context) =>
+                OtpCubit(requestOtpUseCase: sl<RequestOtpUseCase>()),
             child: const PhoneAuthView(),
           );
         },
@@ -132,6 +133,19 @@ class AppRouter {
           return CategoryAdsView(
             categoryId: categoryId,
             categoryName: categoryName,
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RouteNames.adDetails,
+        name: RouteNames.adDetails,
+        builder: (context, state) {
+          final adId = state.extra as String? ?? '';
+          return BlocProvider(
+            create: (context) =>
+                AdDetailsCubit(getAdDetailsUseCase: sl<GetAdDetails>()),
+            child: AdDetailsView(adId: adId),
           );
         },
       ),

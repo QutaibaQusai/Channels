@@ -24,6 +24,7 @@ import 'package:channels/features/ads/data/data_sources/ads_remote_data_source.d
 import 'package:channels/features/ads/data/repositories/ads_repository_impl.dart';
 import 'package:channels/features/ads/domain/repositories/ads_repository.dart';
 import 'package:channels/features/ads/domain/usecases/get_category_ads.dart';
+import 'package:channels/features/ads/domain/usecases/get_ad_details.dart';
 
 // Categories
 import 'package:channels/features/categories/data/data_sources/categories_remote_data_source.dart';
@@ -42,9 +43,7 @@ Future<void> setupServiceLocator() async {
   sl.registerLazySingleton<Dio>(() => Dio());
 
   // API Consumer - Singleton
-  sl.registerLazySingleton<ApiConsumer>(
-    () => DioConsumer(dio: sl()),
-  );
+  sl.registerLazySingleton<ApiConsumer>(() => DioConsumer(dio: sl()));
 
   // ==================== AUTHENTICATION ====================
 
@@ -76,13 +75,9 @@ Future<void> setupServiceLocator() async {
   );
 
   // Use Cases
-  sl.registerLazySingleton<RequestOtpUseCase>(
-    () => RequestOtpUseCase(sl()),
-  );
+  sl.registerLazySingleton<RequestOtpUseCase>(() => RequestOtpUseCase(sl()));
 
-  sl.registerLazySingleton<VerifyOtpUseCase>(
-    () => VerifyOtpUseCase(sl()),
-  );
+  sl.registerLazySingleton<VerifyOtpUseCase>(() => VerifyOtpUseCase(sl()));
 
   sl.registerLazySingleton<GetCountriesUseCase>(
     () => GetCountriesUseCase(sl()),
@@ -102,9 +97,9 @@ Future<void> setupServiceLocator() async {
     () => AdsRepositoryImpl(remoteDataSource: sl()),
   );
 
-  sl.registerLazySingleton<GetCategoryAds>(
-    () => GetCategoryAds(sl()),
-  );
+  sl.registerLazySingleton<GetCategoryAds>(() => GetCategoryAds(sl()));
+
+  sl.registerLazySingleton<GetAdDetails>(() => GetAdDetails(sl()));
 
   // ==================== CATEGORIES ====================
 
@@ -116,7 +111,5 @@ Future<void> setupServiceLocator() async {
     () => CategoriesRepositoryImpl(remoteDataSource: sl()),
   );
 
-  sl.registerLazySingleton<GetCategories>(
-    () => GetCategories(sl()),
-  );
+  sl.registerLazySingleton<GetCategories>(() => GetCategories(sl()));
 }
