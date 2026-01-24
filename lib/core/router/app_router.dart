@@ -23,6 +23,8 @@ import 'package:channels/features/ads/presentation/cubit/ad_details/ad_details_c
 import 'package:channels/features/ads/domain/usecases/get_ad_details.dart';
 import 'package:channels/features/profile/presentation/views/profile_view.dart';
 import 'package:channels/features/notification/presentation/views/notification_view.dart';
+import 'package:channels/core/shared/views/webview_page.dart';
+import 'package:channels/features/ads/presentation/views/image_viewer/image_viewer_view.dart';
 
 /// Centralized routing configuration using Go Router
 class AppRouter {
@@ -147,6 +149,28 @@ class AppRouter {
                 AdDetailsCubit(getAdDetailsUseCase: sl<GetAdDetails>()),
             child: AdDetailsView(adId: adId),
           );
+        },
+      ),
+
+      GoRoute(
+        path: RouteNames.webview,
+        name: RouteNames.webview,
+        builder: (context, state) {
+          final extra = state.extra as Map<String, String>;
+          final title = extra['title'] ?? '';
+          final url = extra['url'] ?? '';
+          return WebViewPage(title: title, url: url);
+        },
+      ),
+
+      GoRoute(
+        path: RouteNames.imageViewer,
+        name: RouteNames.imageViewer,
+        builder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>;
+          final images = extra['images'] as List<String>? ?? [];
+          final initialIndex = extra['initialIndex'] as int? ?? 0;
+          return ImageViewerView(images: images, initialIndex: initialIndex);
         },
       ),
     ],

@@ -9,6 +9,7 @@ import 'package:channels/features/categories/presentation/views/widgets/hero_car
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:channels/l10n/app_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CategoriesSuccessContent extends StatelessWidget {
   final CategoriesResponse data;
@@ -167,12 +168,17 @@ class CategoriesSuccessContent extends StatelessWidget {
                                   ),
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.all(AppSizes.s8),
+                        Container(
+                          height: 40.h,
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: AppSizes.s4,
+                          ),
                           child: Text(
                             category.name,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 10,
                               fontWeight: FontWeight.w600,

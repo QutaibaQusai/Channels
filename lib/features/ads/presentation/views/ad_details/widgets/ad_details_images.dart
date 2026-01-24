@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:channels/core/router/route_names.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 
 /// Image carousel widget for ad details
@@ -37,7 +39,7 @@ class _AdDetailsImagesState extends State<AdDetailsImages> {
     }
 
     return SizedBox(
-      height: 280.h,
+      height: 350.h,
       child: Stack(
         children: [
           // Image PageView
@@ -50,19 +52,27 @@ class _AdDetailsImagesState extends State<AdDetailsImages> {
               });
             },
             itemBuilder: (context, index) {
-              return Image.network(
-                widget.images[index],
-                width: double.infinity,
-                height: 280.h,
-                fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => _buildPlaceholder(context),
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return Container(
-                    color: colorScheme.surfaceContainerHighest,
-                    child: const Center(child: CircularProgressIndicator()),
+              return GestureDetector(
+                onTap: () {
+                  context.push(
+                    RouteNames.imageViewer,
+                    extra: {'images': widget.images, 'initialIndex': index},
                   );
                 },
+                child: Image.network(
+                  widget.images[index],
+                  width: double.infinity,
+                  height: 350.h,
+                  fit: BoxFit.cover,
+                  errorBuilder: (_, __, ___) => _buildPlaceholder(context),
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Container(
+                      color: colorScheme.surfaceContainerHighest,
+                      child: const Center(child: CircularProgressIndicator()),
+                    );
+                  },
+                ),
               );
             },
           ),
@@ -96,7 +106,7 @@ class _AdDetailsImagesState extends State<AdDetailsImages> {
           // Image count badge
           if (widget.images.length > 1)
             Positioned(
-              top: 16.h,
+              bottom: 40.h,
               right: 16.w,
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
@@ -123,7 +133,7 @@ class _AdDetailsImagesState extends State<AdDetailsImages> {
     final colorScheme = Theme.of(context).colorScheme;
     return Container(
       width: double.infinity,
-      height: 280.h,
+      height: 350.h,
       color: colorScheme.surfaceContainerHighest,
       child: Icon(
         Icons.image_outlined,

@@ -75,10 +75,7 @@ class _CategoriesBody extends StatelessWidget {
                     );
                     context.push(
                       RouteNames.categoryAds,
-                      extra: {
-                        'categoryId': id,
-                        'categoryName': category.name,
-                      },
+                      extra: {'categoryId': id, 'categoryName': category.name},
                     );
                   },
                 );
