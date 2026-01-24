@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:channels/core/helpers/spacing.dart';
+import 'package:channels/core/utils/spacing.dart';
 import 'package:channels/core/shared/widgets/app_button.dart';
 
 /// Shared error widget with retry functionality

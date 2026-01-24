@@ -1,5 +1,5 @@
 
-import 'package:channels/core/api/end_ponits.dart';
+import 'package:channels/core/api/end_points.dart';
 
 class ErrorModel {
   final int? status;

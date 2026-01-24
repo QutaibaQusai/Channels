@@ -1,7 +1,7 @@
 import 'package:channels/core/errors/exceptions.dart';
 import 'package:channels/core/api/api_consumer.dart';
 import 'package:channels/core/api/api_interceptors.dart';
-import 'package:channels/core/api/end_ponits.dart';
+import 'package:channels/core/api/end_points.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 

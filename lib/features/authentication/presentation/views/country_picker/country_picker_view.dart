@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:channels/core/theme/app_theme_extensions.dart';
 import 'package:channels/core/theme/app_sizes.dart';
-import 'package:channels/core/shared/widgets/custom_app_bar.dart';
-import 'package:channels/core/shared/widgets/search_bar_widget.dart';
-import 'package:channels/core/shared/widgets/refresh_wrapper.dart';
+import 'package:channels/core/shared/widgets/app_bar.dart';
+import 'package:channels/core/shared/widgets/app_search_bar.dart';
+import 'package:channels/core/shared/widgets/app_refresh_wrapper.dart';
 import 'package:channels/l10n/app_localizations.dart';
 import 'package:channels/features/authentication/domain/entities/country_entity.dart';
 import 'package:channels/features/authentication/presentation/cubit/countries/countries_cubit.dart';
 import 'package:channels/features/authentication/presentation/cubit/countries/countries_state.dart';
-import 'package:channels/core/shared/widgets/loading_widget.dart';
-import 'package:channels/core/shared/widgets/error_widget.dart';
-import 'package:channels/core/shared/widgets/empty_state_widget.dart';
+import 'package:channels/core/shared/widgets/app_loading.dart';
+import 'package:channels/core/shared/widgets/app_error.dart';
+import 'package:channels/core/shared/widgets/app_empty_state.dart';
 import 'package:channels/features/authentication/presentation/views/country_picker/widgets/country_list_item.dart';
 
 /// Country picker view - User selects their country
@@ -47,7 +47,7 @@ class _CountryPickerViewState extends State<CountryPickerView> {
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
-      appBar: CustomAppBar(
+      appBar: AppAppBar(
         title: l10n.countryPickerTitle,
         showBackButton: true,
       ),
@@ -61,7 +61,7 @@ class _CountryPickerViewState extends State<CountryPickerView> {
                 horizontal: AppSizes.screenPaddingH,
                 vertical: AppSizes.s16,
               ),
-              child: SearchBarWidget(
+              child: AppSearchBar(
                 hintText: l10n.countryPickerSearchHint,
                 onChanged: (value) {
                   setState(() {
@@ -76,7 +76,7 @@ class _CountryPickerViewState extends State<CountryPickerView> {
               child: BlocBuilder<CountriesCubit, CountriesState>(
                 builder: (context, state) {
                   if (state is CountriesLoading) {
-                    return const LoadingWidget();
+                    return const AppLoading();
                   }
 
                   if (state is CountriesFailure) {
@@ -92,14 +92,14 @@ class _CountryPickerViewState extends State<CountryPickerView> {
                     final filteredCountries = _filterCountries(state.countries);
 
                     if (filteredCountries.isEmpty) {
-                      return EmptyStateWidget(
+                      return AppEmptyState(
                         icon: Icons.search_off_outlined,
                         message: l10n.countryPickerNoResults,
                         subtitle: 'Try searching with a different keyword',
                       );
                     }
 
-                    return RefreshWrapper(
+                    return AppRefreshWrapper(
                       onRefresh: () => context.read<CountriesCubit>().refreshCountries(),
                       child: ListView.separated(
                         padding: EdgeInsets.only(

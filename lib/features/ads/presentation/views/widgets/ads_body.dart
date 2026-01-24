@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:channels/core/shared/widgets/loading_widget.dart';
-import 'package:channels/core/shared/widgets/error_widget.dart';
+import 'package:channels/core/shared/widgets/app_loading.dart';
+import 'package:channels/core/shared/widgets/app_error.dart';
 import 'package:channels/features/ads/presentation/cubit/ads_cubit.dart';
 import 'package:channels/features/ads/presentation/cubit/ads_state.dart';
 import 'package:channels/features/ads/presentation/views/widgets/ads_success.dart';
@@ -15,7 +15,7 @@ class AdsBody extends StatelessWidget {
       builder: (context, state) {
         return switch (state) {
           AdsInitial() => const SizedBox.shrink(),
-          AdsLoading() => const LoadingWidget(),
+          AdsLoading() => const AppLoading(),
           AdsSuccess() => AdsSuccessContent(ads: state.ads),
           AdsFailure() => ErrorStateWidget(
             message: state.message,

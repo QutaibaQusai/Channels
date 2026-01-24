@@ -4,7 +4,7 @@ import 'package:channels/core/theme/app_theme_extensions.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 
 /// Reusable custom text field widget
-class CustomTextField extends StatelessWidget {
+class AppTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final String? Function(String?)? validator;
@@ -16,7 +16,7 @@ class CustomTextField extends StatelessWidget {
   final bool readOnly;
   final VoidCallback? onTap;
 
-  const CustomTextField({
+  const AppTextField({
     super.key,
     required this.controller,
     required this.hintText,

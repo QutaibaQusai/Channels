@@ -10,7 +10,7 @@ import 'package:channels/features/onboarding/constants/onboarding_data.dart';
 import 'package:channels/features/onboarding/presentation/widgets/page_indicator.dart';
 import 'package:channels/features/onboarding/presentation/widgets/language_toggle_button.dart';
 import 'package:channels/core/theme/app_sizes.dart';
-import 'package:channels/core/helpers/spacing.dart';
+import 'package:channels/core/utils/spacing.dart';
 
 /// Simple onboarding view with PageView
 class OnboardingView extends ConsumerStatefulWidget {

@@ -24,16 +24,12 @@ class OtpVerificationCubit extends Cubit<OtpVerificationState> {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_resendTimer > 0) {
         _resendTimer--;
-        emit(OtpVerificationTimerTick(
-          resendTimer: _resendTimer,
-          canResend: false,
-        ));
+        emit(
+          OtpVerificationTimerTick(resendTimer: _resendTimer, canResend: false),
+        );
       } else {
         timer.cancel();
-        emit(const OtpVerificationTimerTick(
-          resendTimer: 0,
-          canResend: true,
-        ));
+        emit(const OtpVerificationTimerTick(resendTimer: 0, canResend: true));
       }
     });
   }
@@ -41,29 +37,25 @@ class OtpVerificationCubit extends Cubit<OtpVerificationState> {
   Future<void> verifyOtp(String otpCode, String phone) async {
     // Validate OTP code length
     if (otpCode.length < 4) {
-      emit(const OtpVerificationFailure(
-        errorMessage: 'Please enter the complete code',
-      ));
+      emit(
+        const OtpVerificationFailure(
+          errorMessage: 'Please enter the complete code',
+        ),
+      );
       return;
     }
 
     emit(OtpVerificationLoading());
     try {
       // Call verify OTP use case
-      final user = await verifyOtpUseCase(
-        phone: phone,
-        otp: otpCode,
-      );
+      final user = await verifyOtpUseCase(phone: phone, otp: otpCode);
 
       // Save token and user ID to secure storage
       await SecureStorageService.saveAuthToken(user.token);
       await SecureStorageService.saveUserId(user.id);
 
       // Emit success with user data and token
-      emit(OtpVerificationSuccess(
-        token: user.token,
-        user: user,
-      ));
+      emit(OtpVerificationSuccess(token: user.token, user: user));
     } catch (e) {
       emit(OtpVerificationFailure(errorMessage: e.toString()));
     }
@@ -76,10 +68,7 @@ class OtpVerificationCubit extends Cubit<OtpVerificationState> {
     emit(OtpResendLoading());
     try {
       // Call resend OTP use case
-      await requestOtpUseCase(
-        phone: phone,
-        countryCode: countryCode,
-      );
+      await requestOtpUseCase(phone: phone, countryCode: countryCode);
 
       // Restart timer
       startResendTimer();

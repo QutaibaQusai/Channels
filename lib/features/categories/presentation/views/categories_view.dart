@@ -1,6 +1,6 @@
 import 'package:channels/core/api/dio_consumer.dart';
-import 'package:channels/core/shared/widgets/error_widget.dart';
-import 'package:channels/core/shared/widgets/loading_widget.dart';
+import 'package:channels/core/shared/widgets/app_error.dart';
+import 'package:channels/core/shared/widgets/app_loading.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/features/categories/data/data_sources/categories_remote_data_source.dart';
 import 'package:channels/features/categories/data/repositories/categories_repository_impl.dart';
@@ -54,7 +54,7 @@ class _CategoriesBody extends StatelessWidget {
           child: BlocBuilder<CategoriesCubit, CategoriesState>(
             builder: (context, state) {
               if (state is CategoriesLoading || state is CategoriesInitial) {
-                return const LoadingWidget();
+                return const AppLoading();
               }
 
               if (state is CategoriesFailure) {

@@ -1,4 +1,4 @@
-import 'package:channels/core/api/end_ponits.dart';
+import 'package:channels/core/api/end_points.dart';
 import 'package:channels/features/categories/data/models/category_model.dart';
 import 'package:channels/features/categories/domain/entities/categories_response.dart';
 

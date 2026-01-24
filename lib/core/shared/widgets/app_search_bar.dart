@@ -5,14 +5,14 @@ import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/theme/app_typography.dart';
 
 /// Reusable search bar widget
-class SearchBarWidget extends StatelessWidget {
+class AppSearchBar extends StatelessWidget {
   final String hintText;
   final void Function(String)? onChanged;
   final TextEditingController? controller;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
 
-  const SearchBarWidget({
+  const AppSearchBar({
     super.key,
     required this.hintText,
     this.onChanged,

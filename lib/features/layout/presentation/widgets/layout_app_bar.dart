@@ -78,7 +78,7 @@ class LayoutAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: CupertinoButton(
             padding: EdgeInsets.zero,
             onPressed: () {
-              // TODO: Navigate to notifications
+              context.push(RouteNames.notification);
             },
             child: Container(
               width: AppSizes.icon40,

@@ -1,5 +1,5 @@
 import 'package:channels/core/api/api_consumer.dart';
-import 'package:channels/core/api/end_ponits.dart';
+import 'package:channels/core/api/end_points.dart';
 import 'package:channels/features/authentication/data/models/update_preferences_model.dart';
 
 abstract class UpdatePreferencesRemoteDataSource {

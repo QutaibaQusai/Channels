@@ -1,9 +1,9 @@
-import 'package:channels/core/shared/widgets/custom_app_bar.dart';
+import 'package:channels/core/shared/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:channels/core/theme/app_sizes.dart';
-import 'package:channels/core/helpers/spacing.dart';
+import 'package:channels/core/utils/spacing.dart';
 import 'package:channels/core/shared/widgets/app_button.dart';
 import 'package:channels/l10n/app_localizations.dart';
 import 'package:channels/core/router/route_names.dart';
@@ -54,7 +54,7 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
         }
       },
       child: Scaffold(
-        appBar: CustomAppBar(showBackButton: false),
+        appBar: AppAppBar(showBackButton: false),
         body: SafeArea(
           bottom: false,
           child: Padding(

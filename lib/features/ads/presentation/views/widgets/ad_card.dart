@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:channels/core/helpers/spacing.dart';
+import 'package:channels/core/utils/spacing.dart';
 import 'package:channels/core/theme/app_theme_extensions.dart';
 import 'package:channels/features/ads/domain/entities/ad.dart';
 import 'package:channels/features/ads/presentation/views/widgets/ad_image_indicator.dart';
