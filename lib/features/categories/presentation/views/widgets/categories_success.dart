@@ -1,8 +1,8 @@
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/theme/app_theme_extensions.dart';
-import 'package:channels/core/shared/widgets/search_bar_widget.dart';
-import 'package:channels/core/shared/widgets/empty_state_widget.dart';
-import 'package:channels/core/shared/widgets/refresh_wrapper.dart';
+import 'package:channels/core/shared/widgets/app_search_bar.dart';
+import 'package:channels/core/shared/widgets/app_empty_state.dart';
+import 'package:channels/core/shared/widgets/app_refresh_wrapper.dart';
 import 'package:channels/features/categories/domain/entities/categories_response.dart';
 import 'package:channels/features/categories/presentation/cubit/categories_cubit.dart';
 import 'package:channels/features/categories/presentation/views/widgets/hero_carousel.dart';
@@ -29,21 +29,21 @@ class CategoriesSuccessContent extends StatelessWidget {
 
     // Check if categories are empty
     if (data.categories.isEmpty) {
-      return const EmptyStateWidget(
+      return const AppEmptyState(
         icon: Icons.category_outlined,
         message: 'No categories found',
         subtitle: 'Categories will appear here when available',
       );
     }
 
-    return RefreshWrapper(
+    return AppRefreshWrapper(
       onRefresh: () => context.read<CategoriesCubit>().refreshCategories(),
       child: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.only(top: AppSizes.s24, bottom: AppSizes.s16),
-              child: SearchBarWidget(hintText: l10n.categoriesSearchHint),
+              child: AppSearchBar(hintText: l10n.categoriesSearchHint),
             ),
           ),
 

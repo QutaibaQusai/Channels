@@ -1,4 +1,4 @@
-import 'package:channels/core/api/end_ponits.dart';
+import 'package:channels/core/api/end_points.dart';
 import 'package:channels/features/ads/domain/entities/ad.dart';
 
 /// Ad model - data layer

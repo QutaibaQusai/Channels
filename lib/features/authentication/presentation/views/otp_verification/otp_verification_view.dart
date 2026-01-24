@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:channels/core/theme/app_theme_extensions.dart';
 import 'package:channels/core/theme/app_sizes.dart';
-import 'package:channels/core/helpers/spacing.dart';
+import 'package:channels/core/utils/spacing.dart';
 import 'package:channels/core/shared/widgets/app_button.dart';
-import 'package:channels/core/shared/widgets/custom_app_bar.dart';
+import 'package:channels/core/shared/widgets/app_bar.dart';
 import 'package:channels/l10n/app_localizations.dart';
 import 'package:channels/core/router/route_names.dart';
 import 'package:channels/features/authentication/presentation/cubit/otp_verification/otp_verification_cubit.dart';
@@ -71,7 +71,7 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
       },
       child: Scaffold(
         backgroundColor: theme.scaffoldBackgroundColor,
-        appBar: const CustomAppBar(showBackButton: true),
+        appBar: const AppAppBar(showBackButton: true),
         body: SafeArea(
           bottom: false,
           child: Padding(

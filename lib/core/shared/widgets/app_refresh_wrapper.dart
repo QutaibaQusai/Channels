@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 /// Reusable pull-to-refresh wrapper widget
 /// Wraps any scrollable widget with pull-to-refresh functionality
-class RefreshWrapper extends StatelessWidget {
+class AppRefreshWrapper extends StatelessWidget {
   final Widget child;
   final Future<void> Function() onRefresh;
 
-  const RefreshWrapper({
+  const AppRefreshWrapper({
     super.key,
     required this.child,
     required this.onRefresh,

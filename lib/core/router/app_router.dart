@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:channels/core/router/route_names.dart';
-import 'package:channels/core/shared/widgets/loading_widget.dart';
 import 'package:channels/core/di/service_locator.dart';
 import 'package:channels/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:channels/features/authentication/presentation/views/phone_auth/phone_auth_view.dart';
@@ -19,6 +18,8 @@ import 'package:channels/features/authentication/presentation/cubit/otp/otp_cubi
 import 'package:channels/features/authentication/presentation/cubit/otp_verification/otp_verification_cubit.dart';
 import 'package:channels/features/authentication/presentation/cubit/register/register_cubit.dart';
 import 'package:channels/features/ads/presentation/views/category_ads_view.dart';
+import 'package:channels/features/profile/presentation/views/profile_view.dart';
+import 'package:channels/features/notification/presentation/views/notification_view.dart';
 
 /// Centralized routing configuration using Go Router
 class AppRouter {
@@ -33,13 +34,7 @@ class AppRouter {
     debugLogDiagnostics: true,
 
     routes: [
-      // ==================== SPLASH ====================
-      GoRoute(
-        path: RouteNames.splash,
-        name: RouteNames.splash,
-        builder: (context, state) => const Scaffold(body: LoadingWidget()),
-      ),
-
+   
       // ==================== ONBOARDING ====================
       GoRoute(
         path: RouteNames.onboarding,
@@ -48,20 +43,6 @@ class AppRouter {
       ),
 
       // ==================== AUTH ====================
-      GoRoute(
-        path: RouteNames.login,
-        name: RouteNames.login,
-        builder: (context, state) =>
-            const Scaffold(body: Center(child: Text('Login Screen'))),
-      ),
-
-      GoRoute(
-        path: RouteNames.signup,
-        name: RouteNames.signup,
-        builder: (context, state) =>
-            const Scaffold(body: Center(child: Text('Signup Screen'))),
-      ),
-
       GoRoute(
         path: RouteNames.phoneAuth,
         name: RouteNames.phoneAuth,
@@ -132,15 +113,13 @@ class AppRouter {
       GoRoute(
         path: RouteNames.profile,
         name: RouteNames.profile,
-        builder: (context, state) =>
-            const Scaffold(body: Center(child: Text('Profile Screen'))),
+        builder: (context, state) => const ProfileView(),
       ),
 
       GoRoute(
-        path: RouteNames.settings,
-        name: RouteNames.settings,
-        builder: (context, state) =>
-            const Scaffold(body: Center(child: Text('Settings Screen'))),
+        path: RouteNames.notification,
+        name: RouteNames.notification,
+        builder: (context, state) => const NotificationView(),
       ),
 
       GoRoute(

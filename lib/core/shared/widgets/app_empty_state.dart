@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// Reusable empty state widget for when lists/data are empty
-class EmptyStateWidget extends StatelessWidget {
+class AppEmptyState extends StatelessWidget {
   final IconData icon;
   final String message;
   final String? subtitle;
 
-  const EmptyStateWidget({
+  const AppEmptyState({
     super.key,
     required this.icon,
     required this.message,

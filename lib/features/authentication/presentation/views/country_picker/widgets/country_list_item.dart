@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:channels/core/theme/app_theme_extensions.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/theme/app_typography.dart';
-import 'package:channels/core/helpers/spacing.dart';
+import 'package:channels/core/utils/spacing.dart';
 import 'package:channels/features/authentication/domain/entities/country_entity.dart';
 
 /// Country list item widget

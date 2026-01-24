@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:channels/core/api/dio_consumer.dart';
-import 'package:channels/core/shared/widgets/custom_app_bar.dart';
+import 'package:channels/core/shared/widgets/app_bar.dart';
 import 'package:channels/features/ads/data/data_sources/ads_remote_data_source.dart';
 import 'package:channels/features/ads/data/repositories/ads_repository_impl.dart';
 import 'package:channels/features/ads/domain/usecases/get_category_ads.dart';
@@ -37,7 +37,7 @@ class CategoryAdsView extends StatelessWidget {
         lang: langCode,
       )..fetchAds(),
       child: Scaffold(
-        appBar: CustomAppBar(title: categoryName, showBackButton: true),
+        appBar: AppAppBar(title: categoryName, showBackButton: true),
         body: const AdsBody(),
       ),
     );

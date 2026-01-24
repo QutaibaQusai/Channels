@@ -5,14 +5,14 @@ import 'package:channels/core/theme/app_typography.dart';
 
 /// Custom app bar widget with consistent styling
 /// Features: optional back button, centered title, optional actions
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final bool showBackButton;
   final VoidCallback? onBackPressed;
   final List<Widget>? actions;
   final Color? backgroundColor;
 
-  const CustomAppBar({
+  const AppAppBar({
     super.key,
     this.title,
     this.showBackButton = true,
