@@ -17,4 +17,6 @@ class RouteNames {
   static const String notification = '/notification';
   static const String categoryAds = '/category-ads';
   static const String adDetails = '/ad-details';
+  static const String profileEdit = '/profile-edit';
+  static const String webview = '/webview';
 }

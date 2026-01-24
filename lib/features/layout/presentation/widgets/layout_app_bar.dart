@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:go_router/go_router.dart';
 import 'package:channels/core/theme/app_sizes.dart';
-import 'package:channels/core/theme/app_typography.dart';
 import 'package:channels/core/router/route_names.dart';
 import 'package:channels/l10n/app_localizations.dart';
 
@@ -53,10 +52,7 @@ class LayoutAppBar extends StatelessWidget implements PreferredSizeWidget {
             decoration: BoxDecoration(
               color: colorScheme.surfaceContainerHighest,
               shape: BoxShape.circle,
-              border: Border.all(
-                color: colorScheme.outline,
-                width: 1,
-              ),
+              border: Border.all(color: colorScheme.outline, width: 1),
             ),
             child: Icon(
               LucideIcons.user,
@@ -68,8 +64,9 @@ class LayoutAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       title: Text(
         _getTitle(context),
-        style: AppTypography.appBarTitle.copyWith(
+        style: theme.textTheme.titleMedium?.copyWith(
           color: colorScheme.onSurface,
+          fontWeight: FontWeight.w600,
         ),
       ),
       actions: [
@@ -86,10 +83,7 @@ class LayoutAppBar extends StatelessWidget implements PreferredSizeWidget {
               decoration: BoxDecoration(
                 color: colorScheme.surfaceContainerHighest,
                 shape: BoxShape.circle,
-                border: Border.all(
-                  color: colorScheme.outline,
-                  width: 1,
-                ),
+                border: Border.all(color: colorScheme.outline, width: 1),
               ),
               child: Icon(
                 LucideIcons.bell,

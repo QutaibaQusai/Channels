@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:channels/core/theme/app_sizes.dart';
-import 'package:channels/core/theme/app_typography.dart';
 
 /// Custom app bar widget with consistent styling
 /// Features: optional back button, centered title, optional actions
@@ -61,8 +60,9 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: title != null
           ? Text(
               title!,
-              style: AppTypography.appBarTitle.copyWith(
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 color: Theme.of(context).colorScheme.onSurface,
+                fontWeight: FontWeight.w600,
               ),
             )
           : null,

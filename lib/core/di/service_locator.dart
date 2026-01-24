@@ -32,6 +32,13 @@ import 'package:channels/features/categories/data/repositories/categories_reposi
 import 'package:channels/features/categories/domain/repositories/categories_repository.dart';
 import 'package:channels/features/categories/domain/usecases/get_categories.dart';
 
+// Profile
+import 'package:channels/features/profile/data/data_sources/profile_remote_data_source.dart';
+import 'package:channels/features/profile/data/repositories/profile_repository_impl.dart';
+import 'package:channels/features/profile/domain/repositories/profile_repository.dart';
+import 'package:channels/features/profile/domain/usecases/get_profile.dart';
+import 'package:channels/features/profile/domain/usecases/update_profile.dart';
+
 /// Service locator instance
 final sl = GetIt.instance;
 
@@ -112,4 +119,20 @@ Future<void> setupServiceLocator() async {
   );
 
   sl.registerLazySingleton<GetCategories>(() => GetCategories(sl()));
+
+  // ==================== PROFILE ====================
+
+  sl.registerLazySingleton<ProfileRemoteDataSource>(
+    () => ProfileRemoteDataSourceImpl(apiConsumer: sl()),
+  );
+
+  sl.registerLazySingleton<ProfileRepository>(
+    () => ProfileRepositoryImpl(remoteDataSource: sl()),
+  );
+
+  sl.registerLazySingleton<GetProfile>(() => GetProfile(sl()));
+
+  sl.registerLazySingleton<UpdateProfile>(
+    () => UpdateProfile(repository: sl()),
+  );
 }

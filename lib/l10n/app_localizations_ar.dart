@@ -159,4 +159,84 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get adDetailsWhatsApp => 'واتساب';
+
+  @override
+  String get profileTitle => 'الحساب';
+
+  @override
+  String get profileStatusActive => 'نشط';
+
+  @override
+  String get profileStatusInactive => 'غير نشط';
+
+  @override
+  String get profileCountry => 'الدولة';
+
+  @override
+  String get profileLanguage => 'اللغة';
+
+  @override
+  String get profileDateOfBirth => 'تاريخ الميلاد';
+
+  @override
+  String get profileMemberSince => 'عضو منذ';
+
+  @override
+  String get settingsLanguage => 'اللغة';
+
+  @override
+  String get settingsDoNotDisturb => 'لا تنبهني';
+
+  @override
+  String get settingsDoNotDisturbSubtitle =>
+      'فعّل لتحصل على فترة هدوء من الإشعارات';
+
+  @override
+  String get settingsHelpCenter => 'مركز المساعدة';
+
+  @override
+  String get settingsPrivacyPolicy => 'سياسة الخصوصية';
+
+  @override
+  String get settingsTermsOfService => 'شروط الخدمة';
+
+  @override
+  String get settingsSignOut => 'سجّل خروجك';
+
+  @override
+  String get profileEditTitle => 'بيانات التعريف';
+
+  @override
+  String get profileEditName => 'الاسم';
+
+  @override
+  String get profileEditPhone => 'رقم جوالك';
+
+  @override
+  String get profileEditContactSupportPhone =>
+      'تواصل مع الدعم لتغيير رقم الجوال';
+
+  @override
+  String get profileEditSave => 'احفظ';
+
+  @override
+  String get profileEditDeleteAccount => 'حذف الحساب';
+
+  @override
+  String get profileEditUpdateSuccess => 'تم تحديث الملف الشخصي بنجاح';
+
+  @override
+  String get profileEditUpdateError => 'فشل تحديث الملف الشخصي';
+
+  @override
+  String get logoutTitle => 'خروج';
+
+  @override
+  String get logoutConfirmation => 'هل تودّ الخروج من هذا الجهاز؟';
+
+  @override
+  String get logoutButton => 'خروج';
+
+  @override
+  String get logoutCancel => 'تراجع';
 }

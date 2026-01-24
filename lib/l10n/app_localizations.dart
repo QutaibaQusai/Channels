@@ -391,6 +391,162 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'WhatsApp'**
   String get adDetailsWhatsApp;
+
+  /// No description provided for @profileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get profileTitle;
+
+  /// No description provided for @profileStatusActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get profileStatusActive;
+
+  /// No description provided for @profileStatusInactive.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactive'**
+  String get profileStatusInactive;
+
+  /// No description provided for @profileCountry.
+  ///
+  /// In en, this message translates to:
+  /// **'Country'**
+  String get profileCountry;
+
+  /// No description provided for @profileLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get profileLanguage;
+
+  /// No description provided for @profileDateOfBirth.
+  ///
+  /// In en, this message translates to:
+  /// **'Date of Birth'**
+  String get profileDateOfBirth;
+
+  /// No description provided for @profileMemberSince.
+  ///
+  /// In en, this message translates to:
+  /// **'Member Since'**
+  String get profileMemberSince;
+
+  /// No description provided for @settingsLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get settingsLanguage;
+
+  /// No description provided for @settingsDoNotDisturb.
+  ///
+  /// In en, this message translates to:
+  /// **'Do Not Disturb'**
+  String get settingsDoNotDisturb;
+
+  /// No description provided for @settingsDoNotDisturbSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause notifications temporarily'**
+  String get settingsDoNotDisturbSubtitle;
+
+  /// No description provided for @settingsHelpCenter.
+  ///
+  /// In en, this message translates to:
+  /// **'Help Center'**
+  String get settingsHelpCenter;
+
+  /// No description provided for @settingsPrivacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get settingsPrivacyPolicy;
+
+  /// No description provided for @settingsTermsOfService.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Service'**
+  String get settingsTermsOfService;
+
+  /// No description provided for @settingsSignOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Out'**
+  String get settingsSignOut;
+
+  /// No description provided for @profileEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile Data'**
+  String get profileEditTitle;
+
+  /// No description provided for @profileEditName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get profileEditName;
+
+  /// No description provided for @profileEditPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get profileEditPhone;
+
+  /// No description provided for @profileEditContactSupportPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact support to change phone number'**
+  String get profileEditContactSupportPhone;
+
+  /// No description provided for @profileEditSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get profileEditSave;
+
+  /// No description provided for @profileEditDeleteAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Account'**
+  String get profileEditDeleteAccount;
+
+  /// No description provided for @profileEditUpdateSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile updated successfully'**
+  String get profileEditUpdateSuccess;
+
+  /// No description provided for @profileEditUpdateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to update profile'**
+  String get profileEditUpdateError;
+
+  /// No description provided for @logoutTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logoutTitle;
+
+  /// No description provided for @logoutConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to logout from this device?'**
+  String get logoutConfirmation;
+
+  /// No description provided for @logoutButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logoutButton;
+
+  /// No description provided for @logoutCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get logoutCancel;
 }
 
 class _AppLocalizationsDelegate
