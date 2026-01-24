@@ -185,6 +185,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settingsLanguage => 'اللغة';
 
   @override
+  String get settingsTheme => 'المظهر';
+
+  @override
+  String get settingsThemeSystem => 'النظام الافتراضي';
+
+  @override
+  String get settingsThemeLight => 'الوضع الفاتح';
+
+  @override
+  String get settingsThemeDark => 'الوضع الداكن';
+
+  @override
   String get settingsDoNotDisturb => 'لا تنبهني';
 
   @override
@@ -210,11 +222,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get profileEditName => 'الاسم';
 
   @override
-  String get profileEditPhone => 'رقم جوالك';
+  String get profileEditPhone => 'رقم تلفونك';
 
   @override
   String get profileEditContactSupportPhone =>
-      'تواصل مع الدعم لتغيير رقم الجوال';
+      'تواصل مع الدعم لتغيير رقم تلفونك';
 
   @override
   String get profileEditSave => 'احفظ';
@@ -239,4 +251,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get logoutCancel => 'تراجع';
+
+  @override
+  String get deleteAccountTitle => 'حذف الحساب';
+
+  @override
+  String get deleteAccountConfirmation =>
+      'هل أنت متأكد أنك تريد حذف حسابك؟ لا يمكن التراجع عن هذا الإجراء.';
+
+  @override
+  String get deleteAccountButton => 'حذف';
 }

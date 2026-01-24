@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/painting.dart';
 import 'package:channels/features/profile/domain/entities/profile.dart';
 import 'package:channels/features/profile/domain/entities/update_profile_params.dart';
 import 'package:channels/features/profile/domain/usecases/get_profile.dart';
@@ -136,7 +137,13 @@ class ProfileCubit extends Cubit<ProfileState> {
   /// Logout
   Future<void> logout() async {
     try {
+      // Clear secure storage (tokens, userIds)
       await SecureStorageService.clearAll();
+
+      // Clear image cache to ensure no user data/avatars persist
+      imageCache.clear();
+      imageCache.clearLiveImages();
+
       emit(const ProfileLoggedOut());
     } catch (e) {
       // Even if clear fails, we should logout locally

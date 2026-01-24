@@ -10,6 +10,7 @@ import 'package:channels/features/profile/domain/entities/profile.dart';
 import 'package:channels/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:channels/features/profile/presentation/cubit/profile_state.dart';
 import 'package:channels/features/profile/presentation/views/profile_edit/widgets/profile_edit_form.dart';
+import 'package:channels/features/profile/presentation/views/profile_edit/widgets/delete_account_sheet.dart';
 
 class ProfileEditView extends StatelessWidget {
   const ProfileEditView({super.key});
@@ -26,7 +27,12 @@ class ProfileEditView extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              // TODO: Implement delete account flow
+              showModalBottomSheet(
+                context: context,
+                backgroundColor: Colors.transparent,
+                isScrollControlled: true,
+                builder: (context) => const DeleteAccountSheet(),
+              );
             },
             child: Text(
               l10n.profileEditDeleteAccount,
@@ -62,8 +68,6 @@ class ProfileEditView extends StatelessWidget {
           } else if (state is ProfileUpdateFailure) {
             profile = state.profile;
           } else {
-            // If fetching initially or failed fetch, just show loading or error
-            // But we assume we navigated here from a loaded profile usually.
             if (state is ProfileLoading) {
               return const Center(child: CircularProgressIndicator());
             }

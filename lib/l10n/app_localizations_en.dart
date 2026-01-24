@@ -186,6 +186,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsLanguage => 'Language';
 
   @override
+  String get settingsTheme => 'Theme';
+
+  @override
+  String get settingsThemeSystem => 'System Default';
+
+  @override
+  String get settingsThemeLight => 'Light Mode';
+
+  @override
+  String get settingsThemeDark => 'Dark Mode';
+
+  @override
   String get settingsDoNotDisturb => 'Do Not Disturb';
 
   @override
@@ -239,4 +251,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get logoutCancel => 'Cancel';
+
+  @override
+  String get deleteAccountTitle => 'Delete Account';
+
+  @override
+  String get deleteAccountConfirmation =>
+      'Are you sure you want to delete your account? This action cannot be undone.';
+
+  @override
+  String get deleteAccountButton => 'Delete';
 }

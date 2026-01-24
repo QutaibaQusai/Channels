@@ -261,6 +261,10 @@
   "profileMemberSince": "Member Since",
 
   "settingsLanguage": "Language",
+  "settingsTheme": "Theme",
+  "settingsThemeSystem": "System Default",
+  "settingsThemeLight": "Light Mode",
+  "settingsThemeDark": "Dark Mode",
   "settingsDoNotDisturb": "Do Not Disturb",
   "settingsDoNotDisturbSubtitle": "Pause notifications temporarily",
   "settingsHelpCenter": "Help Center",
@@ -281,5 +285,9 @@
   "logoutTitle": "Logout",
   "logoutConfirmation": "Do you want to logout from this device?",
   "logoutButton": "Logout",
-  "logoutCancel": "Cancel"
+  "logoutCancel": "Cancel",
+
+  "deleteAccountTitle": "Delete Account",
+  "deleteAccountConfirmation": "Are you sure you want to delete your account? This action cannot be undone.",
+  "deleteAccountButton": "Delete"
 }

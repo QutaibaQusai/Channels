@@ -79,6 +79,10 @@
   "profileMemberSince": "عضو منذ",
 
   "settingsLanguage": "اللغة",
+  "settingsTheme": "المظهر",
+  "settingsThemeSystem": "النظام الافتراضي",
+  "settingsThemeLight": "الوضع الفاتح",
+  "settingsThemeDark": "الوضع الداكن",
   "settingsDoNotDisturb": "لا تنبهني",
   "settingsDoNotDisturbSubtitle": "فعّل لتحصل على فترة هدوء من الإشعارات",
   "settingsHelpCenter": "مركز المساعدة",
@@ -88,8 +92,8 @@
 
   "profileEditTitle": "بيانات التعريف",
   "profileEditName": "الاسم",
-  "profileEditPhone": "رقم جوالك",
-  "profileEditContactSupportPhone": "تواصل مع الدعم لتغيير رقم الجوال",
+  "profileEditPhone": "رقم تلفونك",
+  "profileEditContactSupportPhone": "تواصل مع الدعم لتغيير رقم تلفونك",
   "profileEditSave": "احفظ",
   "profileEditDeleteAccount": "حذف الحساب",
   "profileEditUpdateSuccess": "تم تحديث الملف الشخصي بنجاح",
@@ -99,5 +103,9 @@
   "logoutTitle": "خروج",
   "logoutConfirmation": "هل تودّ الخروج من هذا الجهاز؟",
   "logoutButton": "خروج",
-  "logoutCancel": "تراجع"
+  "logoutCancel": "تراجع",
+
+  "deleteAccountTitle": "حذف الحساب",
+  "deleteAccountConfirmation": "هل أنت متأكد أنك تريد حذف حسابك؟ لا يمكن التراجع عن هذا الإجراء.",
+  "deleteAccountButton": "حذف"
 }
