@@ -61,8 +61,9 @@ class UserHeaderTile extends StatelessWidget {
                   Text(
                     profile.displayName,
                     style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.bold,
                       color: colorScheme.onSurface,
+                      fontSize: 25.sp,
                     ),
                   ),
                   verticalSpace(AppSizes.s4),
