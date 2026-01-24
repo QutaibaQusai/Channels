@@ -230,5 +230,25 @@
   "layoutAiTitle": "AI Assistant",
   "@layoutAiTitle": {
     "description": "AI tab title in main layout"
+  },
+
+  "adDetailsTitle": "Ad Details",
+  "@adDetailsTitle": {
+    "description": "Ad details screen title"
+  },
+
+  "adDetailsAttributes": "Specifications",
+  "@adDetailsAttributes": {
+    "description": "Attributes/specifications section title"
+  },
+
+  "adDetailsCall": "Call",
+  "@adDetailsCall": {
+    "description": "Call button text"
+  },
+
+  "adDetailsWhatsApp": "WhatsApp",
+  "@adDetailsWhatsApp": {
+    "description": "WhatsApp button text"
   }
 }

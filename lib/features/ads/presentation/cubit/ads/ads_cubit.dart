@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:channels/features/ads/domain/usecases/get_category_ads.dart';
-import 'package:channels/features/ads/presentation/cubit/ads_state.dart';
+import 'package:channels/features/ads/presentation/cubit/ads/ads_state.dart';
 
 class AdsCubit extends Cubit<AdsState> {
   final GetCategoryAds getCategoryAdsUseCase;

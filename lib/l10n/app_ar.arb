@@ -63,5 +63,10 @@
 
   "layoutBroadcastsTitle": "البث",
   "layoutCategoriesTitle": "الفئات",
-  "layoutAiTitle": "المساعد الذكي"
+  "layoutAiTitle": "المساعد الذكي",
+
+  "adDetailsTitle": "تفاصيل الإعلان",
+  "adDetailsAttributes": "المواصفات",
+  "adDetailsCall": "اتصال",
+  "adDetailsWhatsApp": "واتساب"
 }

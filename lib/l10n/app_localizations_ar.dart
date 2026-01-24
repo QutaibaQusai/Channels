@@ -147,4 +147,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get layoutAiTitle => 'المساعد الذكي';
+
+  @override
+  String get adDetailsTitle => 'تفاصيل الإعلان';
+
+  @override
+  String get adDetailsAttributes => 'المواصفات';
+
+  @override
+  String get adDetailsCall => 'اتصال';
+
+  @override
+  String get adDetailsWhatsApp => 'واتساب';
 }

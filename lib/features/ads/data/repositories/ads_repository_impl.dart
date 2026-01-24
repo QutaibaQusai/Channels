@@ -1,5 +1,6 @@
 import 'package:channels/features/ads/data/data_sources/ads_remote_data_source.dart';
 import 'package:channels/features/ads/domain/entities/ad.dart';
+import 'package:channels/features/ads/domain/entities/ad_details.dart';
 import 'package:channels/features/ads/domain/repositories/ads_repository.dart';
 
 class AdsRepositoryImpl implements AdsRepository {
@@ -14,6 +15,17 @@ class AdsRepositoryImpl implements AdsRepository {
   }) async {
     return await remoteDataSource.getCategoryAds(
       categoryId: categoryId,
+      languageCode: languageCode,
+    );
+  }
+
+  @override
+  Future<AdDetails> getAdDetails({
+    required String adId,
+    required String languageCode,
+  }) async {
+    return await remoteDataSource.getAdDetails(
+      adId: adId,
       languageCode: languageCode,
     );
   }

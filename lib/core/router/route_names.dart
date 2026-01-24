@@ -16,4 +16,5 @@ class RouteNames {
   static const String profile = '/profile';
   static const String notification = '/notification';
   static const String categoryAds = '/category-ads';
+  static const String adDetails = '/ad-details';
 }

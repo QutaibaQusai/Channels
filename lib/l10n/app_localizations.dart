@@ -367,6 +367,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'AI Assistant'**
   String get layoutAiTitle;
+
+  /// Ad details screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Ad Details'**
+  String get adDetailsTitle;
+
+  /// Attributes/specifications section title
+  ///
+  /// In en, this message translates to:
+  /// **'Specifications'**
+  String get adDetailsAttributes;
+
+  /// Call button text
+  ///
+  /// In en, this message translates to:
+  /// **'Call'**
+  String get adDetailsCall;
+
+  /// WhatsApp button text
+  ///
+  /// In en, this message translates to:
+  /// **'WhatsApp'**
+  String get adDetailsWhatsApp;
 }
 
 class _AppLocalizationsDelegate

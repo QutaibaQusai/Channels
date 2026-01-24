@@ -4,10 +4,10 @@ import 'package:lucide_icons/lucide_icons.dart';
 import 'package:channels/core/utils/spacing.dart';
 import 'package:channels/core/theme/app_theme_extensions.dart';
 import 'package:channels/features/ads/domain/entities/ad.dart';
-import 'package:channels/features/ads/presentation/views/widgets/ad_image_indicator.dart';
+import 'package:channels/features/ads/presentation/views/category_ads/widgets/ad_image_indicator.dart';
 import 'package:channels/core/utils/formatters.dart';
 
-import '../../../../../core/theme/app_sizes.dart';
+import '../../../../../../core/theme/app_sizes.dart';
 
 /// Ad card widget - displays a single ad in a list
 class AdCard extends StatefulWidget {

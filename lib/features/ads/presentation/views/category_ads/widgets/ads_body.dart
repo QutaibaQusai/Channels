@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:channels/core/shared/widgets/app_loading.dart';
 import 'package:channels/core/shared/widgets/app_error.dart';
-import 'package:channels/features/ads/presentation/cubit/ads_cubit.dart';
-import 'package:channels/features/ads/presentation/cubit/ads_state.dart';
-import 'package:channels/features/ads/presentation/views/widgets/ads_success.dart';
+import 'package:channels/features/ads/presentation/cubit/ads/ads_cubit.dart';
+import 'package:channels/features/ads/presentation/cubit/ads/ads_state.dart';
+import 'package:channels/features/ads/presentation/views/category_ads/widgets/ads_success.dart';
 
 class AdsBody extends StatelessWidget {
   const AdsBody({super.key});
