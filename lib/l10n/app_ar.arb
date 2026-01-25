@@ -68,5 +68,43 @@
   "adDetailsTitle": "تفاصيل الإعلان",
   "adDetailsAttributes": "المواصفات",
   "adDetailsCall": "اتصال",
-  "adDetailsWhatsApp": "واتساب"
+  "adDetailsWhatsApp": "واتساب",
+
+  "profileTitle": "الحساب",
+  "profileStatusActive": "نشط",
+  "profileStatusInactive": "غير نشط",
+  "profileCountry": "الدولة",
+  "profileLanguage": "اللغة",
+  "profileDateOfBirth": "تاريخ الميلاد",
+  "profileMemberSince": "عضو منذ",
+
+  "settingsLanguage": "اللغة",
+  "settingsTheme": "المظهر",
+  "settingsThemeSystem": "النظام الافتراضي",
+  "settingsThemeLight": "الوضع الفاتح",
+  "settingsThemeDark": "الوضع الداكن",
+  "settingsDoNotDisturb": "لا تنبهني",
+  "settingsDoNotDisturbSubtitle": "فعّل لتحصل على فترة هدوء من الإشعارات",
+  "settingsHelpCenter": "مركز المساعدة",
+  "settingsPrivacyPolicy": "سياسة الخصوصية",
+  "settingsTermsOfService": "شروط الخدمة",
+  "settingsSignOut": "سجّل خروجك",
+
+  "profileEditTitle": "بيانات التعريف",
+  "profileEditName": "الاسم",
+  "profileEditPhone": "رقم تلفونك",
+  "profileEditContactSupportPhone": "تواصل مع الدعم لتغيير رقم تلفونك",
+  "profileEditSave": "احفظ",
+  "profileEditDeleteAccount": "حذف الحساب",
+  "profileEditUpdateSuccess": "تم تحديث الملف الشخصي بنجاح",
+  "profileEditUpdateError": "فشل تحديث الملف الشخصي",
+
+  "logoutTitle": "خروج",
+  "logoutConfirmation": "هل تودّ الخروج من هذا الجهاز؟",
+  "logoutButton": "خروج",
+  "logoutCancel": "تراجع",
+
+  "deleteAccountTitle": "حذف الحساب",
+  "deleteAccountConfirmation": "هل أنت متأكد أنك تريد حذف حسابك؟ لا يمكن التراجع عن هذا الإجراء.",
+  "deleteAccountButton": "حذف"
 }

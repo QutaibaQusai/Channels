@@ -7,6 +7,7 @@ class EndPoint {
   static String updatePreferences = "user/preferences";
   static String categoryAds(String categoryId) => "ads/category/$categoryId";
   static String adDetails(String adId) => "ads/details/$adId";
+  static String userProfile(String userId) => "user/$userId";
 }
 
 class ApiKey {
@@ -61,4 +62,7 @@ class ApiKey {
   static String userName = "user_name";
   static String categoryName = "category_name";
   static String subcategoryName = "subcategory_name";
+
+  // Profile extra keys
+  static String isMe = "is_me";
 }

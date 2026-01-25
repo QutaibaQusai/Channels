@@ -1,4 +1,3 @@
-
 import 'package:channels/core/api/end_points.dart';
 
 class ErrorModel {
@@ -7,7 +6,7 @@ class ErrorModel {
 
   ErrorModel({this.status, required this.errorMessage});
 
-  factory ErrorModel.fromJson(Map<String, dynamic> jsonData) {
+  factory ErrorModel.fromJson(Map<String, dynamic> jsonData, {int? status}) {
     // Try different error message keys
     String message = '';
 
@@ -21,9 +20,10 @@ class ErrorModel {
       message = 'An error occurred';
     }
 
-    return ErrorModel(
-      status: jsonData[ApiKey.status],
-      errorMessage: message,
-    );
+    // Try to extract the numeric status code
+    dynamic codeValue = jsonData['code'] ?? jsonData[ApiKey.status];
+    int? finalStatus = codeValue is int ? codeValue : status;
+
+    return ErrorModel(status: finalStatus, errorMessage: message);
   }
 }

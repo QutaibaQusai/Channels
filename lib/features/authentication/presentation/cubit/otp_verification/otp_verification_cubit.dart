@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:channels/features/authentication/presentation/cubit/otp_verification/otp_verification_state.dart';
+import 'package:channels/core/errors/exceptions.dart';
 import 'package:channels/features/authentication/domain/usecases/verify_otp_usecase.dart';
 import 'package:channels/features/authentication/domain/usecases/request_otp_usecase.dart';
 import 'package:channels/core/services/secure_storage_service.dart';
@@ -56,6 +57,8 @@ class OtpVerificationCubit extends Cubit<OtpVerificationState> {
 
       // Emit success with user data and token
       emit(OtpVerificationSuccess(token: user.token, user: user));
+    } on ServerException catch (e) {
+      emit(OtpVerificationFailure(errorMessage: e.errModel.errorMessage));
     } catch (e) {
       emit(OtpVerificationFailure(errorMessage: e.toString()));
     }
@@ -74,6 +77,8 @@ class OtpVerificationCubit extends Cubit<OtpVerificationState> {
       startResendTimer();
 
       emit(const OtpResendSuccess(message: 'Code resent successfully!'));
+    } on ServerException catch (e) {
+      emit(OtpResendFailure(errorMessage: e.errModel.errorMessage));
     } catch (e) {
       emit(OtpResendFailure(errorMessage: e.toString()));
     }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:channels/core/shared/widgets/app_toast.dart';
 import 'package:channels/core/theme/app_theme_extensions.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/utils/spacing.dart';
@@ -19,10 +20,7 @@ import 'package:channels/features/authentication/presentation/views/otp_verifica
 class OtpVerificationView extends StatefulWidget {
   final String phoneNumber;
 
-  const OtpVerificationView({
-    super.key,
-    required this.phoneNumber,
-  });
+  const OtpVerificationView({super.key, required this.phoneNumber});
 
   @override
   State<OtpVerificationView> createState() => _OtpVerificationViewState();
@@ -57,16 +55,9 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
             context.pushReplacement(RouteNames.home);
           }
         } else if (state is OtpResendSuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(l10n.otpVerificationOtpResent)),
-          );
+          AppToast.success(context, title: l10n.otpVerificationOtpResent);
         } else if (state is OtpResendFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.errorMessage),
-              backgroundColor: colorScheme.error,
-            ),
-          );
+          AppToast.error(context, title: state.errorMessage);
         }
       },
       child: Scaffold(
@@ -102,12 +93,8 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
                       height: 1.5,
                     ),
                     children: [
-                      TextSpan(
-                        text: l10n.otpVerificationSubtitle,
-                      ),
-                      TextSpan(
-                        text: ' ',
-                      ),
+                      TextSpan(text: l10n.otpVerificationSubtitle),
+                      TextSpan(text: ' '),
                       // Force LTR for phone number display
                       WidgetSpan(
                         child: Directionality(
@@ -176,9 +163,9 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
                       onResend: () {
                         // TODO: Extract phone and country code from widget.phoneNumber
                         context.read<OtpVerificationCubit>().resendOtp(
-                              phone: widget.phoneNumber,
-                              countryCode: 'JO',
-                            );
+                          phone: widget.phoneNumber,
+                          countryCode: 'JO',
+                        );
                       },
                     );
                   },
@@ -193,9 +180,9 @@ class _OtpVerificationViewState extends State<OtpVerificationView> {
                       text: l10n.otpVerificationVerifyButton,
                       onPressed: () {
                         context.read<OtpVerificationCubit>().verifyOtp(
-                              _otpCode,
-                              widget.phoneNumber,
-                            );
+                          _otpCode,
+                          widget.phoneNumber,
+                        );
                       },
                       isLoading: state is OtpVerificationLoading,
                       backgroundColor: colorScheme.primary,

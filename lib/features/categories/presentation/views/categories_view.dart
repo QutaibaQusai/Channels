@@ -60,8 +60,14 @@ class _CategoriesBody extends StatelessWidget {
               if (state is CategoriesFailure) {
                 return ErrorStateWidget(
                   message: state.message,
-                  onRetry: () =>
-                      context.read<CategoriesCubit>().fetchCategories(),
+                  isAuthError: state.isAuthError,
+                  onRetry: () {
+                    if (state.isAuthError) {
+                      context.goNamed(RouteNames.onboarding);
+                    } else {
+                      context.read<CategoriesCubit>().fetchCategories();
+                    }
+                  },
                 );
               }
 
@@ -75,10 +81,7 @@ class _CategoriesBody extends StatelessWidget {
                     );
                     context.push(
                       RouteNames.categoryAds,
-                      extra: {
-                        'categoryId': id,
-                        'categoryName': category.name,
-                      },
+                      extra: {'categoryId': id, 'categoryName': category.name},
                     );
                   },
                 );

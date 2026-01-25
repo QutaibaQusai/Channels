@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:channels/features/categories/domain/usecases/get_categories.dart';
 import 'package:channels/features/categories/presentation/cubit/categories_state.dart';
+import 'package:channels/core/errors/exceptions.dart';
 
 class CategoriesCubit extends Cubit<CategoriesState> {
   final GetCategories getCategoriesUseCase;
@@ -24,6 +25,13 @@ class CategoriesCubit extends Cubit<CategoriesState> {
         parentId: parentId,
       );
       emit(CategoriesSuccess(result));
+    } on ServerException catch (e) {
+      emit(
+        CategoriesFailure(
+          e.errModel.errorMessage,
+          isAuthError: e.errModel.status == 401,
+        ),
+      );
     } catch (e) {
       emit(CategoriesFailure(e.toString()));
     }
@@ -38,6 +46,13 @@ class CategoriesCubit extends Cubit<CategoriesState> {
         parentId: parentId,
       );
       emit(CategoriesSuccess(result));
+    } on ServerException catch (e) {
+      emit(
+        CategoriesFailure(
+          e.errModel.errorMessage,
+          isAuthError: e.errModel.status == 401,
+        ),
+      );
     } catch (e) {
       emit(CategoriesFailure(e.toString()));
     }

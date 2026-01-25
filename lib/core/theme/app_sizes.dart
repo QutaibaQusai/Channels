@@ -52,7 +52,7 @@ class AppSizes {
 
   /// Main screen horizontal padding (left & right edges of screens)
   /// Use with SafeArea for best results
-  static double get screenPaddingH => 20.w;
+  static double get screenPaddingH => 15.w;
 
   // ==================== COMPONENT HEIGHTS ====================
 

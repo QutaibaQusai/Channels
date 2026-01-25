@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:channels/core/theme/app_sizes.dart';
+import 'package:channels/core/utils/spacing.dart';
+import 'package:channels/core/shared/widgets/app_toast.dart';
 import 'package:channels/l10n/app_localizations.dart';
 
 /// Contact button widget - fixed at the bottom for calling/messaging seller
@@ -17,15 +20,12 @@ class AdContactButton extends StatelessWidget {
       await launchUrl(uri);
     } else {
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Could not launch phone dialer')),
-        );
+        AppToast.error(context, title: 'Could not launch phone dialer');
       }
     }
   }
 
   Future<void> _sendWhatsApp(BuildContext context) async {
-    // Remove + from phone number for WhatsApp
     final cleanNumber = phoneNumber.replaceAll('+', '');
     final uri = Uri.parse('https://wa.me/$cleanNumber');
 
@@ -33,9 +33,7 @@ class AdContactButton extends StatelessWidget {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     } else {
       if (context.mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('Could not launch WhatsApp')));
+        AppToast.error(context, title: 'Could not launch WhatsApp');
       }
     }
   }
@@ -46,51 +44,65 @@ class AdContactButton extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
 
     return Container(
-      padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
         color: colorScheme.surface,
         border: Border(top: BorderSide(color: colorScheme.outline, width: 1)),
       ),
-      child: SafeArea(
-        top: false,
-        child: Row(
-          children: [
-            // Call button
-            Expanded(
+      child: Row(
+        children: [
+          // Call button with background - fills from left edge
+          Expanded(
+            child: Container(
+              color: colorScheme.primary,
               child: _ContactActionButton(
-                icon: LucideIcons.phone,
+                iconWidget: Icon(
+                  LucideIcons.phone,
+                  size: 20.sp,
+                  color: colorScheme.onPrimary,
+                ),
                 label: l10n.adDetailsCall,
                 onTap: () => _makePhoneCall(context),
-                isPrimary: false,
-              ),
-            ),
-
-            SizedBox(width: 12.w),
-
-            // WhatsApp button
-            Expanded(
-              child: _ContactActionButton(
-                icon: LucideIcons.messageCircle,
-                label: l10n.adDetailsWhatsApp,
-                onTap: () => _sendWhatsApp(context),
                 isPrimary: true,
               ),
             ),
-          ],
-        ),
+          ),
+
+          horizontalSpace(12.w),
+
+          // WhatsApp button with right padding
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(right: AppSizes.screenPaddingH),
+              child: _ContactActionButton(
+                iconWidget: SvgPicture.asset(
+                  'assets/icons/whatsapp.svg',
+                  width: 20.sp,
+                  height: 20.sp,
+                  colorFilter: ColorFilter.mode(
+                    colorScheme.onSurface,
+                    BlendMode.srcIn,
+                  ),
+                ),
+                label: l10n.adDetailsWhatsApp,
+                onTap: () => _sendWhatsApp(context),
+                isPrimary: false,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
 class _ContactActionButton extends StatelessWidget {
-  final IconData icon;
+  final Widget iconWidget;
   final String label;
   final VoidCallback onTap;
   final bool isPrimary;
 
   const _ContactActionButton({
-    required this.icon,
+    required this.iconWidget,
     required this.label,
     required this.onTap,
     this.isPrimary = false,
@@ -102,23 +114,14 @@ class _ContactActionButton extends StatelessWidget {
 
     return GestureDetector(
       onTap: onTap,
-      child: Container(
+      child: SizedBox(
+        width: double.infinity,
         height: AppSizes.buttonHeightLarge,
-        decoration: BoxDecoration(
-          color: isPrimary
-              ? colorScheme.primary
-              : colorScheme.surfaceContainerHighest,
-          borderRadius: BorderRadius.circular(AppSizes.rFull),
-        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              icon,
-              size: 20.sp,
-              color: isPrimary ? colorScheme.onPrimary : colorScheme.onSurface,
-            ),
-            SizedBox(width: 8.w),
+            iconWidget,
+            horizontalSpace(8.w),
             Text(
               label,
               style: TextStyle(

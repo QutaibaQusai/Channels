@@ -2,17 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:channels/core/utils/spacing.dart';
 import 'package:channels/core/shared/widgets/app_button.dart';
+import 'package:lottie/lottie.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 /// Shared error widget with retry functionality
 /// Use this for all error states across the app
 class ErrorStateWidget extends StatelessWidget {
   final String message;
   final VoidCallback onRetry;
+  final bool isAuthError;
 
   const ErrorStateWidget({
     super.key,
     required this.message,
     required this.onRetry,
+    this.isAuthError = false,
   });
 
   @override
@@ -22,31 +26,40 @@ class ErrorStateWidget extends StatelessWidget {
 
     return Center(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 32.w),
+        padding: EdgeInsets.symmetric(horizontal: 40.w),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              Icons.error_outline,
-              size: 64.sp,
-              color: colorScheme.error,
+            // Lottie Animation
+            SizedBox(
+              height: 200.h,
+              child: Lottie.asset('assets/animations/Error.json', repeat: true),
             ),
-            verticalSpace(16),
+
+            verticalSpace(24),
+
+            // Error Message
             Text(
               message,
-              style: TextStyle(
-                fontSize: 16.sp,
+              style: GoogleFonts.outfit(
+                fontSize: 18.sp,
+                fontWeight: FontWeight.w600,
                 color: colorScheme.onSurface,
+                height: 1.4,
               ),
               textAlign: TextAlign.center,
             ),
-            verticalSpace(24),
+
+            verticalSpace(32),
+
+            // Action Button
             AppButton(
-              text: 'Retry',
+              text: isAuthError ? 'Login' : 'Retry',
               onPressed: onRetry,
               backgroundColor: colorScheme.primary,
               textColor: colorScheme.onPrimary,
+              width: 160.w,
             ),
           ],
         ),

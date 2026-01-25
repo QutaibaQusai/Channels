@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:channels/core/theme/app_theme_extensions.dart';
 import 'package:channels/core/theme/app_sizes.dart';
+import 'package:channels/core/utils/spacing.dart';
 import 'package:channels/l10n/app_localizations.dart';
 
 /// Attributes grid widget showing ad properties like year, color, etc.
@@ -38,7 +39,7 @@ class AdDetailsAttributes extends StatelessWidget {
           ),
         ),
 
-        SizedBox(height: 12.h),
+        verticalSpace(12.h),
 
         Container(
           decoration: BoxDecoration(

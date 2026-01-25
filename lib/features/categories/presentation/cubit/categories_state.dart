@@ -23,9 +23,10 @@ class CategoriesSuccess extends CategoriesState {
 
 class CategoriesFailure extends CategoriesState {
   final String message;
+  final bool isAuthError;
 
-  const CategoriesFailure(this.message);
+  const CategoriesFailure(this.message, {this.isAuthError = false});
 
   @override
-  List<Object?> get props => [message];
+  List<Object?> get props => [message, isAuthError];
 }
