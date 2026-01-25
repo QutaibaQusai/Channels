@@ -11,6 +11,7 @@ class EndPoint {
   static String categoryAds(String categoryId) => "ads/category/$categoryId";
   static String adDetails(String adId) => "ads/details/$adId";
   static String userProfile(String userId) => "user/$userId";
+  static String createAd = "ads";
 }
 
 class ApiKey {
@@ -55,6 +56,7 @@ class ApiKey {
   static String images = "images";
   static String attributes = "attributes";
   static String amount = "amount";
+  static String price = "price";
   static String priceCurrency = "price_currency";
   static String adStatus = "status";
   static String reportCount = "report_count";

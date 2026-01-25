@@ -251,10 +251,7 @@ class AppRouter {
           final extra = state.extra as Map<String, dynamic>;
           final formData = extra['formData'] as Map<String, dynamic>;
           final categoryId = extra['categoryId'] as String;
-          return UploadImagesView(
-            formData: formData,
-            categoryId: categoryId,
-          );
+          return UploadImagesView(formData: formData, categoryId: categoryId);
         },
       ),
 
