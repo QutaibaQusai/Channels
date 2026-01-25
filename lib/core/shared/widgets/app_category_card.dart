@@ -34,13 +34,6 @@ class AppCategoryCard extends StatelessWidget {
             color: colorScheme.outline.withValues(alpha: 0.1),
             width: 1,
           ),
-          boxShadow: [
-            BoxShadow(
-              color: colorScheme.shadow.withValues(alpha: 0.05),
-              blurRadius: 8,
-              offset: const Offset(0, 2),
-            ),
-          ],
         ),
         child: Row(
           children: [
