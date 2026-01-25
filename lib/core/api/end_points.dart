@@ -2,6 +2,9 @@ class EndPoint {
   static String baseUrl = "https://thedate.to/channels/api/";
   static String countries = "countries";
   static String categories = "categories";
+  static String subcategories(String categoryId) => "categories/$categoryId";
+  static String filters(String categoryId) =>
+      "categories/$categoryId/filters";
   static String requestOtp = "auth/request-otp";
   static String verifyOtp = "auth/verify-otp";
   static String updatePreferences = "user/preferences";
@@ -65,4 +68,13 @@ class ApiKey {
 
   // Profile extra keys
   static String isMe = "is_me";
+
+  // Filter keys
+  static String filters = "filters";
+  static String key = "key";
+  static String type = "type";
+  static String label = "label";
+  static String options = "options";
+  static String validation = "validation";
+  static String value = "value";
 }

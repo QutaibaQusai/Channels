@@ -20,4 +20,9 @@ class RouteNames {
   static const String profileEdit = '/profile-edit';
   static const String webview = '/webview';
   static const String imageViewer = '/image-viewer';
+
+  // ==================== CREATE AD ====================
+  static const String createAd = '/create-ad';
+  static const String selectSubcategory = '/create-ad/select-subcategory';
+  static const String adForm = '/create-ad/form';
 }

@@ -23,6 +23,9 @@ import 'package:channels/features/ads/presentation/cubit/ad_details/ad_details_c
 import 'package:channels/features/ads/domain/usecases/get_ad_details.dart';
 import 'package:channels/features/profile/presentation/views/profile/profile_view.dart';
 import 'package:channels/features/profile/presentation/views/profile_edit/profile_edit_view.dart';
+import 'package:channels/features/create_ad/presentation/views/select_category/select_category_view.dart';
+import 'package:channels/features/create_ad/presentation/views/select_subcategory/select_subcategory_view.dart';
+import 'package:channels/features/create_ad/presentation/views/ad_form/ad_form_view.dart';
 import 'package:channels/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:channels/features/profile/domain/usecases/get_profile.dart';
 import 'package:channels/features/profile/domain/usecases/update_profile.dart';
@@ -197,6 +200,44 @@ class AppRouter {
           final images = extra['images'] as List<String>? ?? [];
           final initialIndex = extra['initialIndex'] as int? ?? 0;
           return ImageViewerView(images: images, initialIndex: initialIndex);
+        },
+      ),
+
+      GoRoute(
+        path: RouteNames.createAd,
+        name: RouteNames.createAd,
+        builder: (context, state) => const SelectCategoryView(),
+      ),
+
+      GoRoute(
+        path: RouteNames.selectSubcategory,
+        name: RouteNames.selectSubcategory,
+        builder: (context, state) {
+          final extra = state.extra as Map<String, String>;
+          final categoryId = extra['categoryId'] ?? '';
+          final categoryName = extra['categoryName'] ?? '';
+          final parentCategoryId = extra['parentCategoryId'] ?? categoryId;
+          return SelectSubcategoryView(
+            categoryId: categoryId,
+            categoryName: categoryName,
+            parentCategoryId: parentCategoryId,
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RouteNames.adForm,
+        name: RouteNames.adForm,
+        builder: (context, state) {
+          final extra = state.extra as Map<String, String>;
+          final categoryId = extra['categoryId'] ?? '';
+          final categoryName = extra['categoryName'] ?? '';
+          final parentCategoryId = extra['parentCategoryId'] ?? categoryId;
+          return AdFormView(
+            categoryId: categoryId,
+            categoryName: categoryName,
+            parentCategoryId: parentCategoryId,
+          );
         },
       ),
     ],
