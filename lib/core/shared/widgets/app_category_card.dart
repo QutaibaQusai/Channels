@@ -3,98 +3,103 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:channels/features/categories/domain/entities/category.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 
-/// Reusable category card widget
-/// Can be customized for different use cases (selection, browsing, etc.)
+/// Reusable category card widget for selection
 class AppCategoryCard extends StatelessWidget {
   final Category category;
   final VoidCallback onTap;
-  final bool showArrow;
-  final double? imageSize;
 
   const AppCategoryCard({
     super.key,
     required this.category,
     required this.onTap,
-    this.showArrow = true,
-    this.imageSize,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final imgSize = imageSize ?? 48.w;
 
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(AppSizes.r12),
+      borderRadius: BorderRadius.circular(AppSizes.r16),
       child: Container(
-        padding: EdgeInsets.all(AppSizes.s16),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppSizes.s16,
+          vertical: AppSizes.s8,
+        ),
         decoration: BoxDecoration(
           color: colorScheme.surface,
-          borderRadius: BorderRadius.circular(AppSizes.r12),
+          borderRadius: BorderRadius.circular(AppSizes.r16),
           border: Border.all(
-            color: colorScheme.outline.withValues(alpha: 0.2),
+            color: colorScheme.outline.withValues(alpha: 0.1),
             width: 1,
           ),
+          boxShadow: [
+            BoxShadow(
+              color: colorScheme.shadow.withValues(alpha: 0.05),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
         ),
         child: Row(
           children: [
-            // Category image
-            ClipRRect(
-              borderRadius: BorderRadius.circular(AppSizes.r8),
+            // Category image - Circular
+            ClipOval(
               child: category.imageUrl != null
                   ? Image.network(
                       category.imageUrl!,
-                      width: imgSize,
-                      height: imgSize,
+                      width: 44.w,
+                      height: 44.w,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
-                        return _buildPlaceholder(colorScheme, imgSize);
+                        return _buildPlaceholder(colorScheme);
                       },
                     )
-                  : _buildPlaceholder(colorScheme, imgSize),
+                  : _buildPlaceholder(colorScheme),
             ),
 
-            SizedBox(width: AppSizes.s16),
+            SizedBox(width: AppSizes.s12),
 
             // Category name
             Expanded(
               child: Text(
                 category.name,
                 style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.w600,
                   color: colorScheme.onSurface,
+                  letterSpacing: -0.2,
                 ),
               ),
             ),
 
-            // Arrow icon (optional)
-            if (showArrow)
-              Icon(
-                Icons.arrow_forward_ios,
-                size: 16.sp,
-                color: colorScheme.onSurfaceVariant,
-              ),
+            SizedBox(width: AppSizes.s8),
+
+            // Arrow icon
+            Icon(
+              Icons.arrow_forward_ios_rounded,
+              size: 18.sp,
+              color: colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildPlaceholder(ColorScheme colorScheme, double size) {
+  Widget _buildPlaceholder(ColorScheme colorScheme) {
     return Container(
-      width: size,
-      height: size,
+      width: 44.w,
+      height: 44.w,
       decoration: BoxDecoration(
-        color: colorScheme.primaryContainer,
-        borderRadius: BorderRadius.circular(AppSizes.r8),
+        color: colorScheme.primaryContainer.withValues(alpha: 0.3),
+        shape: BoxShape.circle,
       ),
       child: Icon(
-        Icons.category_outlined,
+        Icons.category_rounded,
         color: colorScheme.primary,
-        size: 24.sp,
+        size: 22.sp,
       ),
     );
   }

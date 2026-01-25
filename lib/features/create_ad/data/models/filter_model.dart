@@ -16,15 +16,26 @@ class FilterModel extends Filter {
     final Map<String, dynamic>? validationJson =
         json[ApiKey.validation] as Map<String, dynamic>?;
 
+    // Parse options - handle both string arrays and object arrays
+    List<FilterOption>? options;
+    if (optionsJson != null && optionsJson.isNotEmpty) {
+      options = optionsJson.map((item) {
+        if (item is String) {
+          // Backend returns simple string array like ["بنزين", "هجين"]
+          return FilterOptionModel(value: item, label: item);
+        } else {
+          // Backend returns object array with value/label
+          return FilterOptionModel.fromJson(item as Map<String, dynamic>);
+        }
+      }).toList();
+    }
+
     return FilterModel(
       id: json[ApiKey.id] as String,
       key: json[ApiKey.key] as String,
       type: json[ApiKey.type] as String,
       label: json[ApiKey.label] as String,
-      options: optionsJson
-          ?.map((item) =>
-              FilterOptionModel.fromJson(item as Map<String, dynamic>))
-          .toList(),
+      options: options,
       validation: validationJson != null
           ? FilterValidationModel.fromJson(validationJson)
           : null,

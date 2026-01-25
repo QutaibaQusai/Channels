@@ -25,4 +25,6 @@ class RouteNames {
   static const String createAd = '/create-ad';
   static const String selectSubcategory = '/create-ad/select-subcategory';
   static const String adForm = '/create-ad/form';
+  static const String uploadImages = '/create-ad/upload-images';
+  static const String createAdDetails = '/create-ad/ad-details';
 }
