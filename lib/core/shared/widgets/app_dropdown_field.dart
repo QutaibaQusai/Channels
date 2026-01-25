@@ -3,33 +3,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:channels/core/theme/app_theme_extensions.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 
-/// Reusable custom text field widget
-class AppTextField extends StatelessWidget {
-  final TextEditingController controller;
+/// Reusable dropdown field widget
+class AppDropdownField<T> extends StatelessWidget {
+  final T? initialValue;
   final String hintText;
-  final String? Function(String?)? validator;
-  final int maxLines;
-  final TextInputType? keyboardType;
-  final bool obscureText;
-  final Widget? prefixIcon;
-  final Widget? suffixIcon;
-  final bool readOnly;
-  final VoidCallback? onTap;
-  final ValueChanged<String>? onChanged;
+  final List<DropdownMenuItem<T>> items;
+  final void Function(T?) onChanged;
+  final String? Function(T?)? validator;
 
-  const AppTextField({
+  const AppDropdownField({
     super.key,
-    required this.controller,
+    this.initialValue,
     required this.hintText,
+    required this.items,
+    required this.onChanged,
     this.validator,
-    this.maxLines = 1,
-    this.keyboardType,
-    this.obscureText = false,
-    this.prefixIcon,
-    this.suffixIcon,
-    this.readOnly = false,
-    this.onTap,
-    this.onChanged,
   });
 
   @override
@@ -38,14 +26,8 @@ class AppTextField extends StatelessWidget {
     final colorScheme = theme.colorScheme;
     final textExtension = theme.extension<AppColorsExtension>()!;
 
-    return TextFormField(
-      controller: controller,
-      maxLines: maxLines,
-      obscureText: obscureText,
-      keyboardType: keyboardType,
-      readOnly: readOnly,
-      onTap: onTap,
-      onChanged: onChanged,
+    return DropdownButtonFormField<T>(
+      initialValue: initialValue,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: TextStyle(
@@ -86,14 +68,19 @@ class AppTextField extends StatelessWidget {
           horizontal: AppSizes.s16,
           vertical: AppSizes.s16,
         ),
-        prefixIcon: prefixIcon,
-        suffixIcon: suffixIcon,
       ),
+      items: items,
+      onChanged: onChanged,
+      validator: validator,
       style: TextStyle(
         fontSize: 16.sp,
         color: colorScheme.onSurface,
       ),
-      validator: validator,
+      dropdownColor: colorScheme.surface,
+      icon: Icon(
+        Icons.keyboard_arrow_down_rounded,
+        color: textExtension.textSecondary,
+      ),
     );
   }
 }

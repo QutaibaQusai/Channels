@@ -70,8 +70,32 @@ class LayoutAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       actions: [
+        // Add Ad button
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: AppSizes.screenPaddingH),
+          padding: EdgeInsets.only(right: AppSizes.s8),
+          child: CupertinoButton(
+            padding: EdgeInsets.zero,
+            onPressed: () {
+              context.push(RouteNames.createAd);
+            },
+            child: Container(
+              width: AppSizes.icon40,
+              height: AppSizes.icon40,
+              decoration: BoxDecoration(
+                color: colorScheme.primary,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                LucideIcons.plus,
+                color: colorScheme.onPrimary,
+                size: AppSizes.icon20,
+              ),
+            ),
+          ),
+        ),
+        // Notification button
+        Padding(
+          padding: EdgeInsets.only(right: AppSizes.screenPaddingH),
           child: CupertinoButton(
             padding: EdgeInsets.zero,
             onPressed: () {
