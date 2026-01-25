@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/shared/widgets/app_button.dart';
+import 'package:channels/core/router/route_names.dart';
 import 'package:channels/features/create_ad/domain/entities/filter.dart';
 import 'package:channels/features/create_ad/presentation/views/ad_form/widgets/select_filter_field.dart';
 import 'package:channels/features/create_ad/presentation/views/ad_form/widgets/text_filter_field.dart';
@@ -41,9 +43,9 @@ class _DynamicFilterListState extends State<DynamicFilterList> {
 
           SizedBox(height: AppSizes.s24),
 
-          // Submit button
+          // Upload images button
           AppButton(
-            text: 'Submit Ad',
+            text: 'Upload Images',
             onPressed: _handleSubmit,
           ),
         ],
@@ -62,6 +64,30 @@ class _DynamicFilterListState extends State<DynamicFilterList> {
             });
           },
         );
+      case 'number':
+        // Number type with validation (e.g., year with min/max)
+        // If has validation, use dropdown, otherwise use text field with number keyboard
+        if (filter.validation != null &&
+            filter.validation!.min != null &&
+            filter.validation!.max != null) {
+          return SelectFilterField(
+            filter: filter,
+            onChanged: (value) {
+              setState(() {
+                _formData[filter.key] = value;
+              });
+            },
+          );
+        } else {
+          return TextFilterField(
+            filter: filter,
+            onChanged: (value) {
+              setState(() {
+                _formData[filter.key] = value;
+              });
+            },
+          );
+        }
       case 'text':
         return TextFilterField(
           filter: filter,
@@ -87,7 +113,15 @@ class _DynamicFilterListState extends State<DynamicFilterList> {
     if (_formKey.currentState?.validate() ?? false) {
       debugPrint('Form data: $_formData');
       debugPrint('Category ID: ${widget.categoryId}');
-      // TODO: Implement ad submission
+
+      // Navigate to upload images view
+      context.push(
+        RouteNames.uploadImages,
+        extra: {
+          'formData': _formData,
+          'categoryId': widget.categoryId,
+        },
+      );
     }
   }
 }

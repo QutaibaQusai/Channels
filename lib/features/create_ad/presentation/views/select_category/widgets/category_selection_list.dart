@@ -26,7 +26,6 @@ class CategorySelectionList extends StatelessWidget {
         return AppCategoryCard(
           category: category,
           onTap: () => onCategorySelected(category),
-          showArrow: true,
         );
       },
     );

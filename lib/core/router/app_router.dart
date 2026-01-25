@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,6 +27,8 @@ import 'package:channels/features/profile/presentation/views/profile_edit/profil
 import 'package:channels/features/create_ad/presentation/views/select_category/select_category_view.dart';
 import 'package:channels/features/create_ad/presentation/views/select_subcategory/select_subcategory_view.dart';
 import 'package:channels/features/create_ad/presentation/views/ad_form/ad_form_view.dart';
+import 'package:channels/features/create_ad/presentation/views/upload_images/upload_images_view.dart';
+import 'package:channels/features/create_ad/presentation/views/ad_details/ad_details_view.dart';
 import 'package:channels/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:channels/features/profile/domain/usecases/get_profile.dart';
 import 'package:channels/features/profile/domain/usecases/update_profile.dart';
@@ -237,6 +240,36 @@ class AppRouter {
             categoryId: categoryId,
             categoryName: categoryName,
             parentCategoryId: parentCategoryId,
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RouteNames.uploadImages,
+        name: RouteNames.uploadImages,
+        builder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>;
+          final formData = extra['formData'] as Map<String, dynamic>;
+          final categoryId = extra['categoryId'] as String;
+          return UploadImagesView(
+            formData: formData,
+            categoryId: categoryId,
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RouteNames.createAdDetails,
+        name: RouteNames.createAdDetails,
+        builder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>;
+          final formData = extra['formData'] as Map<String, dynamic>;
+          final categoryId = extra['categoryId'] as String;
+          final images = extra['images'] as List<File>;
+          return CreateAdDetailsView(
+            formData: formData,
+            categoryId: categoryId,
+            images: images,
           );
         },
       ),
