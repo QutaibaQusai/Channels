@@ -63,7 +63,15 @@ class _ProfileViewState extends State<ProfileView> {
           if (state is ProfileFailure) {
             return ErrorStateWidget(
               message: state.errorMessage,
-              onRetry: _fetchProfile,
+              isAuthError: state.isAuthError,
+              onRetry: () {
+                if (state.isAuthError) {
+                  // If auth error, logout locally and go to onboarding/login
+                  context.read<ProfileCubit>().logout();
+                } else {
+                  _fetchProfile();
+                }
+              },
             );
           }
 

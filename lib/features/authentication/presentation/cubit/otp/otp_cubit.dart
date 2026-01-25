@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:channels/features/authentication/domain/entities/country_entity.dart';
 import 'package:channels/features/authentication/domain/usecases/request_otp_usecase.dart';
 import 'package:channels/features/authentication/presentation/cubit/otp/otp_state.dart';
+import 'package:channels/core/errors/exceptions.dart';
 
 class OtpCubit extends Cubit<OtpState> {
   final RequestOtpUseCase requestOtpUseCase;
@@ -87,6 +88,14 @@ class OtpCubit extends Cubit<OtpState> {
         OtpSuccess(
           message: response.message,
           formattedPhoneNumber: displayPhoneNumber,
+          selectedCountryCode: state.selectedCountryCode,
+          selectedCountryISOCode: state.selectedCountryISOCode,
+        ),
+      );
+    } on ServerException catch (e) {
+      emit(
+        OtpFailure(
+          errorMessage: e.errModel.errorMessage,
           selectedCountryCode: state.selectedCountryCode,
           selectedCountryISOCode: state.selectedCountryISOCode,
         ),

@@ -2,6 +2,7 @@ import 'package:channels/core/shared/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:channels/core/shared/widgets/app_toast.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/utils/spacing.dart';
 import 'package:channels/core/shared/widgets/app_button.dart';
@@ -44,13 +45,8 @@ class _PhoneAuthViewState extends State<PhoneAuthView> {
             extra: state.formattedPhoneNumber,
           );
         } else if (state is OtpFailure) {
-          // Show error message
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.errorMessage),
-              backgroundColor: colorScheme.error,
-            ),
-          );
+          // Show error message using AppToast
+          AppToast.error(context, title: state.errorMessage);
         }
       },
       child: Scaffold(

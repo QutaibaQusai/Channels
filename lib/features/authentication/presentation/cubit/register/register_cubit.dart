@@ -1,13 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:channels/features/authentication/presentation/cubit/register/register_state.dart';
 import 'package:channels/features/authentication/domain/usecases/update_preferences_usecase.dart';
+import 'package:channels/core/errors/exceptions.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
   final UpdatePreferencesUseCase updatePreferencesUseCase;
 
-  RegisterCubit({
-    required this.updatePreferencesUseCase,
-  }) : super(const RegisterInitial());
+  RegisterCubit({required this.updatePreferencesUseCase})
+    : super(const RegisterInitial());
 
   // Update selected date
   void selectDate(DateTime date) {
@@ -41,6 +41,8 @@ class RegisterCubit extends Cubit<RegisterState> {
 
       // Emit success - just signal that registration completed
       emit(const RegisterSuccess());
+    } on ServerException catch (e) {
+      emit(RegisterFailure(errorMessage: e.errModel.errorMessage));
     } catch (e) {
       emit(RegisterFailure(errorMessage: e.toString()));
     }

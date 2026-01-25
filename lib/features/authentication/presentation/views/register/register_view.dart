@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:channels/core/shared/widgets/app_toast.dart';
 import 'package:channels/core/theme/app_theme_extensions.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/utils/spacing.dart';
@@ -162,13 +163,7 @@ class _RegisterViewState extends State<RegisterView> {
           // Navigate to home after successful registration
           context.pushReplacement(RouteNames.home);
         } else if (state is RegisterFailure) {
-          // Show error message
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.errorMessage),
-              backgroundColor: colorScheme.error,
-            ),
-          );
+          AppToast.error(context, title: state.errorMessage);
         }
       },
       child: Scaffold(

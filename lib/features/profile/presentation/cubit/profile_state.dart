@@ -40,11 +40,12 @@ class ProfileSuccess extends ProfileState {
 /// Failure state with error message
 class ProfileFailure extends ProfileState {
   final String errorMessage;
+  final bool isAuthError;
 
-  const ProfileFailure({required this.errorMessage});
+  const ProfileFailure({required this.errorMessage, this.isAuthError = false});
 
   @override
-  List<Object?> get props => [errorMessage];
+  List<Object?> get props => [errorMessage, isAuthError];
 }
 
 /// Updating profile state (keeps current profile visible)
@@ -71,14 +72,16 @@ class ProfileUpdateSuccess extends ProfileState {
 class ProfileUpdateFailure extends ProfileState {
   final Profile profile;
   final String errorMessage;
+  final bool isAuthError;
 
   const ProfileUpdateFailure({
     required this.profile,
     required this.errorMessage,
+    this.isAuthError = false,
   });
 
   @override
-  List<Object?> get props => [profile, errorMessage];
+  List<Object?> get props => [profile, errorMessage, isAuthError];
 }
 
 /// Logged out state

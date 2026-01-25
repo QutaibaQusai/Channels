@@ -34,7 +34,12 @@ class ProfileCubit extends Cubit<ProfileState> {
 
       emit(ProfileSuccess(profile: profile));
     } on ServerException catch (e) {
-      emit(ProfileFailure(errorMessage: e.errModel.errorMessage));
+      emit(
+        ProfileFailure(
+          errorMessage: e.errModel.errorMessage,
+          isAuthError: e.errModel.status == 401,
+        ),
+      );
     } catch (e) {
       emit(ProfileFailure(errorMessage: e.toString()));
     }
@@ -75,6 +80,7 @@ class ProfileCubit extends Cubit<ProfileState> {
         ProfileUpdateFailure(
           profile: currentProfile,
           errorMessage: e.errModel.errorMessage,
+          isAuthError: e.errModel.status == 401,
         ),
       );
     } catch (e) {
