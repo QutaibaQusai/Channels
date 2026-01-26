@@ -38,6 +38,7 @@ import 'package:channels/features/profile/domain/usecases/update_profile.dart';
 import 'package:channels/features/notification/presentation/views/notification_view.dart';
 import 'package:channels/core/shared/views/webview_page.dart';
 import 'package:channels/features/ads/presentation/views/image_viewer/image_viewer_view.dart';
+import 'package:channels/features/profile/presentation/views/my_ads/my_ads_view.dart';
 
 /// Centralized routing configuration using Go Router
 class AppRouter {
@@ -218,6 +219,12 @@ class AppRouter {
       ),
 
       GoRoute(
+        path: RouteNames.myAds,
+        name: RouteNames.myAds,
+        builder: (context, state) => const MyAdsView(),
+      ),
+
+      GoRoute(
         path: RouteNames.createAd,
         name: RouteNames.createAd,
         builder: (context, state) => const SelectCategoryView(),
@@ -231,7 +238,8 @@ class AppRouter {
           final categoryId = extra['categoryId'] ?? '';
           final categoryName = extra['categoryName'] ?? '';
           final parentCategoryId = extra['parentCategoryId'] ?? categoryId;
-          final rootCategoryId = extra['rootCategoryId']; // May be null for first level
+          final rootCategoryId =
+              extra['rootCategoryId']; // May be null for first level
           return SelectSubcategoryView(
             categoryId: categoryId,
             categoryName: categoryName,
