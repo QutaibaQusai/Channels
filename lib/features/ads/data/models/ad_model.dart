@@ -35,7 +35,9 @@ class AdModel extends Ad {
       images: (json[ApiKey.images] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
-      attributes: json[ApiKey.attributes] as Map<String, dynamic>,
+      attributes: (json[ApiKey.attributes] is Map<String, dynamic>)
+          ? json[ApiKey.attributes] as Map<String, dynamic>
+          : {},
       amount:
           ((json[ApiKey.amount] is num)
                   ? (json[ApiKey.amount] as num).toDouble()

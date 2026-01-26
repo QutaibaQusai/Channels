@@ -30,8 +30,15 @@ class AdsRemoteDataSourceImpl implements AdsRemoteDataSource {
       data: {'lang': languageCode},
     );
 
-    // API returns array directly
-    final List<dynamic> adsJson = response as List<dynamic>;
+    // API returns Map with 'ads' list
+    final List<dynamic> adsJson;
+    if (response is List) {
+      adsJson = response;
+    } else {
+      adsJson =
+          (response as Map<String, dynamic>)['ads'] as List<dynamic>? ?? [];
+    }
+
     return adsJson
         .map((json) => AdModel.fromJson(json as Map<String, dynamic>))
         .toList();

@@ -38,7 +38,9 @@ class AdDetailsModel extends AdDetails {
       images: (json[ApiKey.images] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
-      attributes: json[ApiKey.attributes] as Map<String, dynamic>,
+      attributes: (json[ApiKey.attributes] is Map<String, dynamic>)
+          ? json[ApiKey.attributes] as Map<String, dynamic>
+          : {},
       amount: _parseAmount(json[ApiKey.amount]),
       priceCurrency: json[ApiKey.priceCurrency] as String? ?? '',
       status: json[ApiKey.adStatus] as String,
