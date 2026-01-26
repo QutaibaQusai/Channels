@@ -197,6 +197,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settingsThemeDark => 'الوضع الداكن';
 
   @override
+  String get settingsMyAds => 'إعلاناتي';
+
+  @override
   String get settingsDoNotDisturb => 'لا تنبهني';
 
   @override

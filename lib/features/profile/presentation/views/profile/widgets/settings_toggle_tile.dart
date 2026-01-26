@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:channels/core/theme/app_theme_extensions.dart';
 import 'package:channels/core/utils/spacing.dart';
 import 'package:channels/core/theme/app_sizes.dart';
+import 'package:channels/core/shared/widgets/app_switch.dart';
 
 /// Settings toggle tile with switch
 class SettingsToggleTile extends StatelessWidget {
@@ -58,11 +59,7 @@ class SettingsToggleTile extends StatelessWidget {
               ],
             ),
           ),
-          Switch.adaptive(
-            value: value,
-            onChanged: onChanged,
-            activeTrackColor: colorScheme.primary,
-          ),
+          AppSwitch(value: value, onChanged: onChanged),
         ],
       ),
     );
