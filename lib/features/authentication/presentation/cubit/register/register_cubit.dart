@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:channels/features/authentication/presentation/cubit/register/register_state.dart';
 import 'package:channels/features/authentication/domain/usecases/update_preferences_usecase.dart';
+import 'package:channels/features/authentication/domain/entities/country_entity.dart';
 import 'package:channels/core/errors/exceptions.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
@@ -11,7 +12,33 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   // Update selected date
   void selectDate(DateTime date) {
-    emit(RegisterInitial(selectedDate: date));
+    final currentState = state;
+    if (currentState is RegisterInitial) {
+      emit(RegisterInitial(
+        selectedDate: date,
+        selectedCountryCode: currentState.selectedCountryCode,
+        selectedCountryName: currentState.selectedCountryName,
+      ));
+    } else {
+      emit(RegisterInitial(selectedDate: date));
+    }
+  }
+
+  // Update selected country
+  void selectCountry(CountryEntity country) {
+    final currentState = state;
+    if (currentState is RegisterInitial) {
+      emit(RegisterInitial(
+        selectedDate: currentState.selectedDate,
+        selectedCountryCode: country.code,
+        selectedCountryName: country.name,
+      ));
+    } else {
+      emit(RegisterInitial(
+        selectedCountryCode: country.code,
+        selectedCountryName: country.name,
+      ));
+    }
   }
 
   // Get formatted date string (YYYY-MM-DD)
@@ -28,6 +55,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     required String token,
     required String name,
     required String dateOfBirth,
+    required String countryCode,
   }) async {
     emit(RegisterLoading());
 
@@ -37,6 +65,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         token: token,
         name: name,
         dateOfBirth: dateOfBirth,
+        countryCode: countryCode,
       );
 
       // Emit success - just signal that registration completed

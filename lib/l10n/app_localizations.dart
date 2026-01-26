@@ -314,6 +314,30 @@ abstract class AppLocalizations {
   /// **'Complete Registration'**
   String get registerButton;
 
+  /// Country field label in registration
+  ///
+  /// In en, this message translates to:
+  /// **'Country'**
+  String get registerCountryLabel;
+
+  /// Country field placeholder text
+  ///
+  /// In en, this message translates to:
+  /// **'Select your country'**
+  String get registerCountryPlaceholder;
+
+  /// Country required error
+  ///
+  /// In en, this message translates to:
+  /// **'Country is required'**
+  String get registerCountryRequired;
+
+  /// Hint text explaining country selection purpose
+  ///
+  /// In en, this message translates to:
+  /// **'Select the country where you want to browse ads'**
+  String get registerCountryHint;
+
   /// Onboarding page 1 title
   ///
   /// In en, this message translates to:

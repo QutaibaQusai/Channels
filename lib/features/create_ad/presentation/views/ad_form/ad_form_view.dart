@@ -11,7 +11,6 @@ import 'package:channels/features/create_ad/data/repositories/filters_repository
 import 'package:channels/features/create_ad/domain/usecases/get_filters.dart';
 import 'package:channels/features/create_ad/presentation/cubit/filters/filters_cubit.dart';
 import 'package:channels/features/create_ad/presentation/cubit/filters/filters_state.dart';
-import 'package:channels/features/create_ad/presentation/views/ad_form/widgets/dynamic_filter_list.dart';
 import 'package:go_router/go_router.dart';
 import 'package:channels/core/router/route_names.dart';
 
@@ -96,10 +95,33 @@ class _AdFormBody extends StatelessWidget {
               }
 
               if (state is FiltersSuccess) {
-                return DynamicFilterList(
-                  filters: state.filters,
-                  categoryId: categoryId,
-                );
+                // Navigate to first filter in the single-step flow
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  if (state.filters.isNotEmpty) {
+                    context.pushReplacement(
+                      RouteNames.singleFilter,
+                      extra: {
+                        'allFilters': state.filters,
+                        'currentFilterIndex': 0,
+                        'collectedData': <String, dynamic>{},
+                        'categoryId': categoryId,
+                        'parentCategoryId': parentCategoryId,
+                      },
+                    );
+                  } else {
+                    // No filters, go directly to upload images
+                    context.pushReplacement(
+                      RouteNames.uploadImages,
+                      extra: {
+                        'formData': <String, dynamic>{},
+                        'categoryId': categoryId,
+                        'parentCategoryId': parentCategoryId,
+                      },
+                    );
+                  }
+                });
+
+                return const AppLoading();
               }
 
               return const SizedBox.shrink();

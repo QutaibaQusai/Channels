@@ -26,5 +26,6 @@ abstract class AuthRepository {
     required String token,
     required String name,
     required String dateOfBirth,
+    required String countryCode,
   });
 }

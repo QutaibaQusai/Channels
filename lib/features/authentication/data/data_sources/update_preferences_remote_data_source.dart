@@ -7,6 +7,7 @@ abstract class UpdatePreferencesRemoteDataSource {
     required String token,
     required String name,
     required String dateOfBirth,
+    required String countryCode,
   });
 }
 
@@ -21,11 +22,13 @@ class UpdatePreferencesRemoteDataSourceImpl
     required String token,
     required String name,
     required String dateOfBirth,
+    required String countryCode,
   }) async {
     // Create request model
     final requestModel = UpdatePreferencesRequestModel(
       name: name,
       dateOfBirth: dateOfBirth,
+      countryCode: countryCode,
     );
 
     // Make API call with Authorization header

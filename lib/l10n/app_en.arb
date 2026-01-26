@@ -187,6 +187,26 @@
     "description": "Complete registration button text"
   },
 
+  "registerCountryLabel": "Country",
+  "@registerCountryLabel": {
+    "description": "Country field label in registration"
+  },
+
+  "registerCountryPlaceholder": "Select your country",
+  "@registerCountryPlaceholder": {
+    "description": "Country field placeholder text"
+  },
+
+  "registerCountryRequired": "Country is required",
+  "@registerCountryRequired": {
+    "description": "Country required error"
+  },
+
+  "registerCountryHint": "Select the country where you want to browse ads",
+  "@registerCountryHint": {
+    "description": "Hint text explaining country selection purpose"
+  },
+
   "onboardingPage1Title": "Your Personal Ad Channel",
   "@onboardingPage1Title": {
     "description": "Onboarding page 1 title"
