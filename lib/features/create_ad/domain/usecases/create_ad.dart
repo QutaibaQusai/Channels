@@ -9,6 +9,7 @@ class CreateAd {
   Future<String> call({
     required String categoryId,
     required String subcategoryId,
+    required String countryCode,
     required String title,
     required String description,
     required double price,
@@ -18,6 +19,7 @@ class CreateAd {
     return repository.createAd(
       categoryId: categoryId,
       subcategoryId: subcategoryId,
+      countryCode: countryCode,
       title: title,
       description: description,
       price: price,

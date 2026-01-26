@@ -11,6 +11,7 @@ class CreateAdRepositoryImpl implements CreateAdRepository {
   Future<String> createAd({
     required String categoryId,
     required String subcategoryId,
+    required String countryCode,
     required String title,
     required String description,
     required double price,
@@ -20,6 +21,7 @@ class CreateAdRepositoryImpl implements CreateAdRepository {
     final response = await remoteDataSource.createAd(
       categoryId: categoryId,
       subcategoryId: subcategoryId,
+      countryCode: countryCode,
       title: title,
       description: description,
       price: price,

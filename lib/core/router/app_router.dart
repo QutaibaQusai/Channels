@@ -231,10 +231,12 @@ class AppRouter {
           final categoryId = extra['categoryId'] ?? '';
           final categoryName = extra['categoryName'] ?? '';
           final parentCategoryId = extra['parentCategoryId'] ?? categoryId;
+          final rootCategoryId = extra['rootCategoryId']; // May be null for first level
           return SelectSubcategoryView(
             categoryId: categoryId,
             categoryName: categoryName,
             parentCategoryId: parentCategoryId,
+            rootCategoryId: rootCategoryId,
           );
         },
       ),
@@ -247,10 +249,12 @@ class AppRouter {
           final categoryId = extra['categoryId'] ?? '';
           final categoryName = extra['categoryName'] ?? '';
           final parentCategoryId = extra['parentCategoryId'] ?? categoryId;
+          final rootCategoryId = extra['rootCategoryId'];
           return AdFormView(
             categoryId: categoryId,
             categoryName: categoryName,
             parentCategoryId: parentCategoryId,
+            rootCategoryId: rootCategoryId,
           );
         },
       ),
@@ -265,12 +269,14 @@ class AppRouter {
           final collectedData = extra['collectedData'] as Map<String, dynamic>;
           final categoryId = extra['categoryId'] as String;
           final parentCategoryId = extra['parentCategoryId'] as String;
+          final rootCategoryId = extra['rootCategoryId'] as String;
           return SingleFilterView(
             allFilters: allFilters,
             currentFilterIndex: currentFilterIndex,
             collectedData: collectedData,
             categoryId: categoryId,
             parentCategoryId: parentCategoryId,
+            rootCategoryId: rootCategoryId,
           );
         },
       ),
@@ -283,10 +289,12 @@ class AppRouter {
           final formData = extra['formData'] as Map<String, dynamic>;
           final categoryId = extra['categoryId'] as String;
           final parentCategoryId = extra['parentCategoryId'] as String;
+          final rootCategoryId = extra['rootCategoryId'] as String;
           return UploadImagesView(
             formData: formData,
             categoryId: categoryId,
             parentCategoryId: parentCategoryId,
+            rootCategoryId: rootCategoryId,
           );
         },
       ),
@@ -299,11 +307,13 @@ class AppRouter {
           final formData = extra['formData'] as Map<String, dynamic>;
           final categoryId = extra['categoryId'] as String;
           final parentCategoryId = extra['parentCategoryId'] as String;
+          final rootCategoryId = extra['rootCategoryId'] as String;
           final images = extra['images'] as List<File>;
           return CreateAdDetailsView(
             formData: formData,
             categoryId: categoryId,
             parentCategoryId: parentCategoryId,
+            rootCategoryId: rootCategoryId,
             images: images,
           );
         },

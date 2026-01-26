@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:channels/core/shared/widgets/app_bar.dart';
 import 'package:channels/core/shared/widgets/app_button.dart';
 import 'package:channels/core/shared/widgets/app_text_field.dart';
+import 'package:channels/core/shared/widgets/gradient_overlay.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/utils/spacing.dart';
 import 'package:channels/core/router/route_names.dart';
@@ -18,6 +19,7 @@ class SingleFilterView extends StatefulWidget {
   final Map<String, dynamic> collectedData; // Previously collected answers
   final String categoryId; // The selected subcategory ID
   final String parentCategoryId; // The parent category ID (for filters/API)
+  final String rootCategoryId; // Root category (for API submission)
 
   const SingleFilterView({
     super.key,
@@ -26,6 +28,7 @@ class SingleFilterView extends StatefulWidget {
     required this.collectedData,
     required this.categoryId,
     required this.parentCategoryId,
+    required this.rootCategoryId,
   });
 
   @override
@@ -109,6 +112,7 @@ class _SingleFilterViewState extends State<SingleFilterView> {
           'formData': updatedData,
           'categoryId': widget.categoryId,
           'parentCategoryId': widget.parentCategoryId,
+          'rootCategoryId': widget.rootCategoryId,
         },
       );
     } else {
@@ -121,6 +125,7 @@ class _SingleFilterViewState extends State<SingleFilterView> {
           'collectedData': updatedData,
           'categoryId': widget.categoryId,
           'parentCategoryId': widget.parentCategoryId,
+          'rootCategoryId': widget.rootCategoryId,
         },
       );
     }
@@ -147,33 +152,22 @@ class _SingleFilterViewState extends State<SingleFilterView> {
               minHeight: 4.h,
             ),
 
+            // Content with gradient overlay
             Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: AppSizes.screenPaddingH,
-                ),
-                child: _buildFilterInput(),
-              ),
-            ),
-
-            // Bottom button
-            Container(
-              padding: EdgeInsets.all(AppSizes.screenPaddingH),
-              decoration: BoxDecoration(
-                color: theme.scaffoldBackgroundColor,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.05),
-                    offset: const Offset(0, -2),
-                    blurRadius: 8,
+              child: GradientOverlay(
+                bottomWidget: Padding(
+                  padding: EdgeInsets.all(AppSizes.screenPaddingH),
+                  child: AppButton(
+                    text: isLastFilter ? 'Upload Images' : l10n.commonNext,
+                    onPressed: _handleNext,
                   ),
-                ],
-              ),
-              child: AppButton(
-                text: isLastFilter
-                    ? 'Upload Images'
-                    : l10n.commonNext,
-                onPressed: _handleNext,
+                ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: AppSizes.screenPaddingH,
+                  ),
+                  child: _buildFilterInput(),
+                ),
               ),
             ),
           ],

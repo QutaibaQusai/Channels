@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:channels/core/shared/widgets/app_bar.dart';
 import 'package:channels/core/shared/widgets/app_button.dart';
 import 'package:channels/core/shared/widgets/app_toast.dart';
+import 'package:channels/core/shared/widgets/gradient_overlay.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/router/route_names.dart';
 
@@ -15,12 +16,14 @@ class UploadImagesView extends StatefulWidget {
   final Map<String, dynamic> formData;
   final String categoryId; // Subcategory ID
   final String parentCategoryId; // Parent category ID
+  final String rootCategoryId; // Root category (for API submission)
 
   const UploadImagesView({
     super.key,
     required this.formData,
     required this.categoryId,
     required this.parentCategoryId,
+    required this.rootCategoryId,
   });
 
   @override
@@ -110,6 +113,7 @@ class _UploadImagesViewState extends State<UploadImagesView> {
         'formData': widget.formData,
         'categoryId': widget.categoryId,
         'parentCategoryId': widget.parentCategoryId,
+        'rootCategoryId': widget.rootCategoryId,
         'images': _images,
       },
     );
@@ -124,97 +128,24 @@ class _UploadImagesViewState extends State<UploadImagesView> {
       backgroundColor: theme.scaffoldBackgroundColor,
       appBar: const AppAppBar(title: 'Upload Images', showBackButton: true),
       body: SafeArea(
-        child: Column(
-          children: [
-            // Image counter and info
-            Container(
-              padding: EdgeInsets.all(AppSizes.s16),
-              color: colorScheme.primaryContainer.withValues(alpha: 0.3),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.info_outline,
-                    size: 20.sp,
-                    color: colorScheme.primary,
-                  ),
-                  SizedBox(width: AppSizes.s8),
-                  Expanded(
-                    child: Text(
-                      'Upload ${_images.length}/$_maxImages images (Min: $_minImages)',
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                        color: colorScheme.onSurface,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            // Images grid
-            Expanded(
-              child: _images.isEmpty
-                  ? _buildEmptyState(colorScheme)
-                  : _buildImageGrid(colorScheme),
-            ),
-
-            // Bottom button
-            Padding(
-              padding: EdgeInsets.all(AppSizes.s16),
-              child: AppButton(text: 'Next', onPressed: _handleNext),
-            ),
-          ],
+        bottom: false,
+        child: GradientOverlay(
+          bottomWidget: Padding(
+            padding: EdgeInsets.all(AppSizes.s16),
+            child: AppButton(text: 'Next', onPressed: _handleNext),
+          ),
+          child: _buildImageGrid(colorScheme),
         ),
       ),
     );
   }
 
-  Widget _buildEmptyState(ColorScheme colorScheme) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.add_photo_alternate_outlined,
-            size: 80.sp,
-            color: colorScheme.outline.withValues(alpha: 0.5),
-          ),
-          SizedBox(height: AppSizes.s16),
-          Text(
-            'No images selected',
-            style: TextStyle(
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w600,
-              color: colorScheme.onSurface,
-            ),
-          ),
-          SizedBox(height: AppSizes.s8),
-          Text(
-            'Tap the button below to add images',
-            style: TextStyle(
-              fontSize: 14.sp,
-              color: colorScheme.onSurfaceVariant,
-            ),
-          ),
-          SizedBox(height: AppSizes.s32),
-          ElevatedButton.icon(
-            onPressed: _pickMultipleImages,
-            icon: const Icon(Icons.add_a_photo),
-            label: const Text('Add Images'),
-            style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.symmetric(
-                horizontal: AppSizes.s24,
-                vertical: AppSizes.s12,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildImageGrid(ColorScheme colorScheme) {
+    // Show at least 12 placeholder boxes if empty, otherwise show images + add button
+    final int itemCount = _images.isEmpty
+        ? 12 // Show 12 placeholder boxes when empty (4 rows x 3 columns)
+        : _images.length + (_images.length < _maxImages ? 1 : 0);
+
     return GridView.builder(
       padding: EdgeInsets.all(AppSizes.s16),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -223,16 +154,56 @@ class _UploadImagesViewState extends State<UploadImagesView> {
         mainAxisSpacing: 12,
         childAspectRatio: 1,
       ),
-      itemCount: _images.length + (_images.length < _maxImages ? 1 : 0),
+      itemCount: itemCount,
       itemBuilder: (context, index) {
+        // If no images, show placeholders
+        if (_images.isEmpty) {
+          return _buildPlaceholderBox(colorScheme);
+        }
+
+        // Show images + add button
         if (index == _images.length) {
-          // Add button
           return _buildAddButton(colorScheme);
         }
 
-        // Image item
         return _buildImageItem(index, colorScheme);
       },
+    );
+  }
+
+  Widget _buildPlaceholderBox(ColorScheme colorScheme) {
+    return InkWell(
+      onTap: _pickMultipleImages,
+      borderRadius: BorderRadius.circular(AppSizes.r16),
+      child: Container(
+        decoration: BoxDecoration(
+          color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+          borderRadius: BorderRadius.circular(AppSizes.r16),
+          border: Border.all(
+            color: colorScheme.outline.withValues(alpha: 0.2),
+            width: 2,
+            strokeAlign: BorderSide.strokeAlignInside,
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.add_photo_alternate_outlined,
+              size: 32.sp,
+              color: colorScheme.outline.withValues(alpha: 0.4),
+            ),
+            SizedBox(height: AppSizes.s4),
+            Text(
+              'Tap to add',
+              style: TextStyle(
+                fontSize: 10.sp,
+                color: colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 

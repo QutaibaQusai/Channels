@@ -21,9 +21,9 @@ class CategoriesRemoteDataSourceImpl implements CategoriesRemoteDataSource {
     String? country,
     String? parentId,
   }) async {
-    final response = await apiConsumer.get(
+    final response = await apiConsumer.post(
       EndPoint.categories,
-      queryParameters: {
+      data: {
         ApiKey.lang: lang,
         if (country != null) ApiKey.country: country,
         if (parentId != null) ApiKey.parentId: parentId,
