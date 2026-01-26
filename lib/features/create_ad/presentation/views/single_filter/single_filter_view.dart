@@ -138,10 +138,7 @@ class _SingleFilterViewState extends State<SingleFilterView> {
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
-      appBar: AppAppBar(
-        title: currentFilter.label,
-        showBackButton: true,
-      ),
+      appBar: AppAppBar(title: currentFilter.label, showBackButton: true),
       body: SafeArea(
         bottom: false,
         child: Column(
@@ -163,8 +160,10 @@ class _SingleFilterViewState extends State<SingleFilterView> {
                   ),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: AppSizes.screenPaddingH,
+                  padding: EdgeInsets.only(
+                    bottom: AppSizes.s96,
+                    left: AppSizes.screenPaddingH,
+                    right: AppSizes.screenPaddingH,
                   ),
                   child: _buildFilterInput(),
                 ),
@@ -203,10 +202,7 @@ class _SingleFilterViewState extends State<SingleFilterView> {
 
     if (options.isEmpty) {
       return Center(
-        child: Text(
-          'No options available',
-          style: TextStyle(fontSize: 14.sp),
-        ),
+        child: Text('No options available', style: TextStyle(fontSize: 14.sp)),
       );
     }
 
@@ -242,10 +238,7 @@ class _SingleFilterViewState extends State<SingleFilterView> {
         children: [
           Text(
             currentFilter.label,
-            style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w600,
-            ),
+            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
           ),
           verticalSpace(AppSizes.s16),
           AppTextField(
@@ -297,10 +290,7 @@ class _SingleFilterViewState extends State<SingleFilterView> {
         children: [
           Text(
             currentFilter.label,
-            style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w600,
-            ),
+            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
           ),
           verticalSpace(AppSizes.s16),
           AppTextField(

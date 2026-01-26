@@ -7,6 +7,8 @@ class CategoriesResponseModel extends CategoriesResponse {
     required super.lang,
     required super.count,
     required super.categories,
+    super.title,
+    super.subTitle,
     super.heroImages = const [],
     super.parentId,
   });
@@ -25,6 +27,8 @@ class CategoriesResponseModel extends CategoriesResponse {
     return CategoriesResponseModel(
       parentId: json[ApiKey.parentId] as String?,
       lang: (json[ApiKey.lang] ?? '') as String,
+      title: (json[ApiKey.title] ?? '') as String,
+      subTitle: (json[ApiKey.subTitle] ?? '') as String,
       heroImages: heroImages,
       count: (json[ApiKey.count] as num?)?.toInt() ?? categoriesJson.length,
       categories:

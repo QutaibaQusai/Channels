@@ -1,7 +1,7 @@
-import 'package:channels/features/categories/domain/entities/category.dart';
+import 'package:channels/features/create_ad/domain/entities/subcategories_response.dart';
 
 abstract class SubcategoriesRepository {
-  Future<List<Category>> getSubcategories({
+  Future<SubcategoriesResponse> getSubcategories({
     required String categoryId,
     required String lang,
   });

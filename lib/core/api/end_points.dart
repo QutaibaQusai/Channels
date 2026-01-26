@@ -51,6 +51,7 @@ class ApiKey {
   static String categoryId = "category_id";
   static String subcategoryId = "subcategory_id";
   static String title = "title";
+  static String subTitle = "sub_title";
   static String description = "description";
   static String images = "images";
   static String attributes = "attributes";

@@ -1,19 +1,19 @@
 import 'package:equatable/equatable.dart';
 import 'package:channels/features/categories/domain/entities/category.dart';
 
-class CategoriesResponse extends Equatable {
+class SubcategoriesResponse extends Equatable {
   final String? parentId;
   final String lang;
   final String title;
   final String subTitle;
   final List<String> heroImages;
   final int count;
-  final List<Category> categories;
+  final List<Category> subcategories;
 
-  const CategoriesResponse({
+  const SubcategoriesResponse({
     required this.lang,
     required this.count,
-    required this.categories,
+    required this.subcategories,
     this.title = '',
     this.subTitle = '',
     this.heroImages = const [],
@@ -21,5 +21,13 @@ class CategoriesResponse extends Equatable {
   });
 
   @override
-  List<Object?> get props => [parentId, lang, heroImages, count, categories];
+  List<Object?> get props => [
+    parentId,
+    lang,
+    title,
+    subTitle,
+    heroImages,
+    count,
+    subcategories,
+  ];
 }

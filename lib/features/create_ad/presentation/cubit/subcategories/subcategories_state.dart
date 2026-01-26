@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:channels/features/categories/domain/entities/category.dart';
+import 'package:channels/features/create_ad/domain/entities/subcategories_response.dart';
 
 abstract class SubcategoriesState extends Equatable {
   const SubcategoriesState();
@@ -17,22 +17,19 @@ class SubcategoriesLoading extends SubcategoriesState {
 }
 
 class SubcategoriesSuccess extends SubcategoriesState {
-  final List<Category> subcategories;
+  final SubcategoriesResponse data;
 
-  const SubcategoriesSuccess(this.subcategories);
+  const SubcategoriesSuccess(this.data);
 
   @override
-  List<Object?> get props => [subcategories];
+  List<Object?> get props => [data];
 }
 
 class SubcategoriesFailure extends SubcategoriesState {
   final String message;
   final bool isAuthError;
 
-  const SubcategoriesFailure({
-    required this.message,
-    this.isAuthError = false,
-  });
+  const SubcategoriesFailure({required this.message, this.isAuthError = false});
 
   @override
   List<Object?> get props => [message, isAuthError];

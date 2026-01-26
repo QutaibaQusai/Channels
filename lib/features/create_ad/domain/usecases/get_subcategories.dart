@@ -1,4 +1,4 @@
-import 'package:channels/features/categories/domain/entities/category.dart';
+import 'package:channels/features/create_ad/domain/entities/subcategories_response.dart';
 import 'package:channels/features/create_ad/domain/repositories/subcategories_repository.dart';
 
 class GetSubcategories {
@@ -6,13 +6,10 @@ class GetSubcategories {
 
   GetSubcategories(this.repository);
 
-  Future<List<Category>> call({
+  Future<SubcategoriesResponse> call({
     required String categoryId,
     required String lang,
   }) {
-    return repository.getSubcategories(
-      categoryId: categoryId,
-      lang: lang,
-    );
+    return repository.getSubcategories(categoryId: categoryId, lang: lang);
   }
 }

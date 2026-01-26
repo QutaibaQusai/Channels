@@ -20,7 +20,9 @@ class SubcategoriesCubit extends Cubit<SubcategoriesState> {
         categoryId: categoryId,
         lang: lang,
       );
-      debugPrint('✅ Subcategories loaded successfully: ${subcategories.length} subcategories');
+      debugPrint(
+        '✅ Subcategories loaded successfully: ${subcategories.subcategories.length} subcategories',
+      );
       emit(SubcategoriesSuccess(subcategories));
     } on DioException catch (e) {
       final statusCode = e.response?.statusCode;
@@ -29,21 +31,23 @@ class SubcategoriesCubit extends Cubit<SubcategoriesState> {
       String errorMessage = 'An error occurred while loading subcategories';
       if (e.response?.data is Map<String, dynamic>) {
         final responseData = e.response!.data as Map<String, dynamic>;
-        errorMessage = responseData['message'] ??
+        errorMessage =
+            responseData['message'] ??
             responseData['ErrorMessage'] ??
             errorMessage;
       }
 
       debugPrint('❌ DioException loading subcategories: $errorMessage');
-      emit(SubcategoriesFailure(
-        message: errorMessage,
-        isAuthError: isAuthError,
-      ));
+      emit(
+        SubcategoriesFailure(message: errorMessage, isAuthError: isAuthError),
+      );
     } catch (e) {
       debugPrint('❌ Unexpected error loading subcategories: $e');
-      emit(SubcategoriesFailure(
-        message: 'An unexpected error occurred: ${e.toString()}',
-      ));
+      emit(
+        SubcategoriesFailure(
+          message: 'An unexpected error occurred: ${e.toString()}',
+        ),
+      );
     }
   }
 }

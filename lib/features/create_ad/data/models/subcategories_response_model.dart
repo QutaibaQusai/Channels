@@ -1,20 +1,16 @@
 import 'package:channels/core/api/end_points.dart';
 import 'package:channels/features/categories/data/models/category_model.dart';
-import 'package:channels/features/categories/domain/entities/category.dart';
+import 'package:channels/features/create_ad/domain/entities/subcategories_response.dart';
 
-class SubcategoriesResponseModel {
-  final String? parentId;
-  final String lang;
-  final List<String> heroImages;
-  final int count;
-  final List<Category> subcategories;
-
+class SubcategoriesResponseModel extends SubcategoriesResponse {
   const SubcategoriesResponseModel({
-    required this.lang,
-    required this.count,
-    required this.subcategories,
-    this.heroImages = const [],
-    this.parentId,
+    required super.lang,
+    required super.count,
+    required super.subcategories,
+    super.title,
+    super.subTitle,
+    super.heroImages = const [],
+    super.parentId,
   });
 
   factory SubcategoriesResponseModel.fromJson(Map<String, dynamic> json) {
@@ -31,6 +27,8 @@ class SubcategoriesResponseModel {
     return SubcategoriesResponseModel(
       parentId: json[ApiKey.parentId] as String?,
       lang: (json[ApiKey.lang] ?? '') as String,
+      title: (json[ApiKey.title] ?? '') as String,
+      subTitle: (json[ApiKey.subTitle] ?? '') as String,
       heroImages: heroImages,
       count: (json[ApiKey.count] as num?)?.toInt() ?? categoriesJson.length,
       subcategories:
