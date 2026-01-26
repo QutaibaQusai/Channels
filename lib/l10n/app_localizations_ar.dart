@@ -276,4 +276,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get deleteAccountButton => 'حذف';
+
+  @override
+  String get announcementBannerMessage =>
+      'انشر إعلانك مجاناً! وصل لآلاف المشترين اليوم.';
+
+  @override
+  String get featuredAdsLabel => 'الإعلانات المميزة';
 }

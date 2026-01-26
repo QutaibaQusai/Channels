@@ -30,4 +30,5 @@ class RouteNames {
   static const String singleFilter = '/create-ad/single-filter';
   static const String uploadImages = '/create-ad/upload-images';
   static const String createAdDetails = '/create-ad/ad-details';
+  static const String createAdReview = '/create-ad/review';
 }

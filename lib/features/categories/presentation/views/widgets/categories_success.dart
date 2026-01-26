@@ -1,11 +1,11 @@
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/theme/app_theme_extensions.dart';
-import 'package:channels/core/shared/widgets/app_search_bar.dart';
 import 'package:channels/core/shared/widgets/app_empty_state.dart';
 import 'package:channels/core/shared/widgets/app_refresh_wrapper.dart';
 import 'package:channels/features/categories/domain/entities/categories_response.dart';
 import 'package:channels/features/categories/presentation/cubit/categories_cubit.dart';
 import 'package:channels/features/categories/presentation/views/widgets/hero_carousel.dart';
+import 'package:channels/features/categories/presentation/views/widgets/announcement_banner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:channels/l10n/app_localizations.dart';
@@ -41,10 +41,23 @@ class CategoriesSuccessContent extends StatelessWidget {
       onRefresh: () => context.read<CategoriesCubit>().refreshCategories(),
       child: CustomScrollView(
         slivers: [
+          // Announcement banner (static for now, will be from API later)
+          SliverToBoxAdapter(
+            child: AnnouncementBanner(message: l10n.announcementBannerMessage),
+          ),
+
+          // Platform Ads Section Label
           SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.only(top: AppSizes.s24, bottom: AppSizes.s16),
-              child: AppSearchBar(hintText: l10n.categoriesSearchHint),
+              padding: EdgeInsets.only(top: AppSizes.s4, bottom: AppSizes.s8),
+              child: Text(
+                l10n.featuredAdsLabel,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: colorScheme.onSurface,
+                ),
+              ),
             ),
           ),
 

@@ -111,5 +111,15 @@
 
   "deleteAccountTitle": "حذف الحساب",
   "deleteAccountConfirmation": "هل أنت متأكد أنك تريد حذف حسابك؟ لا يمكن التراجع عن هذا الإجراء.",
-  "deleteAccountButton": "حذف"
+  "deleteAccountButton": "حذف",
+
+  "announcementBannerMessage": "انشر إعلانك مجاناً! وصل لآلاف المشترين اليوم.",
+  "@announcementBannerMessage": {
+    "description": "Announcement banner message on home screen"
+  },
+
+  "featuredAdsLabel": "الإعلانات المميزة",
+  "@featuredAdsLabel": {
+    "description": "Label for featured ads section"
+  }
 }

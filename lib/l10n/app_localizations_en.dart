@@ -277,4 +277,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get deleteAccountButton => 'Delete';
+
+  @override
+  String get announcementBannerMessage =>
+      'Post your ad for free! Reach thousands of buyers today.';
+
+  @override
+  String get featuredAdsLabel => 'Featured Ads';
 }

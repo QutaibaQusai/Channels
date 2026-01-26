@@ -17,6 +17,7 @@ class SingleFilterView extends StatefulWidget {
   final List<Filter> allFilters; // All filters for this category
   final int currentFilterIndex; // Current filter being displayed
   final Map<String, dynamic> collectedData; // Previously collected answers
+  final Map<String, String> displayData; // Human readable data for review
   final String categoryId; // The selected subcategory ID
   final String parentCategoryId; // The parent category ID (for filters/API)
   final String rootCategoryId; // Root category (for API submission)
@@ -26,6 +27,7 @@ class SingleFilterView extends StatefulWidget {
     required this.allFilters,
     required this.currentFilterIndex,
     required this.collectedData,
+    required this.displayData,
     required this.categoryId,
     required this.parentCategoryId,
     required this.rootCategoryId,
@@ -97,10 +99,42 @@ class _SingleFilterViewState extends State<SingleFilterView> {
 
     // Save current answer
     final updatedData = Map<String, dynamic>.from(widget.collectedData);
+    final updatedDisplayData = Map<String, String>.from(widget.displayData);
+
     if (currentFilter.type == 'select') {
       updatedData[currentFilter.key] = _selectedOption;
+
+      // Find display label
+      String displayLabel = _selectedOption.toString();
+      // Ensure we have a standard List<FilterOption> to avoid runtime type issues with firstWhere
+      List<FilterOption> options = List<FilterOption>.from(
+        currentFilter.options ?? [],
+      );
+
+      // Handle generated options (same logic as build)
+      if (options.isEmpty && currentFilter.validation != null) {
+        final validation = currentFilter.validation!;
+        if (validation.min != null && validation.max != null) {
+          final step = validation.step ?? 1;
+          for (int i = validation.max!; i >= validation.min!; i -= step) {
+            options.add(FilterOption(value: i.toString(), label: i.toString()));
+          }
+        }
+      }
+
+      final option = options.firstWhere(
+        (o) => o.value == _selectedOption,
+        orElse: () => FilterOption(
+          value: _selectedOption.toString(),
+          label: _selectedOption.toString(),
+        ),
+      );
+      displayLabel = option.label ?? option.value;
+      updatedDisplayData[currentFilter.label] = displayLabel;
     } else {
-      updatedData[currentFilter.key] = _textController.text.trim();
+      final value = _textController.text.trim();
+      updatedData[currentFilter.key] = value;
+      updatedDisplayData[currentFilter.label] = value;
     }
 
     // Navigate to next filter or upload images
@@ -110,6 +144,7 @@ class _SingleFilterViewState extends State<SingleFilterView> {
         RouteNames.uploadImages,
         extra: {
           'formData': updatedData,
+          'displayData': updatedDisplayData,
           'categoryId': widget.categoryId,
           'parentCategoryId': widget.parentCategoryId,
           'rootCategoryId': widget.rootCategoryId,
@@ -123,6 +158,7 @@ class _SingleFilterViewState extends State<SingleFilterView> {
           'allFilters': widget.allFilters,
           'currentFilterIndex': widget.currentFilterIndex + 1,
           'collectedData': updatedData,
+          'displayData': updatedDisplayData,
           'categoryId': widget.categoryId,
           'parentCategoryId': widget.parentCategoryId,
           'rootCategoryId': widget.rootCategoryId,

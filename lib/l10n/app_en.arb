@@ -309,5 +309,15 @@
 
   "deleteAccountTitle": "Delete Account",
   "deleteAccountConfirmation": "Are you sure you want to delete your account? This action cannot be undone.",
-  "deleteAccountButton": "Delete"
+  "deleteAccountButton": "Delete",
+
+  "announcementBannerMessage": "Post your ad for free! Reach thousands of buyers today.",
+  "@announcementBannerMessage": {
+    "description": "Announcement banner message on home screen"
+  },
+
+  "featuredAdsLabel": "Featured Ads",
+  "@featuredAdsLabel": {
+    "description": "Label for featured ads section"
+  }
 }

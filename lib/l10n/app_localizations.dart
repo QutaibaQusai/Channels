@@ -619,6 +619,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete'**
   String get deleteAccountButton;
+
+  /// Announcement banner message on home screen
+  ///
+  /// In en, this message translates to:
+  /// **'Post your ad for free! Reach thousands of buyers today.'**
+  String get announcementBannerMessage;
+
+  /// Label for featured ads section
+  ///
+  /// In en, this message translates to:
+  /// **'Featured Ads'**
+  String get featuredAdsLabel;
 }
 
 class _AppLocalizationsDelegate

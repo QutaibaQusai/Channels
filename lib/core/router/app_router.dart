@@ -31,13 +31,14 @@ import 'package:channels/features/create_ad/presentation/views/ad_form/ad_form_v
 import 'package:channels/features/create_ad/presentation/views/single_filter/single_filter_view.dart';
 import 'package:channels/features/create_ad/presentation/views/upload_images/upload_images_view.dart';
 import 'package:channels/features/create_ad/presentation/views/ad_details/ad_details_view.dart';
+import 'package:channels/features/create_ad/presentation/views/review_ad/review_ad_view.dart';
 import 'package:channels/features/create_ad/domain/entities/filter.dart';
 import 'package:channels/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:channels/features/profile/domain/usecases/get_profile.dart';
 import 'package:channels/features/profile/domain/usecases/update_profile.dart';
 import 'package:channels/features/notification/presentation/views/notification_view.dart';
 import 'package:channels/core/shared/views/webview_page.dart';
-import 'package:channels/features/ads/presentation/views/image_viewer/image_viewer_view.dart';
+import 'package:channels/core/shared/views/image_viewer_view.dart';
 import 'package:channels/features/profile/presentation/views/my_ads/my_ads_view.dart';
 
 /// Centralized routing configuration using Go Router
@@ -282,6 +283,7 @@ class AppRouter {
             allFilters: allFilters,
             currentFilterIndex: currentFilterIndex,
             collectedData: collectedData,
+            displayData: extra['displayData'] as Map<String, String>? ?? {},
             categoryId: categoryId,
             parentCategoryId: parentCategoryId,
             rootCategoryId: rootCategoryId,
@@ -295,11 +297,14 @@ class AppRouter {
         builder: (context, state) {
           final extra = state.extra as Map<String, dynamic>;
           final formData = extra['formData'] as Map<String, dynamic>;
+          final displayData =
+              extra['displayData'] as Map<String, String>? ?? {};
           final categoryId = extra['categoryId'] as String;
           final parentCategoryId = extra['parentCategoryId'] as String;
           final rootCategoryId = extra['rootCategoryId'] as String;
           return UploadImagesView(
             formData: formData,
+            displayData: displayData,
             categoryId: categoryId,
             parentCategoryId: parentCategoryId,
             rootCategoryId: rootCategoryId,
@@ -313,16 +318,51 @@ class AppRouter {
         builder: (context, state) {
           final extra = state.extra as Map<String, dynamic>;
           final formData = extra['formData'] as Map<String, dynamic>;
+          final displayData =
+              extra['displayData'] as Map<String, String>? ?? {};
           final categoryId = extra['categoryId'] as String;
           final parentCategoryId = extra['parentCategoryId'] as String;
           final rootCategoryId = extra['rootCategoryId'] as String;
           final images = extra['images'] as List<File>;
           return CreateAdDetailsView(
             formData: formData,
+            displayData: displayData,
             categoryId: categoryId,
             parentCategoryId: parentCategoryId,
             rootCategoryId: rootCategoryId,
             images: images,
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RouteNames.createAdReview,
+        name: RouteNames.createAdReview,
+        builder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>;
+          final formData = extra['formData'] as Map<String, dynamic>;
+          final displayData =
+              extra['displayData'] as Map<String, String>? ?? {};
+          final categoryId = extra['categoryId'] as String;
+          final parentCategoryId = extra['parentCategoryId'] as String;
+          final rootCategoryId = extra['rootCategoryId'] as String;
+          final images = extra['images'] as List<File>;
+          final title = extra['title'] as String;
+          final description = extra['description'] as String;
+          final price = extra['price'] as double;
+          final countryCode = extra['countryCode'] as String;
+
+          return CreateAdReviewView(
+            formData: formData,
+            displayData: displayData,
+            categoryId: categoryId,
+            parentCategoryId: parentCategoryId,
+            rootCategoryId: rootCategoryId,
+            images: images,
+            title: title,
+            description: description,
+            price: price,
+            countryCode: countryCode,
           );
         },
       ),

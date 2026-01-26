@@ -88,6 +88,8 @@ class _AdFormBody extends StatelessWidget {
                     'allFilters': state.filters,
                     'currentFilterIndex': 0,
                     'collectedData': <String, dynamic>{},
+                    'displayData':
+                        <String, String>{}, // Initialize empty display data
                     'categoryId': categoryId,
                     'parentCategoryId': parentCategoryId,
                     'rootCategoryId': rootCategoryId,
@@ -99,6 +101,8 @@ class _AdFormBody extends StatelessWidget {
                   RouteNames.uploadImages,
                   extra: {
                     'formData': <String, dynamic>{},
+                    'displayData':
+                        <String, String>{}, // Initialize empty display data
                     'categoryId': categoryId,
                     'parentCategoryId': parentCategoryId,
                     'rootCategoryId': rootCategoryId,
@@ -108,9 +112,7 @@ class _AdFormBody extends StatelessWidget {
             });
           }
 
-          return const Scaffold(
-            body: Center(child: AppLoading()),
-          );
+          return const Scaffold(body: Center(child: AppLoading()));
         }
 
         // Show error in full scaffold
@@ -121,7 +123,9 @@ class _AdFormBody extends StatelessWidget {
             body: SafeArea(
               bottom: false,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppSizes.screenPaddingH),
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppSizes.screenPaddingH,
+                ),
                 child: ErrorStateWidget(
                   message: state.message,
                   isAuthError: state.isAuthError,
@@ -129,9 +133,9 @@ class _AdFormBody extends StatelessWidget {
                     if (state.isAuthError) {
                       context.goNamed(RouteNames.onboarding);
                     } else {
-                      context
-                          .read<FiltersCubit>()
-                          .fetchFilters(parentCategoryId);
+                      context.read<FiltersCubit>().fetchFilters(
+                        parentCategoryId,
+                      );
                     }
                   },
                 ),
@@ -140,9 +144,7 @@ class _AdFormBody extends StatelessWidget {
           );
         }
 
-        return const Scaffold(
-          body: Center(child: SizedBox.shrink()),
-        );
+        return const Scaffold(body: Center(child: SizedBox.shrink()));
       },
     );
   }
