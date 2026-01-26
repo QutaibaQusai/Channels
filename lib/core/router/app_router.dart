@@ -8,6 +8,7 @@ import 'package:channels/features/onboarding/presentation/views/onboarding_view.
 import 'package:channels/features/authentication/presentation/views/phone_auth/phone_auth_view.dart';
 import 'package:channels/features/authentication/presentation/views/otp_verification/otp_verification_view.dart';
 import 'package:channels/features/authentication/presentation/views/country_picker/country_picker_view.dart';
+import 'package:channels/features/authentication/presentation/views/country_picker/select_country_view.dart';
 import 'package:channels/features/authentication/presentation/views/register/register_view.dart';
 import 'package:channels/features/authentication/domain/usecases/request_otp_usecase.dart';
 import 'package:channels/features/authentication/domain/usecases/verify_otp_usecase.dart';
@@ -27,8 +28,10 @@ import 'package:channels/features/profile/presentation/views/profile_edit/profil
 import 'package:channels/features/create_ad/presentation/views/select_category/select_category_view.dart';
 import 'package:channels/features/create_ad/presentation/views/select_subcategory/select_subcategory_view.dart';
 import 'package:channels/features/create_ad/presentation/views/ad_form/ad_form_view.dart';
+import 'package:channels/features/create_ad/presentation/views/single_filter/single_filter_view.dart';
 import 'package:channels/features/create_ad/presentation/views/upload_images/upload_images_view.dart';
 import 'package:channels/features/create_ad/presentation/views/ad_details/ad_details_view.dart';
+import 'package:channels/features/create_ad/domain/entities/filter.dart';
 import 'package:channels/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:channels/features/profile/domain/usecases/get_profile.dart';
 import 'package:channels/features/profile/domain/usecases/update_profile.dart';
@@ -84,6 +87,14 @@ class AppRouter {
             ),
             child: const CountryPickerView(),
           );
+        },
+      ),
+
+      GoRoute(
+        path: RouteNames.selectCountry,
+        name: RouteNames.selectCountry,
+        builder: (context, state) {
+          return const SelectCountryView();
         },
       ),
 
@@ -245,13 +256,38 @@ class AppRouter {
       ),
 
       GoRoute(
+        path: RouteNames.singleFilter,
+        name: RouteNames.singleFilter,
+        builder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>;
+          final allFilters = extra['allFilters'] as List<Filter>;
+          final currentFilterIndex = extra['currentFilterIndex'] as int;
+          final collectedData = extra['collectedData'] as Map<String, dynamic>;
+          final categoryId = extra['categoryId'] as String;
+          final parentCategoryId = extra['parentCategoryId'] as String;
+          return SingleFilterView(
+            allFilters: allFilters,
+            currentFilterIndex: currentFilterIndex,
+            collectedData: collectedData,
+            categoryId: categoryId,
+            parentCategoryId: parentCategoryId,
+          );
+        },
+      ),
+
+      GoRoute(
         path: RouteNames.uploadImages,
         name: RouteNames.uploadImages,
         builder: (context, state) {
           final extra = state.extra as Map<String, dynamic>;
           final formData = extra['formData'] as Map<String, dynamic>;
           final categoryId = extra['categoryId'] as String;
-          return UploadImagesView(formData: formData, categoryId: categoryId);
+          final parentCategoryId = extra['parentCategoryId'] as String;
+          return UploadImagesView(
+            formData: formData,
+            categoryId: categoryId,
+            parentCategoryId: parentCategoryId,
+          );
         },
       ),
 
@@ -262,10 +298,12 @@ class AppRouter {
           final extra = state.extra as Map<String, dynamic>;
           final formData = extra['formData'] as Map<String, dynamic>;
           final categoryId = extra['categoryId'] as String;
+          final parentCategoryId = extra['parentCategoryId'] as String;
           final images = extra['images'] as List<File>;
           return CreateAdDetailsView(
             formData: formData,
             categoryId: categoryId,
+            parentCategoryId: parentCategoryId,
             images: images,
           );
         },

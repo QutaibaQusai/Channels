@@ -51,9 +51,11 @@ class FilterOptionModel extends FilterOption {
   });
 
   factory FilterOptionModel.fromJson(Map<String, dynamic> json) {
+    final value = json[ApiKey.value] as String;
+    final label = json[ApiKey.label] as String?;
     return FilterOptionModel(
-      value: json[ApiKey.value] as String,
-      label: json[ApiKey.label] as String?,
+      value: value,
+      label: label ?? value, // Use value as label if label is null
       parentValue: json['parent_value'] as String?,
     );
   }

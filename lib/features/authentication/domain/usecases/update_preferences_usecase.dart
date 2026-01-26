@@ -10,11 +10,13 @@ class UpdatePreferencesUseCase {
     required String token,
     required String name,
     required String dateOfBirth,
+    required String countryCode,
   }) {
     return repository.updatePreferences(
       token: token,
       name: name,
       dateOfBirth: dateOfBirth,
+      countryCode: countryCode,
     );
   }
 }

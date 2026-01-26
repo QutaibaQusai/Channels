@@ -113,6 +113,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     required String languageCode,
     required String fullName,
     required String dob,
+    String? countryCode,
   }) async {
     final name = fullName.trim();
     final dateOfBirth = dob.trim();
@@ -120,6 +121,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     final params = UpdateProfileParams(
       name: name.isNotEmpty ? name : null,
       dateOfBirth: dateOfBirth.isNotEmpty ? dateOfBirth : null,
+      countryCode: countryCode,
     );
 
     await updateProfile(languageCode: languageCode, params: params);

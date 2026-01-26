@@ -13,12 +13,14 @@ import 'package:channels/core/router/route_names.dart';
 /// Min: 3 images, Max: 30 images
 class UploadImagesView extends StatefulWidget {
   final Map<String, dynamic> formData;
-  final String categoryId;
+  final String categoryId; // Subcategory ID
+  final String parentCategoryId; // Parent category ID
 
   const UploadImagesView({
     super.key,
     required this.formData,
     required this.categoryId,
+    required this.parentCategoryId,
   });
 
   @override
@@ -107,6 +109,7 @@ class _UploadImagesViewState extends State<UploadImagesView> {
       extra: {
         'formData': widget.formData,
         'categoryId': widget.categoryId,
+        'parentCategoryId': widget.parentCategoryId,
         'images': _images,
       },
     );

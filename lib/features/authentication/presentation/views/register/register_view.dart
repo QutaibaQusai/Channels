@@ -10,10 +10,12 @@ import 'package:channels/core/utils/spacing.dart';
 import 'package:channels/core/shared/widgets/app_button.dart';
 import 'package:channels/core/shared/widgets/app_bar.dart';
 import 'package:channels/core/shared/widgets/app_text_field.dart';
+import 'package:channels/core/shared/widgets/app_selector_field.dart';
 import 'package:channels/l10n/app_localizations.dart';
 import 'package:channels/core/router/route_names.dart';
 import 'package:channels/features/authentication/presentation/cubit/register/register_cubit.dart';
 import 'package:channels/features/authentication/presentation/cubit/register/register_state.dart';
+import 'package:channels/features/authentication/domain/entities/country_entity.dart';
 
 /// Register view - New users complete their profile with name and date of birth
 class RegisterView extends StatefulWidget {
@@ -28,13 +30,28 @@ class RegisterView extends StatefulWidget {
 class _RegisterViewState extends State<RegisterView> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _dateOfBirthController = TextEditingController();
+  final TextEditingController _countryController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
     _nameController.dispose();
     _dateOfBirthController.dispose();
+    _countryController.dispose();
     super.dispose();
+  }
+
+  Future<void> _selectCountry(BuildContext context) async {
+    final selectedCountry = await context.push<CountryEntity>(
+      RouteNames.selectCountry,
+    );
+
+    if (selectedCountry != null && mounted) {
+      context.read<RegisterCubit>().selectCountry(selectedCountry);
+      setState(() {
+        _countryController.text = selectedCountry.name;
+      });
+    }
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -138,14 +155,23 @@ class _RegisterViewState extends State<RegisterView> {
 
   void _handleRegister() {
     if (_formKey.currentState?.validate() ?? false) {
+      final l10n = AppLocalizations.of(context)!;
+      final state = context.read<RegisterCubit>().state;
+      if (state is! RegisterInitial || state.selectedCountryCode == null) {
+        AppToast.error(context, title: l10n.registerCountryRequired);
+        return;
+      }
+
       final name = _nameController.text.trim();
       final dateOfBirth = _dateOfBirthController.text.trim();
+      final countryCode = state.selectedCountryCode!;
 
       // Call register API with token
       context.read<RegisterCubit>().register(
         token: widget.token,
         name: name,
         dateOfBirth: dateOfBirth,
+        countryCode: countryCode,
       );
     }
   }
@@ -248,6 +274,40 @@ class _RegisterViewState extends State<RegisterView> {
                       }
                       return null;
                     },
+                  ),
+
+                  verticalSpace(AppSizes.s24),
+
+                  // Country field
+                  Text(
+                    l10n.registerCountryLabel,
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
+                      color: colorScheme.onSurface,
+                    ),
+                  ),
+                  verticalSpace(AppSizes.s8),
+                  AppSelectorField(
+                    controller: _countryController,
+                    hintText: l10n.registerCountryPlaceholder,
+                    onTap: () => _selectCountry(context),
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return l10n.registerCountryRequired;
+                      }
+                      return null;
+                    },
+                  ),
+                  verticalSpace(AppSizes.s8),
+                  // Country hint text
+                  Text(
+                    l10n.registerCountryHint,
+                    style: TextStyle(
+                      fontSize: 12.sp,
+                      color: textExtension.textSecondary,
+                      height: 1.5,
+                    ),
                   ),
 
                   const Spacer(),

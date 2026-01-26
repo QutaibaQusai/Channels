@@ -120,6 +120,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get registerButton => 'Complete Registration';
 
   @override
+  String get registerCountryLabel => 'Country';
+
+  @override
+  String get registerCountryPlaceholder => 'Select your country';
+
+  @override
+  String get registerCountryRequired => 'Country is required';
+
+  @override
+  String get registerCountryHint =>
+      'Select the country where you want to browse ads';
+
+  @override
   String get onboardingPage1Title => 'Your Personal Ad Channel';
 
   @override

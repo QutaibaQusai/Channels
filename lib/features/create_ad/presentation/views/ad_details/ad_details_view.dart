@@ -15,13 +15,15 @@ import 'package:channels/features/create_ad/presentation/cubit/create_ad/create_
 /// Create Ad Details Form View - Collect title, description, price, and phone number
 class CreateAdDetailsView extends StatefulWidget {
   final Map<String, dynamic> formData;
-  final String categoryId;
+  final String categoryId; // Subcategory ID (leaf node)
+  final String parentCategoryId; // Parent category ID
   final List<File> images;
 
   const CreateAdDetailsView({
     super.key,
     required this.formData,
     required this.categoryId,
+    required this.parentCategoryId,
     required this.images,
   });
 
@@ -53,17 +55,14 @@ class _CreateAdDetailsViewState extends State<CreateAdDetailsView> {
       debugPrint('📋 Title: ${_titleController.text.trim()}');
       debugPrint('📋 Description: ${_descriptionController.text.trim()}');
       debugPrint('📋 Price: ${_priceController.text.trim()}');
-      debugPrint('📋 Category ID: ${widget.categoryId}');
+      debugPrint('📋 Parent Category ID: ${widget.parentCategoryId}');
+      debugPrint('📋 Subcategory ID: ${widget.categoryId}');
       debugPrint('📋 Form Data (attributes): ${widget.formData}');
       debugPrint('📋 Images count: ${widget.images.length}');
 
-      // Extract subcategory_id from formData (it was passed from the filter form)
-      final subcategoryId =
-          widget.categoryId; // This is actually the subcategoryId
-
       context.read<CreateAdCubit>().createAd(
-        categoryId: widget.categoryId, // TODO: Get actual parent category ID
-        subcategoryId: subcategoryId,
+        categoryId: widget.parentCategoryId, // Parent category
+        subcategoryId: widget.categoryId, // Subcategory (leaf node)
         title: _titleController.text.trim(),
         description: _descriptionController.text.trim(),
         price: double.parse(_priceController.text.trim()),

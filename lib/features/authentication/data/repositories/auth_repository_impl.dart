@@ -80,11 +80,13 @@ class AuthRepositoryImpl implements AuthRepository {
     required String token,
     required String name,
     required String dateOfBirth,
+    required String countryCode,
   }) async {
     await updatePreferencesDataSource.updatePreferences(
       token: token,
       name: name,
       dateOfBirth: dateOfBirth,
+      countryCode: countryCode,
     );
   }
 }

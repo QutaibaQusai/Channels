@@ -3,15 +3,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:go_router/go_router.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/theme/app_theme_extensions.dart';
 import 'package:channels/core/shared/widgets/app_button.dart';
 import 'package:channels/core/shared/widgets/app_text_field.dart';
+import 'package:channels/core/shared/widgets/app_selector_field.dart';
 import 'package:channels/l10n/app_localizations.dart';
 import 'package:channels/features/profile/domain/entities/profile.dart';
 import 'package:channels/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:channels/features/profile/presentation/views/profile_edit/widgets/profile_edit_avatar.dart';
 import 'package:channels/core/utils/spacing.dart';
+import 'package:channels/core/router/route_names.dart';
+import 'package:channels/features/authentication/domain/entities/country_entity.dart';
+import 'package:channels/features/authentication/domain/usecases/get_countries_usecase.dart';
+import 'package:channels/core/di/service_locator.dart';
 
 class ProfileEditForm extends StatefulWidget {
   final Profile profile;
@@ -31,6 +37,9 @@ class _ProfileEditFormState extends State<ProfileEditForm> {
   late TextEditingController _nameController;
   late TextEditingController _phoneController;
   late TextEditingController _dobController;
+  late TextEditingController _countryController;
+
+  String? _selectedCountryCode;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -42,6 +51,35 @@ class _ProfileEditFormState extends State<ProfileEditForm> {
     _dobController = TextEditingController(
       text: widget.profile.dateOfBirth ?? '',
     );
+    _countryController = TextEditingController();
+    _selectedCountryCode = widget.profile.countryCode;
+    _loadCountryName();
+  }
+
+  Future<void> _loadCountryName() async {
+    if (_selectedCountryCode == null || _selectedCountryCode!.isEmpty) {
+      return;
+    }
+
+    try {
+      final l10n = AppLocalizations.of(context)!;
+      final countries = await sl<GetCountriesUseCase>()(
+        languageCode: l10n.localeName,
+      );
+
+      final country = countries.firstWhere(
+        (c) => c.code == _selectedCountryCode,
+        orElse: () => countries.first,
+      );
+
+      if (mounted) {
+        setState(() {
+          _countryController.text = country.name;
+        });
+      }
+    } catch (e) {
+      // Silently fail - user can still select a country
+    }
   }
 
   @override
@@ -49,7 +87,20 @@ class _ProfileEditFormState extends State<ProfileEditForm> {
     _nameController.dispose();
     _phoneController.dispose();
     _dobController.dispose();
+    _countryController.dispose();
     super.dispose();
+  }
+
+  Future<void> _selectCountry(BuildContext context) async {
+    final selectedCountry = await context.push<CountryEntity>(
+      RouteNames.selectCountry,
+    );
+    if (selectedCountry != null && mounted) {
+      setState(() {
+        _countryController.text = selectedCountry.name;
+        _selectedCountryCode = selectedCountry.code;
+      });
+    }
   }
 
   Future<void> _selectDate() async {
@@ -166,6 +217,7 @@ class _ProfileEditFormState extends State<ProfileEditForm> {
         languageCode: l10n.localeName,
         fullName: _nameController.text,
         dob: _dobController.text,
+        countryCode: _selectedCountryCode,
       );
     }
   }
@@ -255,6 +307,28 @@ class _ProfileEditFormState extends State<ProfileEditForm> {
             validator: (value) {
               if (value == null || value.trim().isEmpty) {
                 return l10n.registerDateOfBirthRequired;
+              }
+              return null;
+            },
+          ),
+
+          verticalSpace(16.h),
+
+          // Country
+          Text(
+            l10n.registerCountryLabel,
+            style: theme.textTheme.labelLarge?.copyWith(
+              color: textExtension.textSecondary,
+            ),
+          ),
+          verticalSpace(8.h),
+          AppSelectorField(
+            controller: _countryController,
+            hintText: l10n.registerCountryPlaceholder,
+            onTap: () => _selectCountry(context),
+            validator: (value) {
+              if (value == null || value.trim().isEmpty) {
+                return l10n.registerCountryRequired;
               }
               return null;
             },

@@ -8,6 +8,7 @@ class RouteNames {
   // ==================== AUTH ====================
   static const String phoneAuth = '/phone-auth';
   static const String countryPicker = '/country-picker';
+  static const String selectCountry = '/select-country';
   static const String otpVerification = '/otp-verification';
   static const String register = '/register';
 
@@ -25,6 +26,7 @@ class RouteNames {
   static const String createAd = '/create-ad';
   static const String selectSubcategory = '/create-ad/select-subcategory';
   static const String adForm = '/create-ad/form';
+  static const String singleFilter = '/create-ad/single-filter';
   static const String uploadImages = '/create-ad/upload-images';
   static const String createAdDetails = '/create-ad/ad-details';
 }

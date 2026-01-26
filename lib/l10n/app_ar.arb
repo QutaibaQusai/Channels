@@ -53,6 +53,10 @@
   "registerDateOfBirthPlaceholder": "اختر تاريخ ميلادك",
   "registerDateOfBirthRequired": "تاريخ الميلاد مطلوب",
   "registerButton": "إكمال التسجيل",
+  "registerCountryLabel": "الدولة",
+  "registerCountryPlaceholder": "اختر دولتك",
+  "registerCountryRequired": "الدولة مطلوبة",
+  "registerCountryHint": "اختر الدولة التي تريد تصفح الإعلانات منها",
 
   "onboardingPage1Title": "قناتك الشخصية للإعلانات",
   "onboardingPage1Subtitle": "اشترك في الفئات التي تهمك واحصل على إشعارات فورية للإعلانات الجديدة",

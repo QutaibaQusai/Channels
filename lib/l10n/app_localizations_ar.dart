@@ -119,6 +119,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String get registerButton => 'إكمال التسجيل';
 
   @override
+  String get registerCountryLabel => 'الدولة';
+
+  @override
+  String get registerCountryPlaceholder => 'اختر دولتك';
+
+  @override
+  String get registerCountryRequired => 'الدولة مطلوبة';
+
+  @override
+  String get registerCountryHint => 'اختر الدولة التي تريد تصفح الإعلانات منها';
+
+  @override
   String get onboardingPage1Title => 'قناتك الشخصية للإعلانات';
 
   @override
