@@ -45,7 +45,9 @@ class CreateAdRemoteDataSourceImpl implements CreateAdRemoteDataSource {
 
     // Add attributes as individual form fields
     attributes.forEach((key, value) {
-      formData.fields.add(MapEntry('${ApiKey.attributes}[$key]', value.toString()));
+      formData.fields.add(
+        MapEntry('${ApiKey.attributes}[$key]', value.toString()),
+      );
     });
 
     // Add images to form data - use same key for multiple files (standard multipart behavior)
@@ -54,19 +56,13 @@ class CreateAdRemoteDataSourceImpl implements CreateAdRemoteDataSource {
       final fileName = file.path.split('/').last;
       formData.files.add(
         MapEntry(
-          ApiKey.images, // Don't use [] - just repeat the same key
-          await MultipartFile.fromFile(
-            file.path,
-            filename: fileName,
-          ),
+          '${ApiKey.images}[]',
+          await MultipartFile.fromFile(file.path, filename: fileName),
         ),
       );
     }
 
-    final response = await apiConsumer.post(
-      EndPoint.createAd,
-      data: formData,
-    );
+    final response = await apiConsumer.post(EndPoint.createAd, data: formData);
 
     return CreateAdResponseModel.fromJson(response as Map<String, dynamic>);
   }
