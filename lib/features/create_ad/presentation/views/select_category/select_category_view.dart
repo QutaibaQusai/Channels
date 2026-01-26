@@ -49,10 +49,7 @@ class _SelectCategoryBody extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
-      appBar: const AppAppBar(
-        title: 'Select Category',
-        showBackButton: true,
-      ),
+      appBar: const AppAppBar(title: 'Select Category', showBackButton: true),
       body: SafeArea(
         bottom: false,
         child: Padding(
@@ -80,6 +77,8 @@ class _SelectCategoryBody extends StatelessWidget {
               if (state is CategoriesSuccess) {
                 return CategorySelectionList(
                   categories: state.data.categories,
+                  title: state.data.title,
+                  subTitle: state.data.subTitle,
                   onCategorySelected: (category) {
                     // Navigate to subcategory selection
                     // Pass parent category ID for filters

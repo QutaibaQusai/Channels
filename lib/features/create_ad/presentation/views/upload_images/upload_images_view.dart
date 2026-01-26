@@ -147,7 +147,11 @@ class _UploadImagesViewState extends State<UploadImagesView> {
         : _images.length + (_images.length < _maxImages ? 1 : 0);
 
     return GridView.builder(
-      padding: EdgeInsets.all(AppSizes.s16),
+      padding: EdgeInsets.only(
+        left: AppSizes.screenPaddingH,
+        right: AppSizes.screenPaddingH,
+        bottom: AppSizes.s96,
+      ),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
         crossAxisSpacing: 12,

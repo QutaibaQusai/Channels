@@ -50,7 +50,9 @@ class SelectSubcategoryView extends StatelessWidget {
         categoryName: categoryName,
         categoryId: categoryId,
         parentCategoryId: parentCategoryId,
-        rootCategoryId: rootCategoryId ?? categoryId, // Use provided root or current as root
+        rootCategoryId:
+            rootCategoryId ??
+            categoryId, // Use provided root or current as root
       ),
     );
   }
@@ -76,7 +78,7 @@ class _SelectSubcategoryBody extends StatelessWidget {
     return BlocConsumer<SubcategoriesCubit, SubcategoriesState>(
       listener: (context, state) {
         // Navigate to form when no subcategories are found (final level)
-        if (state is SubcategoriesSuccess && state.subcategories.isEmpty) {
+        if (state is SubcategoriesSuccess && state.data.subcategories.isEmpty) {
           context.replace(
             RouteNames.adForm,
             extra: {
@@ -92,24 +94,22 @@ class _SelectSubcategoryBody extends StatelessWidget {
         // Show loading without scaffold for initial load and empty subcategories
         if (state is SubcategoriesLoading ||
             state is SubcategoriesInitial ||
-            (state is SubcategoriesSuccess && state.subcategories.isEmpty)) {
-          return const Scaffold(
-            body: Center(child: AppLoading()),
-          );
+            (state is SubcategoriesSuccess &&
+                state.data.subcategories.isEmpty)) {
+          return const Scaffold(body: Center(child: AppLoading()));
         }
 
         // Show error in full scaffold
         if (state is SubcategoriesFailure) {
           return Scaffold(
             backgroundColor: theme.scaffoldBackgroundColor,
-            appBar: AppAppBar(
-              title: categoryName,
-              showBackButton: true,
-            ),
+            appBar: AppAppBar(title: categoryName, showBackButton: true),
             body: SafeArea(
               bottom: false,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppSizes.screenPaddingH),
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppSizes.screenPaddingH,
+                ),
                 child: ErrorStateWidget(
                   message: state.message,
                   isAuthError: state.isAuthError,
@@ -117,9 +117,9 @@ class _SelectSubcategoryBody extends StatelessWidget {
                     if (state.isAuthError) {
                       context.goNamed(RouteNames.onboarding);
                     } else {
-                      context
-                          .read<SubcategoriesCubit>()
-                          .fetchSubcategories(categoryId);
+                      context.read<SubcategoriesCubit>().fetchSubcategories(
+                        categoryId,
+                      );
                     }
                   },
                 ),
@@ -129,19 +129,21 @@ class _SelectSubcategoryBody extends StatelessWidget {
         }
 
         // Show subcategories with full scaffold
-        if (state is SubcategoriesSuccess && state.subcategories.isNotEmpty) {
+        if (state is SubcategoriesSuccess &&
+            state.data.subcategories.isNotEmpty) {
           return Scaffold(
             backgroundColor: theme.scaffoldBackgroundColor,
-            appBar: AppAppBar(
-              title: categoryName,
-              showBackButton: true,
-            ),
+            appBar: AppAppBar(title: categoryName, showBackButton: true),
             body: SafeArea(
               bottom: false,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppSizes.screenPaddingH),
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppSizes.screenPaddingH,
+                ),
                 child: CategorySelectionList(
-                  categories: state.subcategories,
+                  categories: state.data.subcategories,
+                  title: state.data.title,
+                  subTitle: state.data.subTitle,
                   onCategorySelected: (subcategory) {
                     // Navigate to same view with new subcategory ID
                     // This will recursively check for more subcategories
@@ -151,7 +153,8 @@ class _SelectSubcategoryBody extends StatelessWidget {
                       extra: {
                         'categoryId': subcategory.id,
                         'categoryName': subcategory.name,
-                        'parentCategoryId': categoryId, // Current becomes parent
+                        'parentCategoryId':
+                            categoryId, // Current becomes parent
                         'rootCategoryId': rootCategoryId, // Preserve root
                       },
                     );
@@ -162,9 +165,7 @@ class _SelectSubcategoryBody extends StatelessWidget {
           );
         }
 
-        return const Scaffold(
-          body: Center(child: SizedBox.shrink()),
-        );
+        return const Scaffold(body: Center(child: SizedBox.shrink()));
       },
     );
   }

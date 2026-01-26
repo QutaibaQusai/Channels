@@ -1,4 +1,4 @@
-import 'package:channels/features/categories/domain/entities/category.dart';
+import 'package:channels/features/create_ad/domain/entities/subcategories_response.dart';
 import 'package:channels/features/create_ad/domain/repositories/subcategories_repository.dart';
 import 'package:channels/features/create_ad/data/data_sources/subcategories_remote_data_source.dart';
 
@@ -8,7 +8,7 @@ class SubcategoriesRepositoryImpl implements SubcategoriesRepository {
   SubcategoriesRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<List<Category>> getSubcategories({
+  Future<SubcategoriesResponse> getSubcategories({
     required String categoryId,
     required String lang,
   }) async {
@@ -16,6 +16,6 @@ class SubcategoriesRepositoryImpl implements SubcategoriesRepository {
       categoryId: categoryId,
       lang: lang,
     );
-    return response.subcategories;
+    return response;
   }
 }
