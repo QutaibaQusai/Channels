@@ -84,7 +84,7 @@ class SettingsList extends ConsumerWidget {
           icon: LucideIcons.megaphone,
           title: l10n.settingsMyAds,
           onTap: () {
-            // TODO: Navigate to user's ads list
+            context.push(RouteNames.myAds);
           },
         ),
 
