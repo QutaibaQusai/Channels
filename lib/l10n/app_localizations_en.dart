@@ -211,6 +211,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsThemeDark => 'Dark Mode';
 
   @override
+  String get settingsMyAds => 'My Ads';
+
+  @override
   String get settingsDoNotDisturb => 'Do Not Disturb';
 
   @override

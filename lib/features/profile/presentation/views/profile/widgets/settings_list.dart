@@ -79,6 +79,17 @@ class SettingsList extends ConsumerWidget {
 
         verticalSpace(12.h),
 
+        // My Ads
+        SettingsTile(
+          icon: LucideIcons.megaphone,
+          title: l10n.settingsMyAds,
+          onTap: () {
+            // TODO: Navigate to user's ads list
+          },
+        ),
+
+        verticalSpace(12.h),
+
         // Do Not Disturb (toggle)
         SettingsToggleTile(
           icon: LucideIcons.bellOff,

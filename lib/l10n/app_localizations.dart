@@ -488,6 +488,12 @@ abstract class AppLocalizations {
   /// **'Dark Mode'**
   String get settingsThemeDark;
 
+  /// No description provided for @settingsMyAds.
+  ///
+  /// In en, this message translates to:
+  /// **'My Ads'**
+  String get settingsMyAds;
+
   /// No description provided for @settingsDoNotDisturb.
   ///
   /// In en, this message translates to:
