@@ -4,6 +4,7 @@ abstract class CreateAdRepository {
   Future<String> createAd({
     required String categoryId,
     required String subcategoryId,
+    required String countryCode,
     required String title,
     required String description,
     required double price,

@@ -20,13 +20,15 @@ import 'package:channels/core/router/route_names.dart';
 class SelectSubcategoryView extends StatelessWidget {
   final String categoryId;
   final String categoryName;
-  final String parentCategoryId; // For filters API
+  final String parentCategoryId; // Immediate parent (for filters API)
+  final String? rootCategoryId; // Root category (for API submission)
 
   const SelectSubcategoryView({
     super.key,
     required this.categoryId,
     required this.categoryName,
     required this.parentCategoryId,
+    this.rootCategoryId, // Optional, defaults to categoryId if not provided
   });
 
   @override
@@ -48,6 +50,7 @@ class SelectSubcategoryView extends StatelessWidget {
         categoryName: categoryName,
         categoryId: categoryId,
         parentCategoryId: parentCategoryId,
+        rootCategoryId: rootCategoryId ?? categoryId, // Use provided root or current as root
       ),
     );
   }
@@ -57,49 +60,57 @@ class _SelectSubcategoryBody extends StatelessWidget {
   final String categoryName;
   final String categoryId;
   final String parentCategoryId;
+  final String rootCategoryId;
 
   const _SelectSubcategoryBody({
     required this.categoryName,
     required this.categoryId,
     required this.parentCategoryId,
+    required this.rootCategoryId,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Scaffold(
-      backgroundColor: theme.scaffoldBackgroundColor,
-      appBar: AppAppBar(
-        title: categoryName,
-        showBackButton: true,
-      ),
-      body: SafeArea(
-        bottom: false,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: AppSizes.screenPaddingH),
-          child: BlocConsumer<SubcategoriesCubit, SubcategoriesState>(
-            listener: (context, state) {
-              // Navigate to form when no subcategories are found (final level)
-              if (state is SubcategoriesSuccess && state.subcategories.isEmpty) {
-                context.replace(
-                  RouteNames.adForm,
-                  extra: {
-                    'categoryId': categoryId,
-                    'categoryName': categoryName,
-                    'parentCategoryId': parentCategoryId, // For filters
-                  },
-                );
-              }
+    return BlocConsumer<SubcategoriesCubit, SubcategoriesState>(
+      listener: (context, state) {
+        // Navigate to form when no subcategories are found (final level)
+        if (state is SubcategoriesSuccess && state.subcategories.isEmpty) {
+          context.replace(
+            RouteNames.adForm,
+            extra: {
+              'categoryId': categoryId,
+              'categoryName': categoryName,
+              'parentCategoryId': parentCategoryId, // For filters
+              'rootCategoryId': rootCategoryId, // Root category for API
             },
-            builder: (context, state) {
-              if (state is SubcategoriesLoading ||
-                  state is SubcategoriesInitial) {
-                return const AppLoading();
-              }
+          );
+        }
+      },
+      builder: (context, state) {
+        // Show loading without scaffold for initial load and empty subcategories
+        if (state is SubcategoriesLoading ||
+            state is SubcategoriesInitial ||
+            (state is SubcategoriesSuccess && state.subcategories.isEmpty)) {
+          return const Scaffold(
+            body: Center(child: AppLoading()),
+          );
+        }
 
-              if (state is SubcategoriesFailure) {
-                return ErrorStateWidget(
+        // Show error in full scaffold
+        if (state is SubcategoriesFailure) {
+          return Scaffold(
+            backgroundColor: theme.scaffoldBackgroundColor,
+            appBar: AppAppBar(
+              title: categoryName,
+              showBackButton: true,
+            ),
+            body: SafeArea(
+              bottom: false,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppSizes.screenPaddingH),
+                child: ErrorStateWidget(
                   message: state.message,
                   isAuthError: state.isAuthError,
                   onRetry: () {
@@ -111,39 +122,50 @@ class _SelectSubcategoryBody extends StatelessWidget {
                           .fetchSubcategories(categoryId);
                     }
                   },
-                );
-              }
+                ),
+              ),
+            ),
+          );
+        }
 
-              if (state is SubcategoriesSuccess) {
-                // If no subcategories, show loading while listener handles navigation
-                if (state.subcategories.isEmpty) {
-                  return const AppLoading();
-                }
-
-                // Show subcategories and check recursively
-                return CategorySelectionList(
+        // Show subcategories with full scaffold
+        if (state is SubcategoriesSuccess && state.subcategories.isNotEmpty) {
+          return Scaffold(
+            backgroundColor: theme.scaffoldBackgroundColor,
+            appBar: AppAppBar(
+              title: categoryName,
+              showBackButton: true,
+            ),
+            body: SafeArea(
+              bottom: false,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppSizes.screenPaddingH),
+                child: CategorySelectionList(
                   categories: state.subcategories,
                   onCategorySelected: (subcategory) {
                     // Navigate to same view with new subcategory ID
                     // This will recursively check for more subcategories
-                    // Keep passing parent category ID for filters
+                    // Pass current category as parent for the next level
                     context.push(
                       RouteNames.selectSubcategory,
                       extra: {
                         'categoryId': subcategory.id,
                         'categoryName': subcategory.name,
-                        'parentCategoryId': parentCategoryId, // Keep parent ID
+                        'parentCategoryId': categoryId, // Current becomes parent
+                        'rootCategoryId': rootCategoryId, // Preserve root
                       },
                     );
                   },
-                );
-              }
+                ),
+              ),
+            ),
+          );
+        }
 
-              return const SizedBox.shrink();
-            },
-          ),
-        ),
-      ),
+        return const Scaffold(
+          body: Center(child: SizedBox.shrink()),
+        );
+      },
     );
   }
 }

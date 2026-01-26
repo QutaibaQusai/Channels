@@ -8,6 +8,7 @@ abstract class CreateAdRemoteDataSource {
   Future<CreateAdResponseModel> createAd({
     required String categoryId,
     required String subcategoryId,
+    required String countryCode,
     required String title,
     required String description,
     required double price,
@@ -25,6 +26,7 @@ class CreateAdRemoteDataSourceImpl implements CreateAdRemoteDataSource {
   Future<CreateAdResponseModel> createAd({
     required String categoryId,
     required String subcategoryId,
+    required String countryCode,
     required String title,
     required String description,
     required double price,
@@ -35,19 +37,24 @@ class CreateAdRemoteDataSourceImpl implements CreateAdRemoteDataSource {
     final formData = FormData.fromMap({
       ApiKey.categoryId: categoryId,
       ApiKey.subcategoryId: subcategoryId,
+      ApiKey.countryCode: countryCode,
       ApiKey.title: title,
       ApiKey.description: description,
-      ApiKey.price: price,
-      ApiKey.attributes: attributes,
+      ApiKey.priceAmount: price,
     });
 
-    // Add images to form data
+    // Add attributes as individual form fields
+    attributes.forEach((key, value) {
+      formData.fields.add(MapEntry('${ApiKey.attributes}[$key]', value.toString()));
+    });
+
+    // Add images to form data - use same key for multiple files (standard multipart behavior)
     for (int i = 0; i < images.length; i++) {
       final file = images[i];
       final fileName = file.path.split('/').last;
       formData.files.add(
         MapEntry(
-          '${ApiKey.images}[]',
+          ApiKey.images, // Don't use [] - just repeat the same key
           await MultipartFile.fromFile(
             file.path,
             filename: fileName,

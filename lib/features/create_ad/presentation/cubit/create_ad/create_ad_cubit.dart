@@ -12,6 +12,7 @@ class CreateAdCubit extends Cubit<CreateAdState> {
   Future<void> createAd({
     required String categoryId,
     required String subcategoryId,
+    required String countryCode,
     required String title,
     required String description,
     required double price,
@@ -24,6 +25,7 @@ class CreateAdCubit extends Cubit<CreateAdState> {
       final adId = await createAdUseCase.call(
         categoryId: categoryId,
         subcategoryId: subcategoryId,
+        countryCode: countryCode,
         title: title,
         description: description,
         price: price,

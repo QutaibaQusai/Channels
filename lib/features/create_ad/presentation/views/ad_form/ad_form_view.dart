@@ -20,12 +20,14 @@ class AdFormView extends StatelessWidget {
   final String categoryId; // Selected category (for ad creation)
   final String categoryName;
   final String parentCategoryId; // Parent category (for filters)
+  final String? rootCategoryId; // Root category (for API submission)
 
   const AdFormView({
     super.key,
     required this.categoryId,
     required this.categoryName,
     required this.parentCategoryId,
+    this.rootCategoryId,
   });
 
   @override
@@ -47,6 +49,7 @@ class AdFormView extends StatelessWidget {
         categoryName: categoryName,
         categoryId: categoryId,
         parentCategoryId: parentCategoryId,
+        rootCategoryId: rootCategoryId ?? categoryId,
       ),
     );
   }
@@ -56,79 +59,91 @@ class _AdFormBody extends StatelessWidget {
   final String categoryName;
   final String categoryId;
   final String parentCategoryId;
+  final String rootCategoryId;
 
   const _AdFormBody({
     required this.categoryName,
     required this.categoryId,
     required this.parentCategoryId,
+    required this.rootCategoryId,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Scaffold(
-      backgroundColor: theme.scaffoldBackgroundColor,
-      appBar: AppAppBar(title: categoryName, showBackButton: true),
-      body: SafeArea(
-        bottom: false,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: AppSizes.screenPaddingH),
-          child: BlocBuilder<FiltersCubit, FiltersState>(
-            builder: (context, state) {
-              if (state is FiltersLoading || state is FiltersInitial) {
-                return const AppLoading();
+    return BlocBuilder<FiltersCubit, FiltersState>(
+      builder: (context, state) {
+        // Show minimal loading for initial state and success (while navigating)
+        if (state is FiltersLoading ||
+            state is FiltersInitial ||
+            state is FiltersSuccess) {
+          // Navigate to appropriate view on success
+          if (state is FiltersSuccess) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (state.filters.isNotEmpty) {
+                context.pushReplacement(
+                  RouteNames.singleFilter,
+                  extra: {
+                    'allFilters': state.filters,
+                    'currentFilterIndex': 0,
+                    'collectedData': <String, dynamic>{},
+                    'categoryId': categoryId,
+                    'parentCategoryId': parentCategoryId,
+                    'rootCategoryId': rootCategoryId,
+                  },
+                );
+              } else {
+                // No filters, go directly to upload images
+                context.pushReplacement(
+                  RouteNames.uploadImages,
+                  extra: {
+                    'formData': <String, dynamic>{},
+                    'categoryId': categoryId,
+                    'parentCategoryId': parentCategoryId,
+                    'rootCategoryId': rootCategoryId,
+                  },
+                );
               }
+            });
+          }
 
-              if (state is FiltersFailure) {
-                return ErrorStateWidget(
+          return const Scaffold(
+            body: Center(child: AppLoading()),
+          );
+        }
+
+        // Show error in full scaffold
+        if (state is FiltersFailure) {
+          return Scaffold(
+            backgroundColor: theme.scaffoldBackgroundColor,
+            appBar: AppAppBar(title: categoryName, showBackButton: true),
+            body: SafeArea(
+              bottom: false,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppSizes.screenPaddingH),
+                child: ErrorStateWidget(
                   message: state.message,
                   isAuthError: state.isAuthError,
                   onRetry: () {
                     if (state.isAuthError) {
                       context.goNamed(RouteNames.onboarding);
                     } else {
-                      context.read<FiltersCubit>().fetchFilters(parentCategoryId);
+                      context
+                          .read<FiltersCubit>()
+                          .fetchFilters(parentCategoryId);
                     }
                   },
-                );
-              }
+                ),
+              ),
+            ),
+          );
+        }
 
-              if (state is FiltersSuccess) {
-                // Navigate to first filter in the single-step flow
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  if (state.filters.isNotEmpty) {
-                    context.pushReplacement(
-                      RouteNames.singleFilter,
-                      extra: {
-                        'allFilters': state.filters,
-                        'currentFilterIndex': 0,
-                        'collectedData': <String, dynamic>{},
-                        'categoryId': categoryId,
-                        'parentCategoryId': parentCategoryId,
-                      },
-                    );
-                  } else {
-                    // No filters, go directly to upload images
-                    context.pushReplacement(
-                      RouteNames.uploadImages,
-                      extra: {
-                        'formData': <String, dynamic>{},
-                        'categoryId': categoryId,
-                        'parentCategoryId': parentCategoryId,
-                      },
-                    );
-                  }
-                });
-
-                return const AppLoading();
-              }
-
-              return const SizedBox.shrink();
-            },
-          ),
-        ),
-      ),
+        return const Scaffold(
+          body: Center(child: SizedBox.shrink()),
+        );
+      },
     );
   }
 }

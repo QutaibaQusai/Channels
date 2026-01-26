@@ -20,9 +20,9 @@ class SubcategoriesRemoteDataSourceImpl
     required String categoryId,
     required String lang,
   }) async {
-    final response = await apiConsumer.get(
+    final response = await apiConsumer.post(
       EndPoint.subcategories(categoryId),
-      queryParameters: {
+      data: {
         ApiKey.lang: lang,
       },
     );

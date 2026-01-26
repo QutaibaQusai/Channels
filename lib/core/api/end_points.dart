@@ -3,8 +3,7 @@ class EndPoint {
   static String countries = "countries";
   static String categories = "categories";
   static String subcategories(String categoryId) => "categories/$categoryId";
-  static String filters(String categoryId) =>
-      "categories/$categoryId/filters";
+  static String filters(String categoryId) => "categories/$categoryId/filters";
   static String requestOtp = "auth/request-otp";
   static String verifyOtp = "auth/verify-otp";
   static String updatePreferences = "user/preferences";
@@ -57,6 +56,7 @@ class ApiKey {
   static String attributes = "attributes";
   static String amount = "amount";
   static String price = "price";
+  static String priceAmount = "price_amount";
   static String priceCurrency = "price_currency";
   static String adStatus = "status";
   static String reportCount = "report_count";
