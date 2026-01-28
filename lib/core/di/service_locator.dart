@@ -45,6 +45,12 @@ import 'package:channels/features/create_ad/data/repositories/create_ad_reposito
 import 'package:channels/features/create_ad/domain/repositories/create_ad_repository.dart';
 import 'package:channels/features/create_ad/domain/usecases/create_ad.dart';
 
+// My Ads
+import 'package:channels/features/my_ads/data/data_sources/my_ads_remote_data_source.dart';
+import 'package:channels/features/my_ads/data/repositories/my_ads_repository_impl.dart';
+import 'package:channels/features/my_ads/domain/repositories/my_ads_repository.dart';
+import 'package:channels/features/my_ads/domain/usecases/get_my_ads.dart';
+
 /// Service locator instance
 final sl = GetIt.instance;
 
@@ -153,4 +159,16 @@ Future<void> setupServiceLocator() async {
   );
 
   sl.registerLazySingleton<CreateAd>(() => CreateAd(sl()));
+
+  // ==================== MY ADS ====================
+
+  sl.registerLazySingleton<MyAdsRemoteDataSource>(
+    () => MyAdsRemoteDataSourceImpl(apiConsumer: sl()),
+  );
+
+  sl.registerLazySingleton<MyAdsRepository>(
+    () => MyAdsRepositoryImpl(remoteDataSource: sl()),
+  );
+
+  sl.registerLazySingleton<GetMyAds>(() => GetMyAds(sl()));
 }

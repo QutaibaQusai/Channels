@@ -40,6 +40,7 @@ class SingleFilterView extends StatefulWidget {
 class _SingleFilterViewState extends State<SingleFilterView> {
   late TextEditingController _textController;
   String? _selectedOption;
+  Set<String> _selectedOptions = {}; // For multiselect
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -67,6 +68,11 @@ class _SingleFilterViewState extends State<SingleFilterView> {
     if (previousValue != null) {
       if (filter.type == 'select') {
         _selectedOption = previousValue.toString();
+      } else if (filter.type == 'multiselect') {
+        // Previous value could be a List
+        if (previousValue is List) {
+          _selectedOptions = previousValue.map((e) => e.toString()).toSet();
+        }
       } else {
         _textController.text = previousValue.toString();
       }
@@ -89,6 +95,11 @@ class _SingleFilterViewState extends State<SingleFilterView> {
     if (currentFilter.type == 'select') {
       if (_selectedOption == null) {
         // Show error toast
+        return;
+      }
+    } else if (currentFilter.type == 'multiselect') {
+      if (_selectedOptions.isEmpty) {
+        // Show error toast - at least one option must be selected
         return;
       }
     } else {
@@ -131,6 +142,26 @@ class _SingleFilterViewState extends State<SingleFilterView> {
       );
       displayLabel = option.label ?? option.value;
       updatedDisplayData[currentFilter.label] = displayLabel;
+    } else if (currentFilter.type == 'multiselect') {
+      // Save as list for multiselect
+      updatedData[currentFilter.key] = _selectedOptions.toList();
+
+      // Find display labels
+      List<FilterOption> options = List<FilterOption>.from(
+        currentFilter.options ?? [],
+      );
+
+      final displayLabels = _selectedOptions
+          .map((value) {
+            final option = options.firstWhere(
+              (o) => o.value == value,
+              orElse: () => FilterOption(value: value, label: value),
+            );
+            return option.label ?? option.value;
+          })
+          .join(', ');
+
+      updatedDisplayData[currentFilter.label] = displayLabels;
     } else {
       final value = _textController.text.trim();
       updatedData[currentFilter.key] = value;
@@ -214,6 +245,8 @@ class _SingleFilterViewState extends State<SingleFilterView> {
   Widget _buildFilterInput() {
     if (currentFilter.type == 'select') {
       return _buildSelectFilter();
+    } else if (currentFilter.type == 'multiselect') {
+      return _buildMultiSelectFilter();
     } else if (currentFilter.type == 'number') {
       return _buildNumberFilter();
     } else {
@@ -222,6 +255,7 @@ class _SingleFilterViewState extends State<SingleFilterView> {
   }
 
   Widget _buildSelectFilter() {
+    final theme = Theme.of(context);
     List<FilterOption> options = currentFilter.options ?? [];
 
     // If no options but has validation (e.g., year filter), generate options from range
@@ -242,25 +276,176 @@ class _SingleFilterViewState extends State<SingleFilterView> {
       );
     }
 
-    return ListView.separated(
-      padding: EdgeInsets.symmetric(vertical: AppSizes.s24),
-      itemCount: options.length,
-      separatorBuilder: (_, __) => verticalSpace(AppSizes.s12),
-      itemBuilder: (context, index) {
-        final option = options[index];
-        final optionValue = option.value;
-        final optionLabel = option.label ?? option.value;
+    return ListView(
+      padding: EdgeInsets.symmetric(vertical: AppSizes.s16),
+      children: [
+        if (currentFilter.title != null && currentFilter.title!.isNotEmpty)
+          Padding(
+            padding: EdgeInsets.only(bottom: AppSizes.s8),
+            child: Text(
+              currentFilter.title!,
+              style: TextStyle(
+                fontSize: 20.sp,
+                fontWeight: FontWeight.bold,
+                color: theme.colorScheme.onSurface,
+              ),
+            ),
+          ),
+        if (currentFilter.subTitle != null &&
+            currentFilter.subTitle!.isNotEmpty)
+          Padding(
+            padding: EdgeInsets.only(bottom: AppSizes.s16),
+            child: Text(
+              currentFilter.subTitle!,
+              style: TextStyle(
+                fontSize: 14.sp,
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
+          ),
+        ListView.separated(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          padding: EdgeInsets.zero,
+          itemCount: options.length,
+          separatorBuilder: (_, __) => verticalSpace(AppSizes.s12),
+          itemBuilder: (context, index) {
+            final option = options[index];
+            final optionValue = option.value;
+            final optionLabel = option.label ?? option.value;
 
-        return FilterOptionCard(
-          label: optionLabel,
-          isSelected: _selectedOption == optionValue,
-          onTap: () {
-            setState(() {
-              _selectedOption = optionValue;
-            });
+            return FilterOptionCard(
+              label: optionLabel,
+              isSelected: _selectedOption == optionValue,
+              onTap: () {
+                setState(() {
+                  _selectedOption = optionValue;
+                });
+              },
+            );
           },
-        );
-      },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildMultiSelectFilter() {
+    final theme = Theme.of(context);
+    List<FilterOption> options = currentFilter.options ?? [];
+
+    if (options.isEmpty) {
+      return Center(
+        child: Text('No options available', style: TextStyle(fontSize: 14.sp)),
+      );
+    }
+
+    return ListView(
+      padding: EdgeInsets.symmetric(vertical: AppSizes.s16),
+      children: [
+        if (currentFilter.title != null && currentFilter.title!.isNotEmpty)
+          Padding(
+            padding: EdgeInsets.only(bottom: AppSizes.s8),
+            child: Text(
+              currentFilter.title!,
+              style: TextStyle(
+                fontSize: 20.sp,
+                fontWeight: FontWeight.bold,
+                color: theme.colorScheme.onSurface,
+              ),
+            ),
+          ),
+        if (currentFilter.subTitle != null &&
+            currentFilter.subTitle!.isNotEmpty)
+          Padding(
+            padding: EdgeInsets.only(bottom: AppSizes.s16),
+            child: Text(
+              currentFilter.subTitle!,
+              style: TextStyle(
+                fontSize: 14.sp,
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
+          ),
+        ListView.separated(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          padding: EdgeInsets.zero,
+          itemCount: options.length,
+          separatorBuilder: (_, __) => verticalSpace(AppSizes.s12),
+          itemBuilder: (context, index) {
+            final option = options[index];
+            final optionValue = option.value;
+            final optionLabel = option.label ?? option.value;
+            final isSelected = _selectedOptions.contains(optionValue);
+
+            return InkWell(
+              onTap: () {
+                setState(() {
+                  if (isSelected) {
+                    _selectedOptions.remove(optionValue);
+                  } else {
+                    _selectedOptions.add(optionValue);
+                  }
+                });
+              },
+              borderRadius: BorderRadius.circular(AppSizes.r16),
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppSizes.s16,
+                  vertical: AppSizes.s16,
+                ),
+                decoration: BoxDecoration(
+                  color: isSelected
+                      ? theme.colorScheme.primaryContainer.withValues(
+                          alpha: 0.3,
+                        )
+                      : theme.colorScheme.surface,
+                  borderRadius: BorderRadius.circular(AppSizes.r16),
+                  border: Border.all(
+                    color: isSelected
+                        ? theme.colorScheme.primary
+                        : theme.colorScheme.outline.withValues(alpha: 0.1),
+                    width: isSelected ? 2 : 1,
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    // Checkbox
+                    Icon(
+                      isSelected
+                          ? Icons.check_box_rounded
+                          : Icons.check_box_outline_blank_rounded,
+                      size: 22.sp,
+                      color: isSelected
+                          ? theme.colorScheme.primary
+                          : theme.colorScheme.onSurfaceVariant.withValues(
+                              alpha: 0.3,
+                            ),
+                    ),
+                    SizedBox(width: AppSizes.s12),
+                    // Label
+                    Expanded(
+                      child: Text(
+                        optionLabel,
+                        style: TextStyle(
+                          fontSize: 15.sp,
+                          fontWeight: isSelected
+                              ? FontWeight.w600
+                              : FontWeight.w500,
+                          color: isSelected
+                              ? theme.colorScheme.primary
+                              : theme.colorScheme.onSurface,
+                          letterSpacing: -0.2,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 

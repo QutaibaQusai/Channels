@@ -6,6 +6,8 @@ class Filter extends Equatable {
   final String key;
   final String type; // "select", "text", etc.
   final String label;
+  final String? title;
+  final String? subTitle;
   final List<FilterOption>? options;
   final FilterValidation? validation;
 
@@ -14,12 +16,14 @@ class Filter extends Equatable {
     required this.key,
     required this.type,
     required this.label,
+    this.title,
+    this.subTitle,
     this.options,
     this.validation,
   });
 
   @override
-  List<Object?> get props => [id, key, type, label, options, validation];
+  List<Object?> get props => [id, key, type, label, title, subTitle, options, validation];
 }
 
 /// Filter option for select-type filters

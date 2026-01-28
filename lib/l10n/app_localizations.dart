@@ -631,6 +631,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Featured Ads'**
   String get featuredAdsLabel;
+
+  /// My Ads screen title
+  ///
+  /// In en, this message translates to:
+  /// **'My Ads'**
+  String get myAdsTitle;
+
+  /// Under Review section title
+  ///
+  /// In en, this message translates to:
+  /// **'Under Review'**
+  String get myAdsSectionUnderReview;
+
+  /// Live Now section title
+  ///
+  /// In en, this message translates to:
+  /// **'Live Now'**
+  String get myAdsSectionLiveNow;
+
+  /// Live status badge text
+  ///
+  /// In en, this message translates to:
+  /// **'Live'**
+  String get myAdsStatusLive;
+
+  /// Pending status badge text
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get myAdsStatusPending;
+
+  /// See more button text with count
+  ///
+  /// In en, this message translates to:
+  /// **'See {count} more'**
+  String myAdsSeeMore(int count);
+
+  /// Post new ad button text
+  ///
+  /// In en, this message translates to:
+  /// **'POST NEW AD'**
+  String get myAdsPostNewAd;
+
+  /// Empty state title
+  ///
+  /// In en, this message translates to:
+  /// **'No ads yet'**
+  String get myAdsEmptyTitle;
+
+  /// Empty state subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Your posted ads will appear here'**
+  String get myAdsEmptySubtitle;
+
+  /// Under Review screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Under Review'**
+  String get myAdsUnderReviewTitle;
+
+  /// Under Review empty state title
+  ///
+  /// In en, this message translates to:
+  /// **'No ads under review'**
+  String get myAdsUnderReviewEmptyTitle;
+
+  /// Under Review empty state subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Your pending ads will appear here'**
+  String get myAdsUnderReviewEmptySubtitle;
+
+  /// Search hint for My Ads screen
+  ///
+  /// In en, this message translates to:
+  /// **'Search my ads...'**
+  String get myAdsSearchHint;
+
+  /// Search hint for Under Review screen
+  ///
+  /// In en, this message translates to:
+  /// **'Search under review...'**
+  String get myAdsUnderReviewSearchHint;
 }
 
 class _AppLocalizationsDelegate

@@ -39,7 +39,10 @@ import 'package:channels/features/profile/domain/usecases/update_profile.dart';
 import 'package:channels/features/notification/presentation/views/notification_view.dart';
 import 'package:channels/core/shared/views/webview_page.dart';
 import 'package:channels/core/shared/views/image_viewer_view.dart';
-import 'package:channels/features/profile/presentation/views/my_ads/my_ads_view.dart';
+import 'package:channels/features/my_ads/presentation/views/my_ads/my_ads_view.dart';
+import 'package:channels/features/my_ads/presentation/views/under_review_ads/under_review_ads_view.dart';
+import 'package:channels/features/my_ads/presentation/cubit/my_ads_cubit.dart';
+import 'package:channels/features/my_ads/domain/usecases/get_my_ads.dart';
 
 /// Centralized routing configuration using Go Router
 class AppRouter {
@@ -223,6 +226,17 @@ class AppRouter {
         path: RouteNames.myAds,
         name: RouteNames.myAds,
         builder: (context, state) => const MyAdsView(),
+      ),
+
+      GoRoute(
+        path: RouteNames.underReviewAds,
+        name: RouteNames.underReviewAds,
+        builder: (context, state) {
+          return BlocProvider(
+            create: (_) => MyAdsCubit(getMyAdsUseCase: sl<GetMyAds>())..fetchMyAds(),
+            child: const UnderReviewAdsView(),
+          );
+        },
       ),
 
       GoRoute(

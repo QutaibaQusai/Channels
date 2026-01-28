@@ -283,4 +283,48 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get featuredAdsLabel => 'الإعلانات المميزة';
+
+  @override
+  String get myAdsTitle => 'إعلاناتي';
+
+  @override
+  String get myAdsSectionUnderReview => 'قيد المراجعة';
+
+  @override
+  String get myAdsSectionLiveNow => 'منشور الآن';
+
+  @override
+  String get myAdsStatusLive => 'منشور';
+
+  @override
+  String get myAdsStatusPending => 'قيد المراجعة';
+
+  @override
+  String myAdsSeeMore(int count) {
+    return 'عرض $count إضافية';
+  }
+
+  @override
+  String get myAdsPostNewAd => 'انشر إعلان جديد';
+
+  @override
+  String get myAdsEmptyTitle => 'لا توجد إعلانات بعد';
+
+  @override
+  String get myAdsEmptySubtitle => 'ستظهر إعلاناتك المنشورة هنا';
+
+  @override
+  String get myAdsUnderReviewTitle => 'قيد المراجعة';
+
+  @override
+  String get myAdsUnderReviewEmptyTitle => 'لا توجد إعلانات قيد المراجعة';
+
+  @override
+  String get myAdsUnderReviewEmptySubtitle => 'ستظهر إعلاناتك المعلقة هنا';
+
+  @override
+  String get myAdsSearchHint => 'بحث في إعلاناتي...';
+
+  @override
+  String get myAdsUnderReviewSearchHint => 'بحث في قيد المراجعة...';
 }

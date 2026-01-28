@@ -284,4 +284,49 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get featuredAdsLabel => 'Featured Ads';
+
+  @override
+  String get myAdsTitle => 'My Ads';
+
+  @override
+  String get myAdsSectionUnderReview => 'Under Review';
+
+  @override
+  String get myAdsSectionLiveNow => 'Live Now';
+
+  @override
+  String get myAdsStatusLive => 'Live';
+
+  @override
+  String get myAdsStatusPending => 'Pending';
+
+  @override
+  String myAdsSeeMore(int count) {
+    return 'See $count more';
+  }
+
+  @override
+  String get myAdsPostNewAd => 'POST NEW AD';
+
+  @override
+  String get myAdsEmptyTitle => 'No ads yet';
+
+  @override
+  String get myAdsEmptySubtitle => 'Your posted ads will appear here';
+
+  @override
+  String get myAdsUnderReviewTitle => 'Under Review';
+
+  @override
+  String get myAdsUnderReviewEmptyTitle => 'No ads under review';
+
+  @override
+  String get myAdsUnderReviewEmptySubtitle =>
+      'Your pending ads will appear here';
+
+  @override
+  String get myAdsSearchHint => 'Search my ads...';
+
+  @override
+  String get myAdsUnderReviewSearchHint => 'Search under review...';
 }
