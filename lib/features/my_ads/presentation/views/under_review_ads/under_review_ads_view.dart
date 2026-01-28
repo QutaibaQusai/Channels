@@ -14,6 +14,7 @@ import 'package:channels/features/my_ads/presentation/views/my_ads/widgets/my_ad
 import 'package:go_router/go_router.dart';
 import 'package:channels/core/router/route_names.dart';
 import 'package:channels/l10n/app_localizations.dart';
+import 'package:channels/features/ad_details/presentation/ad_view_mode.dart';
 
 /// View that displays all Under Review ads
 class UnderReviewAdsView extends StatelessWidget {
@@ -88,7 +89,15 @@ class UnderReviewAdsView extends StatelessWidget {
           ),
           verticalSpace(AppSizes.s24),
 
-          ...underReviewAds.map((ad) => MyAdCard(ad: ad)),
+          ...underReviewAds.map(
+            (ad) => MyAdCard(
+              ad: ad,
+              onTap: () => context.pushNamed(
+                RouteNames.adDetails,
+                extra: {'adId': ad.id, 'mode': AdViewMode.myAd},
+              ),
+            ),
+          ),
         ],
       ),
     );

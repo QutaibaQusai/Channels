@@ -13,6 +13,7 @@ import 'package:channels/features/my_ads/presentation/views/my_ads/widgets/my_ad
 import 'package:go_router/go_router.dart';
 import 'package:channels/core/router/route_names.dart';
 import 'package:channels/l10n/app_localizations.dart';
+import 'package:channels/features/ad_details/presentation/ad_view_mode.dart';
 
 /// Widget that displays the loaded state with ads
 class MyAdsLoadedContent extends StatelessWidget {
@@ -47,7 +48,17 @@ class MyAdsLoadedContent extends StatelessWidget {
                 count: underReviewAds.length,
               ),
               verticalSpace(AppSizes.s20),
-              ...underReviewAds.take(2).map((ad) => MyAdCard(ad: ad)),
+              ...underReviewAds
+                  .take(2)
+                  .map(
+                    (ad) => MyAdCard(
+                      ad: ad,
+                      onTap: () => context.pushNamed(
+                        RouteNames.adDetails,
+                        extra: {'adId': ad.id, 'mode': AdViewMode.myAd},
+                      ),
+                    ),
+                  ),
               if (underReviewAds.length > 2) ...[
                 _buildSeeMoreButton(context, underReviewAds.length - 2),
               ],
@@ -63,7 +74,15 @@ class MyAdsLoadedContent extends StatelessWidget {
                 showBadge: true,
               ),
               verticalSpace(AppSizes.s20),
-              ...liveAds.map((ad) => MyAdCard(ad: ad)),
+              ...liveAds.map(
+                (ad) => MyAdCard(
+                  ad: ad,
+                  onTap: () => context.pushNamed(
+                    RouteNames.adDetails,
+                    extra: {'adId': ad.id, 'mode': AdViewMode.myAd},
+                  ),
+                ),
+              ),
             ],
 
             // Add spacing for the floating button

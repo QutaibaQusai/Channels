@@ -9,6 +9,7 @@ import 'package:channels/core/shared/widgets/app_refresh_wrapper.dart';
 import 'package:channels/features/ads/domain/entities/ad.dart';
 import 'package:channels/features/ads/presentation/cubit/ads/ads_cubit.dart';
 import 'package:channels/features/ads/presentation/views/category_ads/widgets/ad_card.dart';
+import 'package:channels/features/ad_details/presentation/ad_view_mode.dart';
 
 /// Ads success content widget
 class AdsSuccessContent extends StatelessWidget {
@@ -37,7 +38,10 @@ class AdsSuccessContent extends StatelessWidget {
           return AdCard(
             ad: ad,
             onTap: () {
-              context.pushNamed(RouteNames.adDetails, extra: ad.id);
+              context.pushNamed(
+                RouteNames.adDetails,
+                extra: {'adId': ad.id, 'mode': AdViewMode.public},
+              );
             },
           );
         },

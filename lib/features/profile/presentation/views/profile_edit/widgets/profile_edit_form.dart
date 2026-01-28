@@ -18,6 +18,7 @@ import 'package:channels/core/router/route_names.dart';
 import 'package:channels/features/authentication/domain/entities/country_entity.dart';
 import 'package:channels/features/authentication/domain/usecases/get_countries_usecase.dart';
 import 'package:channels/core/di/service_locator.dart';
+import 'package:channels/core/shared/widgets/gradient_overlay.dart';
 
 class ProfileEditForm extends StatefulWidget {
   final Profile profile;
@@ -228,121 +229,124 @@ class _ProfileEditFormState extends State<ProfileEditForm> {
     final theme = Theme.of(context);
     final textExtension = theme.extension<AppColorsExtension>()!;
 
-    return Form(
-      key: _formKey,
-      child: ListView(
-        padding: EdgeInsets.symmetric(
-          horizontal: AppSizes.screenPaddingH,
-          vertical: AppSizes.s24,
+    return GradientOverlay(
+      bottomWidget: Padding(
+        padding: EdgeInsets.symmetric(horizontal: AppSizes.screenPaddingH),
+        child: AppButton(
+          text: l10n.profileEditSave,
+          onPressed: _saveProfile,
+          isLoading: widget.isUpdating,
         ),
-        children: [
-          // Avatar
-          ProfileEditAvatar(profile: widget.profile),
-
-          verticalSpace(32.h),
-
-          // Name
-          Text(
-            l10n.profileEditName,
-            style: theme.textTheme.labelLarge?.copyWith(
-              color: textExtension.textSecondary,
-            ),
+      ),
+      child: Form(
+        key: _formKey,
+        child: ListView(
+          padding: EdgeInsets.symmetric(
+            horizontal: AppSizes.screenPaddingH,
+            vertical: AppSizes.s24,
           ),
-          verticalSpace(8.h),
-          AppTextField(
-            controller: _nameController,
-            hintText: l10n.profileEditName,
-            validator: (value) {
-              if (value == null || value.trim().isEmpty) {
-                return l10n.registerNameRequired;
-              }
-              return null;
-            },
-          ),
+          children: [
+            // Avatar
+            ProfileEditAvatar(profile: widget.profile),
 
-          verticalSpace(16.h),
+            verticalSpace(32.h),
 
-          // Phone (Read only)
-          Text(
-            l10n.profileEditPhone,
-            style: theme.textTheme.labelLarge?.copyWith(
-              color: textExtension.textSecondary,
-            ),
-          ),
-          verticalSpace(8.h),
-          AppTextField(
-            controller: _phoneController,
-            hintText: l10n.profileEditPhone,
-            readOnly: true,
-            suffixIcon: const Icon(LucideIcons.lock, size: 16),
-          ),
-          verticalSpace(8.h),
-          Align(
-            alignment: AlignmentDirectional.centerStart,
-            child: Text(
-              l10n.profileEditContactSupportPhone,
-              style: theme.textTheme.bodySmall?.copyWith(
+            // Name
+            Text(
+              l10n.profileEditName,
+              style: theme.textTheme.labelLarge?.copyWith(
                 color: textExtension.textSecondary,
-                fontSize: 12.sp,
               ),
             ),
-          ),
-
-          verticalSpace(16.h),
-
-          // Date of Birth
-          Text(
-            l10n.profileDateOfBirth,
-            style: theme.textTheme.labelLarge?.copyWith(
-              color: textExtension.textSecondary,
+            verticalSpace(8.h),
+            AppTextField(
+              controller: _nameController,
+              hintText: l10n.profileEditName,
+              validator: (value) {
+                if (value == null || value.trim().isEmpty) {
+                  return l10n.registerNameRequired;
+                }
+                return null;
+              },
             ),
-          ),
-          verticalSpace(8.h),
-          AppTextField(
-            controller: _dobController,
-            hintText: l10n.profileDateOfBirth,
-            readOnly: true,
-            onTap: _selectDate,
-            prefixIcon: const Icon(LucideIcons.calendar),
-            validator: (value) {
-              if (value == null || value.trim().isEmpty) {
-                return l10n.registerDateOfBirthRequired;
-              }
-              return null;
-            },
-          ),
 
-          verticalSpace(16.h),
+            verticalSpace(16.h),
 
-          // Country
-          Text(
-            l10n.registerCountryLabel,
-            style: theme.textTheme.labelLarge?.copyWith(
-              color: textExtension.textSecondary,
+            // Phone (Read only)
+            Text(
+              l10n.profileEditPhone,
+              style: theme.textTheme.labelLarge?.copyWith(
+                color: textExtension.textSecondary,
+              ),
             ),
-          ),
-          verticalSpace(8.h),
-          AppSelectorField(
-            controller: _countryController,
-            hintText: l10n.registerCountryPlaceholder,
-            onTap: () => _selectCountry(context),
-            validator: (value) {
-              if (value == null || value.trim().isEmpty) {
-                return l10n.registerCountryRequired;
-              }
-              return null;
-            },
-          ),
+            verticalSpace(8.h),
+            AppTextField(
+              controller: _phoneController,
+              hintText: l10n.profileEditPhone,
+              readOnly: true,
+              suffixIcon: const Icon(LucideIcons.lock, size: 16),
+            ),
+            verticalSpace(8.h),
+            Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: Text(
+                l10n.profileEditContactSupportPhone,
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: textExtension.textSecondary,
+                  fontSize: 12.sp,
+                ),
+              ),
+            ),
 
-          verticalSpace(48.h),
+            verticalSpace(16.h),
 
-          // Save Button
-          AppButton(
-            text: l10n.profileEditSave,
-            onPressed: _saveProfile,
-            isLoading: widget.isUpdating,
-          ),
-        ],
+            // Date of Birth
+            Text(
+              l10n.profileDateOfBirth,
+              style: theme.textTheme.labelLarge?.copyWith(
+                color: textExtension.textSecondary,
+              ),
+            ),
+            verticalSpace(8.h),
+            AppTextField(
+              controller: _dobController,
+              hintText: l10n.profileDateOfBirth,
+              readOnly: true,
+              onTap: _selectDate,
+              prefixIcon: const Icon(LucideIcons.calendar),
+              validator: (value) {
+                if (value == null || value.trim().isEmpty) {
+                  return l10n.registerDateOfBirthRequired;
+                }
+                return null;
+              },
+            ),
+
+            verticalSpace(16.h),
+
+            // Country
+            Text(
+              l10n.registerCountryLabel,
+              style: theme.textTheme.labelLarge?.copyWith(
+                color: textExtension.textSecondary,
+              ),
+            ),
+            verticalSpace(8.h),
+            AppSelectorField(
+              controller: _countryController,
+              hintText: l10n.registerCountryPlaceholder,
+              onTap: () => _selectCountry(context),
+              validator: (value) {
+                if (value == null || value.trim().isEmpty) {
+                  return l10n.registerCountryRequired;
+                }
+                return null;
+              },
+            ),
+
+            verticalSpace(100.h), // Spacing for bottom button
+          ],
+        ),
       ),
     );
   }

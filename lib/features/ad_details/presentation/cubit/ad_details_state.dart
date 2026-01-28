@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:channels/features/ads/domain/entities/ad_details.dart';
+import 'package:channels/features/ad_details/domain/entities/ad_details.dart';
 
 /// States for ad details cubit
 abstract class AdDetailsState extends Equatable {
