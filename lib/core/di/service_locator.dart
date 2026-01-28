@@ -24,7 +24,6 @@ import 'package:channels/features/ads/data/data_sources/ads_remote_data_source.d
 import 'package:channels/features/ads/data/repositories/ads_repository_impl.dart';
 import 'package:channels/features/ads/domain/repositories/ads_repository.dart';
 import 'package:channels/features/ads/domain/usecases/get_category_ads.dart';
-import 'package:channels/features/ads/domain/usecases/get_ad_details.dart';
 
 // Categories
 import 'package:channels/features/categories/data/data_sources/categories_remote_data_source.dart';
@@ -50,6 +49,13 @@ import 'package:channels/features/my_ads/data/data_sources/my_ads_remote_data_so
 import 'package:channels/features/my_ads/data/repositories/my_ads_repository_impl.dart';
 import 'package:channels/features/my_ads/domain/repositories/my_ads_repository.dart';
 import 'package:channels/features/my_ads/domain/usecases/get_my_ads.dart';
+
+// Ad Details (Shared)
+import 'package:channels/features/ad_details/data/data_sources/ad_details_remote_data_source.dart';
+import 'package:channels/features/ad_details/data/repositories/ad_details_repository_impl.dart';
+import 'package:channels/features/ad_details/domain/repositories/ad_details_repository.dart';
+import 'package:channels/features/ad_details/domain/usecases/get_ad_details.dart';
+import 'package:channels/features/ad_details/presentation/cubit/ad_details_cubit.dart';
 
 /// Service locator instance
 final sl = GetIt.instance;
@@ -118,7 +124,7 @@ Future<void> setupServiceLocator() async {
 
   sl.registerLazySingleton<GetCategoryAds>(() => GetCategoryAds(sl()));
 
-  sl.registerLazySingleton<GetAdDetails>(() => GetAdDetails(sl()));
+  // sl.registerLazySingleton<GetAdDetails>(() => GetAdDetails(sl())); // Moved to Shared
 
   // ==================== CATEGORIES ====================
 
@@ -171,4 +177,22 @@ Future<void> setupServiceLocator() async {
   );
 
   sl.registerLazySingleton<GetMyAds>(() => GetMyAds(sl()));
+
+  // ==================== AD DETAILS (SHARED) ====================
+
+  sl.registerLazySingleton<AdDetailsRemoteDataSource>(
+    () => AdDetailsRemoteDataSourceImpl(apiConsumer: sl()),
+  );
+
+  sl.registerLazySingleton<AdDetailsRepository>(
+    () => AdDetailsRepositoryImpl(remoteDataSource: sl()),
+  );
+
+  // Note: Overwriting previous GetAdDetails registration from Ads feature
+  // We should eventually remove the old one.
+  sl.registerLazySingleton<GetAdDetails>(() => GetAdDetails(sl()));
+
+  sl.registerFactory<AdDetailsCubit>(
+    () => AdDetailsCubit(getAdDetailsUseCase: sl()),
+  );
 }

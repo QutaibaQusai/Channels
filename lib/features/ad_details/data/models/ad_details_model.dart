@@ -1,5 +1,5 @@
 import 'package:channels/core/api/end_points.dart';
-import 'package:channels/features/ads/domain/entities/ad_details.dart';
+import 'package:channels/features/ad_details/domain/entities/ad_details.dart';
 
 /// AdDetails model - data layer
 class AdDetailsModel extends AdDetails {
@@ -17,6 +17,7 @@ class AdDetailsModel extends AdDetails {
     required super.amount,
     required super.priceCurrency,
     required super.status,
+    required super.approved,
     required super.reportCount,
     required super.createdAt,
     required super.phoneE164,
@@ -44,6 +45,7 @@ class AdDetailsModel extends AdDetails {
       amount: _parseAmount(json[ApiKey.amount]),
       priceCurrency: json[ApiKey.priceCurrency] as String? ?? '',
       status: json[ApiKey.adStatus] as String,
+      approved: (json[ApiKey.approved] ?? '0').toString(),
       reportCount: int.tryParse(json[ApiKey.reportCount].toString()) ?? 0,
       createdAt: DateTime.parse(json[ApiKey.createdAt] as String),
       phoneE164: json[ApiKey.phoneE164] as String,
@@ -76,6 +78,7 @@ class AdDetailsModel extends AdDetails {
       ApiKey.amount: amount,
       ApiKey.priceCurrency: priceCurrency,
       ApiKey.adStatus: status,
+      ApiKey.approved: approved,
       ApiKey.reportCount: reportCount.toString(),
       ApiKey.createdAt: createdAt.toIso8601String(),
       ApiKey.phoneE164: phoneE164,

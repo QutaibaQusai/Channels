@@ -19,10 +19,10 @@ import 'package:channels/features/authentication/presentation/cubit/countries/co
 import 'package:channels/features/authentication/presentation/cubit/otp/otp_cubit.dart';
 import 'package:channels/features/authentication/presentation/cubit/otp_verification/otp_verification_cubit.dart';
 import 'package:channels/features/authentication/presentation/cubit/register/register_cubit.dart';
-import 'package:channels/features/ads/presentation/views/category_ads/category_ads_view.dart';
-import 'package:channels/features/ads/presentation/views/ad_details/ad_details_view.dart';
-import 'package:channels/features/ads/presentation/cubit/ad_details/ad_details_cubit.dart';
-import 'package:channels/features/ads/domain/usecases/get_ad_details.dart';
+import 'package:channels/features/ads/presentation/views/category_ads_view.dart';
+import 'package:channels/features/ad_details/presentation/views/ad_details_view.dart';
+import 'package:channels/features/ad_details/presentation/cubit/ad_details_cubit.dart';
+import 'package:channels/features/ad_details/presentation/ad_view_mode.dart';
 import 'package:channels/features/profile/presentation/views/profile/profile_view.dart';
 import 'package:channels/features/profile/presentation/views/profile_edit/profile_edit_view.dart';
 import 'package:channels/features/create_ad/presentation/views/select_category/select_category_view.dart';
@@ -191,11 +191,12 @@ class AppRouter {
         path: RouteNames.adDetails,
         name: RouteNames.adDetails,
         builder: (context, state) {
-          final adId = state.extra as String? ?? '';
+          final extras = state.extra as Map<String, dynamic>? ?? {};
+          final adId = extras['adId'] as String? ?? '';
+          final mode = extras['mode'] as AdViewMode? ?? AdViewMode.public;
           return BlocProvider(
-            create: (context) =>
-                AdDetailsCubit(getAdDetailsUseCase: sl<GetAdDetails>()),
-            child: AdDetailsView(adId: adId),
+            create: (context) => sl<AdDetailsCubit>(),
+            child: AdDetailsView(adId: adId, mode: mode),
           );
         },
       ),
@@ -233,7 +234,8 @@ class AppRouter {
         name: RouteNames.underReviewAds,
         builder: (context, state) {
           return BlocProvider(
-            create: (_) => MyAdsCubit(getMyAdsUseCase: sl<GetMyAds>())..fetchMyAds(),
+            create: (_) =>
+                MyAdsCubit(getMyAdsUseCase: sl<GetMyAds>())..fetchMyAds(),
             child: const UnderReviewAdsView(),
           );
         },

@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:channels/features/ads/domain/usecases/get_ad_details.dart';
-import 'package:channels/features/ads/presentation/cubit/ad_details/ad_details_state.dart';
-import 'package:channels/core/errors/exceptions.dart';
+import 'package:channels/features/ad_details/domain/usecases/get_ad_details.dart';
+import 'package:channels/features/ad_details/presentation/cubit/ad_details_state.dart';
+import 'package:channels/core/errors/failures.dart';
 
 /// Cubit for managing ad details state
 class AdDetailsCubit extends Cubit<AdDetailsState> {
@@ -24,8 +24,8 @@ class AdDetailsCubit extends Cubit<AdDetailsState> {
       );
 
       emit(AdDetailsSuccess(adDetails: adDetails));
-    } on ServerException catch (e) {
-      emit(AdDetailsFailure(errorMessage: e.errModel.errorMessage));
+    } on ServerFailure catch (e) {
+      emit(AdDetailsFailure(errorMessage: e.message));
     } catch (e) {
       emit(AdDetailsFailure(errorMessage: e.toString()));
     }

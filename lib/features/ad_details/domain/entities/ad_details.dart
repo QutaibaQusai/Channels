@@ -15,6 +15,7 @@ class AdDetails extends Equatable {
   final double amount;
   final String priceCurrency;
   final String status;
+  final String approved;
   final int reportCount;
   final DateTime createdAt;
   final String phoneE164;
@@ -38,6 +39,7 @@ class AdDetails extends Equatable {
     required this.amount,
     required this.priceCurrency,
     required this.status,
+    required this.approved,
     required this.reportCount,
     required this.createdAt,
     required this.phoneE164,
@@ -48,6 +50,12 @@ class AdDetails extends Equatable {
 
   /// Check if ad has multiple images
   bool get hasMultipleImages => images.length > 1;
+
+  /// Check if ad is approved
+  bool get isApproved => approved == '1';
+
+  /// Check if ad is under review
+  bool get isUnderReview => approved == '0';
 
   /// Get formatted price
   String get formattedPrice => '${amount.toStringAsFixed(2)} $priceCurrency';
@@ -70,6 +78,7 @@ class AdDetails extends Equatable {
     amount,
     priceCurrency,
     status,
+    approved,
     reportCount,
     createdAt,
     phoneE164,
