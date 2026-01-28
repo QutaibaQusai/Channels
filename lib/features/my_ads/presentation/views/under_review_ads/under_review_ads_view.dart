@@ -92,10 +92,15 @@ class UnderReviewAdsView extends StatelessWidget {
           ...underReviewAds.map(
             (ad) => MyAdCard(
               ad: ad,
-              onTap: () => context.pushNamed(
-                RouteNames.adDetails,
-                extra: {'adId': ad.id, 'mode': AdViewMode.myAd},
-              ),
+              onTap: () async {
+                final result = await context.pushNamed(
+                  RouteNames.adDetails,
+                  extra: {'adId': ad.id, 'mode': AdViewMode.preview},
+                );
+                if (result == true && context.mounted) {
+                  context.read<MyAdsCubit>().refreshMyAds();
+                }
+              },
             ),
           ),
         ],

@@ -709,6 +709,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.1"
+  pie_menu:
+    dependency: "direct main"
+    description:
+      name: pie_menu
+      sha256: "8623391adb58efbd8a30ae76227943498c703e5f01d27dc989fbfa28716d1d1c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.3.4"
   platform:
     dependency: transitive
     description:

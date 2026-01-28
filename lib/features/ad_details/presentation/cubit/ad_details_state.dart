@@ -38,3 +38,23 @@ class AdDetailsFailure extends AdDetailsState {
   @override
   List<Object?> get props => [errorMessage];
 }
+
+/// Deleting state
+class AdDetailsDeleting extends AdDetailsState {
+  const AdDetailsDeleting();
+}
+
+/// Delete success state
+class AdDetailsDeleteSuccess extends AdDetailsState {
+  const AdDetailsDeleteSuccess();
+}
+
+/// Delete failure state
+class AdDetailsDeleteFailure extends AdDetailsState {
+  final String errorMessage;
+
+  const AdDetailsDeleteFailure({required this.errorMessage});
+
+  @override
+  List<Object?> get props => [errorMessage];
+}

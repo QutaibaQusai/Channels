@@ -7,6 +7,8 @@ abstract class AdDetailsRemoteDataSource {
     required String adId,
     required String languageCode,
   });
+
+  Future<void> deleteAd({required String adId});
 }
 
 class AdDetailsRemoteDataSourceImpl implements AdDetailsRemoteDataSource {
@@ -25,5 +27,10 @@ class AdDetailsRemoteDataSourceImpl implements AdDetailsRemoteDataSource {
     );
 
     return AdDetailsModel.fromJson(response as Map<String, dynamic>);
+  }
+
+  @override
+  Future<void> deleteAd({required String adId}) async {
+    await apiConsumer.post(EndPoint.deleteAd(adId));
   }
 }

@@ -49,18 +49,23 @@ class MyAdsLoadedContent extends StatelessWidget {
               ),
               verticalSpace(AppSizes.s20),
               ...underReviewAds
-                  .take(2)
+                  .take(1)
                   .map(
                     (ad) => MyAdCard(
                       ad: ad,
-                      onTap: () => context.pushNamed(
-                        RouteNames.adDetails,
-                        extra: {'adId': ad.id, 'mode': AdViewMode.myAd},
-                      ),
+                      onTap: () async {
+                        final result = await context.pushNamed(
+                          RouteNames.adDetails,
+                          extra: {'adId': ad.id, 'mode': AdViewMode.preview},
+                        );
+                        if (result == true && context.mounted) {
+                          context.read<MyAdsCubit>().refreshMyAds();
+                        }
+                      },
                     ),
                   ),
-              if (underReviewAds.length > 2) ...[
-                _buildSeeMoreButton(context, underReviewAds.length - 2),
+              if (underReviewAds.length > 1) ...[
+                _buildSeeMoreButton(context, underReviewAds.length - 1),
               ],
               verticalSpace(AppSizes.s24),
             ],
@@ -77,10 +82,15 @@ class MyAdsLoadedContent extends StatelessWidget {
               ...liveAds.map(
                 (ad) => MyAdCard(
                   ad: ad,
-                  onTap: () => context.pushNamed(
-                    RouteNames.adDetails,
-                    extra: {'adId': ad.id, 'mode': AdViewMode.myAd},
-                  ),
+                  onTap: () async {
+                    final result = await context.pushNamed(
+                      RouteNames.adDetails,
+                      extra: {'adId': ad.id, 'mode': AdViewMode.myAd},
+                    );
+                    if (result == true && context.mounted) {
+                      context.read<MyAdsCubit>().refreshMyAds();
+                    }
+                  },
                 ),
               ),
             ],
@@ -144,14 +154,20 @@ class MyAdsLoadedContent extends StatelessWidget {
 
     return Align(
       alignment: Alignment.centerRight,
-      child: TextButton(
-        onPressed: () {
-          context.push(RouteNames.underReviewAds);
+      child: GestureDetector(
+        onTap: () async {
+          final result = await context.push(RouteNames.underReviewAds);
+          if (result == true && context.mounted) {
+            context.read<MyAdsCubit>().refreshMyAds();
+          }
         },
-        style: TextButton.styleFrom(foregroundColor: colorScheme.primary),
         child: Text(
           l10n.myAdsSeeMore(remainingCount),
-          style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w600,
+            color: colorScheme.primary,
+          ),
         ),
       ),
     );

@@ -55,6 +55,7 @@ import 'package:channels/features/ad_details/data/data_sources/ad_details_remote
 import 'package:channels/features/ad_details/data/repositories/ad_details_repository_impl.dart';
 import 'package:channels/features/ad_details/domain/repositories/ad_details_repository.dart';
 import 'package:channels/features/ad_details/domain/usecases/get_ad_details.dart';
+import 'package:channels/features/ad_details/domain/usecases/delete_ad.dart';
 import 'package:channels/features/ad_details/presentation/cubit/ad_details_cubit.dart';
 
 /// Service locator instance
@@ -192,7 +193,9 @@ Future<void> setupServiceLocator() async {
   // We should eventually remove the old one.
   sl.registerLazySingleton<GetAdDetails>(() => GetAdDetails(sl()));
 
+  sl.registerLazySingleton<DeleteAd>(() => DeleteAd(repository: sl()));
+
   sl.registerFactory<AdDetailsCubit>(
-    () => AdDetailsCubit(getAdDetailsUseCase: sl()),
+    () => AdDetailsCubit(getAdDetailsUseCase: sl(), deleteAdUseCase: sl()),
   );
 }

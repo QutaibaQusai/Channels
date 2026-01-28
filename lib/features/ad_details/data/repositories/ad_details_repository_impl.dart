@@ -23,4 +23,13 @@ class AdDetailsRepositoryImpl implements AdDetailsRepository {
       throw ServerFailure(e.errModel.errorMessage);
     }
   }
+
+  @override
+  Future<void> deleteAd({required String adId}) async {
+    try {
+      await remoteDataSource.deleteAd(adId: adId);
+    } on ServerException catch (e) {
+      throw ServerFailure(e.errModel.errorMessage);
+    }
+  }
 }

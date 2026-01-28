@@ -23,6 +23,7 @@ class RouteNames {
   static const String imageViewer = '/image-viewer';
   static const String myAds = '/my-ads';
   static const String underReviewAds = '/my-ads/under-review';
+  static const String updateAd = '/my-ads/update';
 
   // ==================== CREATE AD ====================
   static const String createAd = '/create-ad';

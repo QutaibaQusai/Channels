@@ -9,6 +9,7 @@ class EndPoint {
   static String updatePreferences = "user/preferences";
   static String categoryAds(String categoryId) => "ads/category/$categoryId";
   static String adDetails(String adId) => "ads/details/$adId";
+  static String deleteAd(String adId) => "ads/delete/$adId";
   static String userProfile(String userId) => "user/$userId";
   static String createAd = "ads";
   static String myAds = "ads/me";

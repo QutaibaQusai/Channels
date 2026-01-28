@@ -43,6 +43,8 @@ import 'package:channels/features/my_ads/presentation/views/my_ads/my_ads_view.d
 import 'package:channels/features/my_ads/presentation/views/under_review_ads/under_review_ads_view.dart';
 import 'package:channels/features/my_ads/presentation/cubit/my_ads_cubit.dart';
 import 'package:channels/features/my_ads/domain/usecases/get_my_ads.dart';
+import 'package:channels/features/ad_details/presentation/views/my_ad/update_ad_view.dart';
+import 'package:channels/features/ad_details/domain/entities/ad_details.dart';
 
 /// Centralized routing configuration using Go Router
 class AppRouter {
@@ -238,6 +240,15 @@ class AppRouter {
                 MyAdsCubit(getMyAdsUseCase: sl<GetMyAds>())..fetchMyAds(),
             child: const UnderReviewAdsView(),
           );
+        },
+      ),
+
+      GoRoute(
+        path: RouteNames.updateAd,
+        name: RouteNames.updateAd,
+        builder: (context, state) {
+          final adDetails = state.extra as AdDetails;
+          return UpdateAdView(adDetails: adDetails);
         },
       ),
 

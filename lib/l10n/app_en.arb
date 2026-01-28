@@ -395,5 +395,88 @@
   "myAdsUnderReviewSearchHint": "Search under review...",
   "@myAdsUnderReviewSearchHint": {
     "description": "Search hint for Under Review screen"
+  },
+
+  "myAdDetailsTitle": "Ad Data Preview",
+  "@myAdDetailsTitle": {
+    "description": "Title for My Ad Details screen"
+  },
+
+  "myAdDetailsSectionDescription": "Description",
+  "@myAdDetailsSectionDescription": {
+    "description": "Description section title"
+  },
+
+  "myAdDetailsSectionBasicInfo": "Basic Information",
+  "@myAdDetailsSectionBasicInfo": {
+    "description": "Basic Info section title"
+  },
+
+  "myAdDetailsSectionAttributes": "Attributes",
+  "@myAdDetailsSectionAttributes": {
+    "description": "Attributes section title"
+  },
+
+  "myAdDetailsSectionSystemData": "System Data",
+  "@myAdDetailsSectionSystemData": {
+    "description": "System Data section title"
+  },
+
+  "myAdDetailsFeatureEditComingSoon": "Edit feature coming soon!",
+  "@myAdDetailsFeatureEditComingSoon": {
+    "description": "Toast message for edit feature"
+  },
+
+  "myAdDetailsDeleteDialogTitle": "Delete Ad",
+  "@myAdDetailsDeleteDialogTitle": {
+    "description": "Delete confirmation dialog title"
+  },
+
+  "myAdDetailsDeleteDialogContent": "Are you sure you want to delete this ad? This action cannot be undone.",
+  "@myAdDetailsDeleteDialogContent": {
+    "description": "Delete confirmation dialog content"
+  },
+
+  "myAdDetailsFeatureDeleteComingSoon": "Delete feature coming soon!",
+  "@myAdDetailsFeatureDeleteComingSoon": {
+    "description": "Toast message for delete feature"
+  },
+
+  "myAdDetailsReports": "{count} Reports",
+  "@myAdDetailsReports": {
+    "description": "Report count text",
+    "placeholders": {
+      "count": {
+        "type": "Object",
+        "example": "3"
+      }
+    }
+  },
+
+  "labelTitle": "Title",
+  "labelPrice": "Price",
+  "labelCategory": "Category",
+  "labelSubCategory": "Sub Category",
+  "labelLocation": "Location",
+  "labelLanguage": "Language",
+  "labelStatus": "Status",
+  "labelCreated": "Created",
+  "labelPhone": "Phone",
+  "labelUser": "User",
+
+  "statusLiveNow": "Live Now",
+  "statusPendingReview": "Pending Review",
+
+  "actionEdit": "Edit",
+  "actionDelete": "Delete",
+
+  "previewUnderReviewTitle": "Under Review",
+  "@previewUnderReviewTitle": {
+    "description": "Title for under review banner in preview view"
+  },
+
+  "previewUnderReviewMessage": "Your ad is currently under review. We will send you a notification once it's approved.",
+  "@previewUnderReviewMessage": {
+    "description": "Message explaining ad is under review and user will get notification"
   }
 }

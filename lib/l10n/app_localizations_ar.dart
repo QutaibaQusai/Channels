@@ -327,4 +327,86 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get myAdsUnderReviewSearchHint => 'بحث في قيد المراجعة...';
+
+  @override
+  String get myAdDetailsTitle => 'معاينة بيانات الإعلان';
+
+  @override
+  String get myAdDetailsSectionDescription => 'الوصف';
+
+  @override
+  String get myAdDetailsSectionBasicInfo => 'المعلومات الأساسية';
+
+  @override
+  String get myAdDetailsSectionAttributes => 'الخصائص';
+
+  @override
+  String get myAdDetailsSectionSystemData => 'بيانات النظام';
+
+  @override
+  String get myAdDetailsFeatureEditComingSoon => 'ميزة التعديل قريباً!';
+
+  @override
+  String get myAdDetailsDeleteDialogTitle => 'حذف الإعلان';
+
+  @override
+  String get myAdDetailsDeleteDialogContent =>
+      'هل أنت متأكد أنك تريد حذف هذا الإعلان؟ لا يمكن التراجع عن هذا الإجراء.';
+
+  @override
+  String get myAdDetailsFeatureDeleteComingSoon => 'ميزة الحذف قريباً!';
+
+  @override
+  String myAdDetailsReports(Object count) {
+    return '$count بلاغات';
+  }
+
+  @override
+  String get labelTitle => 'العنوان';
+
+  @override
+  String get labelPrice => 'السعر';
+
+  @override
+  String get labelCategory => 'الفئة';
+
+  @override
+  String get labelSubCategory => 'الفئة الفرعية';
+
+  @override
+  String get labelLocation => 'الموقع';
+
+  @override
+  String get labelLanguage => 'اللغة';
+
+  @override
+  String get labelStatus => 'الحالة';
+
+  @override
+  String get labelCreated => 'تاريخ الإنشاء';
+
+  @override
+  String get labelPhone => 'الهاتف';
+
+  @override
+  String get labelUser => 'المستخدم';
+
+  @override
+  String get statusLiveNow => 'منشور الآن';
+
+  @override
+  String get statusPendingReview => 'قيد المراجعة';
+
+  @override
+  String get actionEdit => 'تعديل';
+
+  @override
+  String get actionDelete => 'حذف';
+
+  @override
+  String get previewUnderReviewTitle => 'قيد المراجعة';
+
+  @override
+  String get previewUnderReviewMessage =>
+      'إعلانك قيد المراجعة حالياً. سنرسل لك إشعاراً بمجرد الموافقة عليه.';
 }

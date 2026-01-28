@@ -329,4 +329,87 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get myAdsUnderReviewSearchHint => 'Search under review...';
+
+  @override
+  String get myAdDetailsTitle => 'Ad Data Preview';
+
+  @override
+  String get myAdDetailsSectionDescription => 'Description';
+
+  @override
+  String get myAdDetailsSectionBasicInfo => 'Basic Information';
+
+  @override
+  String get myAdDetailsSectionAttributes => 'Attributes';
+
+  @override
+  String get myAdDetailsSectionSystemData => 'System Data';
+
+  @override
+  String get myAdDetailsFeatureEditComingSoon => 'Edit feature coming soon!';
+
+  @override
+  String get myAdDetailsDeleteDialogTitle => 'Delete Ad';
+
+  @override
+  String get myAdDetailsDeleteDialogContent =>
+      'Are you sure you want to delete this ad? This action cannot be undone.';
+
+  @override
+  String get myAdDetailsFeatureDeleteComingSoon =>
+      'Delete feature coming soon!';
+
+  @override
+  String myAdDetailsReports(Object count) {
+    return '$count Reports';
+  }
+
+  @override
+  String get labelTitle => 'Title';
+
+  @override
+  String get labelPrice => 'Price';
+
+  @override
+  String get labelCategory => 'Category';
+
+  @override
+  String get labelSubCategory => 'Sub Category';
+
+  @override
+  String get labelLocation => 'Location';
+
+  @override
+  String get labelLanguage => 'Language';
+
+  @override
+  String get labelStatus => 'Status';
+
+  @override
+  String get labelCreated => 'Created';
+
+  @override
+  String get labelPhone => 'Phone';
+
+  @override
+  String get labelUser => 'User';
+
+  @override
+  String get statusLiveNow => 'Live Now';
+
+  @override
+  String get statusPendingReview => 'Pending Review';
+
+  @override
+  String get actionEdit => 'Edit';
+
+  @override
+  String get actionDelete => 'Delete';
+
+  @override
+  String get previewUnderReviewTitle => 'Under Review';
+
+  @override
+  String get previewUnderReviewMessage =>
+      'Your ad is currently under review. We will send you a notification once it\'s approved.';
 }
