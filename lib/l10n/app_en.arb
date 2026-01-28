@@ -309,5 +309,91 @@
 
   "deleteAccountTitle": "Delete Account",
   "deleteAccountConfirmation": "Are you sure you want to delete your account? This action cannot be undone.",
-  "deleteAccountButton": "Delete"
+  "deleteAccountButton": "Delete",
+
+  "announcementBannerMessage": "Post your ad for free! Reach thousands of buyers today.",
+  "@announcementBannerMessage": {
+    "description": "Announcement banner message on home screen"
+  },
+
+  "featuredAdsLabel": "Featured Ads",
+  "@featuredAdsLabel": {
+    "description": "Label for featured ads section"
+  },
+
+  "myAdsTitle": "My Ads",
+  "@myAdsTitle": {
+    "description": "My Ads screen title"
+  },
+
+  "myAdsSectionUnderReview": "Under Review",
+  "@myAdsSectionUnderReview": {
+    "description": "Under Review section title"
+  },
+
+  "myAdsSectionLiveNow": "Live Now",
+  "@myAdsSectionLiveNow": {
+    "description": "Live Now section title"
+  },
+
+  "myAdsStatusLive": "Live",
+  "@myAdsStatusLive": {
+    "description": "Live status badge text"
+  },
+
+  "myAdsStatusPending": "Pending",
+  "@myAdsStatusPending": {
+    "description": "Pending status badge text"
+  },
+
+  "myAdsSeeMore": "See {count} more",
+  "@myAdsSeeMore": {
+    "description": "See more button text with count",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+
+  "myAdsPostNewAd": "POST NEW AD",
+  "@myAdsPostNewAd": {
+    "description": "Post new ad button text"
+  },
+
+  "myAdsEmptyTitle": "No ads yet",
+  "@myAdsEmptyTitle": {
+    "description": "Empty state title"
+  },
+
+  "myAdsEmptySubtitle": "Your posted ads will appear here",
+  "@myAdsEmptySubtitle": {
+    "description": "Empty state subtitle"
+  },
+
+  "myAdsUnderReviewTitle": "Under Review",
+  "@myAdsUnderReviewTitle": {
+    "description": "Under Review screen title"
+  },
+
+  "myAdsUnderReviewEmptyTitle": "No ads under review",
+  "@myAdsUnderReviewEmptyTitle": {
+    "description": "Under Review empty state title"
+  },
+
+  "myAdsUnderReviewEmptySubtitle": "Your pending ads will appear here",
+  "@myAdsUnderReviewEmptySubtitle": {
+    "description": "Under Review empty state subtitle"
+  },
+
+  "myAdsSearchHint": "Search my ads...",
+  "@myAdsSearchHint": {
+    "description": "Search hint for My Ads screen"
+  },
+
+  "myAdsUnderReviewSearchHint": "Search under review...",
+  "@myAdsUnderReviewSearchHint": {
+    "description": "Search hint for Under Review screen"
+  }
 }

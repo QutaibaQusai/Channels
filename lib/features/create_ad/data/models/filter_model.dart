@@ -7,6 +7,8 @@ class FilterModel extends Filter {
     required super.key,
     required super.type,
     required super.label,
+    super.title,
+    super.subTitle,
     super.options,
     super.validation,
   });
@@ -35,6 +37,8 @@ class FilterModel extends Filter {
       key: json[ApiKey.key] as String,
       type: json[ApiKey.type] as String,
       label: json[ApiKey.label] as String,
+      title: json['title'] as String?,
+      subTitle: json['sub_title'] as String?,
       options: options,
       validation: validationJson != null
           ? FilterValidationModel.fromJson(validationJson)

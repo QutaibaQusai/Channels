@@ -1,21 +1,25 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:channels/core/shared/widgets/app_bar.dart';
 import 'package:channels/core/shared/widgets/app_button.dart';
-import 'package:channels/core/shared/widgets/app_text_field.dart';
 import 'package:channels/core/shared/widgets/app_toast.dart';
 import 'package:channels/core/shared/widgets/gradient_overlay.dart';
 import 'package:channels/core/theme/app_sizes.dart';
+import 'package:channels/core/router/route_names.dart';
 import 'package:channels/core/di/service_locator.dart';
+import 'package:channels/core/utils/spacing.dart';
 import 'package:channels/features/create_ad/presentation/cubit/create_ad/create_ad_cubit.dart';
 import 'package:channels/features/create_ad/presentation/cubit/create_ad/create_ad_state.dart';
+import 'package:channels/features/create_ad/presentation/views/ad_details/widgets/title_field.dart';
+import 'package:channels/features/create_ad/presentation/views/ad_details/widgets/description_field.dart';
+import 'package:channels/features/create_ad/presentation/views/ad_details/widgets/price_field.dart';
 
-/// Create Ad Details Form View - Collect title, description, price, and phone number
+/// Create Ad Details Form View - Collect title, description, price
 class CreateAdDetailsView extends StatefulWidget {
   final Map<String, dynamic> formData;
+  final Map<String, String> displayData;
   final String categoryId; // Subcategory ID (leaf node)
   final String parentCategoryId; // Parent category ID (not used in API)
   final String rootCategoryId; // Root category ID (used in API as category_id)
@@ -24,6 +28,7 @@ class CreateAdDetailsView extends StatefulWidget {
   const CreateAdDetailsView({
     super.key,
     required this.formData,
+    required this.displayData,
     required this.categoryId,
     required this.parentCategoryId,
     required this.rootCategoryId,
@@ -65,15 +70,20 @@ class _CreateAdDetailsViewState extends State<CreateAdDetailsView> {
       // TODO: Get actual user country code from auth state/preferences
       const countryCode = 'JO'; // Default to Jordan for now
 
-      context.read<CreateAdCubit>().createAd(
-        categoryId: widget.rootCategoryId, // ROOT category for API
-        subcategoryId: widget.categoryId, // Subcategory (leaf node)
-        countryCode: countryCode,
-        title: _titleController.text.trim(),
-        description: _descriptionController.text.trim(),
-        price: double.parse(_priceController.text.trim()),
-        images: widget.images,
-        attributes: widget.formData,
+      context.pushNamed(
+        RouteNames.createAdReview,
+        extra: {
+          'formData': widget.formData,
+          'displayData': widget.displayData,
+          'categoryId': widget.categoryId,
+          'parentCategoryId': widget.parentCategoryId,
+          'rootCategoryId': widget.rootCategoryId,
+          'images': widget.images,
+          'title': _titleController.text.trim(),
+          'description': _descriptionController.text.trim(),
+          'price': double.parse(_priceController.text.trim()),
+          'countryCode': countryCode,
+        },
       );
     }
   }
@@ -88,12 +98,10 @@ class _CreateAdDetailsViewState extends State<CreateAdDetailsView> {
       child: BlocListener<CreateAdCubit, CreateAdState>(
         listener: (context, state) {
           if (state is CreateAdLoading) {
-            // Show loading indicator
             debugPrint('📋 Creating ad...');
           } else if (state is CreateAdSuccess) {
             debugPrint('📋 Ad created successfully! ID: ${state.adId}');
             AppToast.success(context, title: 'Ad posted successfully!');
-            // Navigate back to home or ad details
             context.go('/home');
           } else if (state is CreateAdFailure) {
             debugPrint('📋 Failed to create ad: ${state.message}');
@@ -116,7 +124,7 @@ class _CreateAdDetailsViewState extends State<CreateAdDetailsView> {
                   bottomWidget: Padding(
                     padding: EdgeInsets.all(AppSizes.s16),
                     child: AppButton(
-                      text: isLoading ? 'Posting...' : 'Post Ad',
+                      text: isLoading ? 'Processing...' : 'Review Ad',
                       onPressed: () => _handleSubmit(context, state),
                     ),
                   ),
@@ -125,132 +133,29 @@ class _CreateAdDetailsViewState extends State<CreateAdDetailsView> {
                     child: ListView(
                       padding: EdgeInsets.all(AppSizes.s16),
                       children: [
-                        // Info banner
-                        Container(
-                          padding: EdgeInsets.all(AppSizes.s12),
-                          decoration: BoxDecoration(
-                            color: colorScheme.primaryContainer.withValues(
-                              alpha: 0.3,
-                            ),
-                            borderRadius: BorderRadius.circular(AppSizes.r12),
-                            border: Border.all(
-                              color: colorScheme.primary.withValues(alpha: 0.3),
-                            ),
-                          ),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.info_outline,
-                                color: colorScheme.primary,
-                                size: 20.sp,
-                              ),
-                              SizedBox(width: AppSizes.s8),
-                              Expanded(
-                                child: Text(
-                                  'Fill in the details below to complete your ad',
-                                  style: TextStyle(
-                                    fontSize: 13.sp,
-                                    color: colorScheme.onSurface,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        SizedBox(height: AppSizes.s24),
-
                         // Title field
-                        Text(
-                          'Ad Title *',
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w600,
-                            color: colorScheme.onSurface,
-                          ),
-                        ),
-                        SizedBox(height: AppSizes.s8),
-                        AppTextField(
+                        TitleField(
                           controller: _titleController,
-                          hintText: 'Enter ad title',
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return 'Title is required';
-                            }
-                            if (value.trim().length < 3) {
-                              return 'Title must be at least 3 characters';
-                            }
-                            if (value.trim().length > 100) {
-                              return 'Title must not exceed 100 characters';
-                            }
-                            return null;
-                          },
+                          colorScheme: colorScheme,
                         ),
 
-                        SizedBox(height: AppSizes.s20),
+                        verticalSpace(AppSizes.s20),
 
                         // Description field
-                        Text(
-                          'Description *',
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w600,
-                            color: colorScheme.onSurface,
-                          ),
-                        ),
-                        SizedBox(height: AppSizes.s8),
-                        AppTextField(
+                        DescriptionField(
                           controller: _descriptionController,
-                          hintText: 'Enter detailed description',
-                          maxLines: 5,
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return 'Description is required';
-                            }
-                            if (value.trim().length < 10) {
-                              return 'Description must be at least 10 characters';
-                            }
-                            if (value.trim().length > 1000) {
-                              return 'Description must not exceed 1000 characters';
-                            }
-                            return null;
-                          },
+                          colorScheme: colorScheme,
                         ),
 
-                        SizedBox(height: AppSizes.s20),
+                        verticalSpace(AppSizes.s20),
 
                         // Price field
-                        Text(
-                          'Price *',
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w600,
-                            color: colorScheme.onSurface,
-                          ),
-                        ),
-                        SizedBox(height: AppSizes.s8),
-                        AppTextField(
+                        PriceField(
                           controller: _priceController,
-                          hintText: 'Enter price',
-                          keyboardType: TextInputType.number,
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return 'Price is required';
-                            }
-                            final price = double.tryParse(value.trim());
-                            if (price == null) {
-                              return 'Please enter a valid number';
-                            }
-                            if (price < 0) {
-                              return 'Price cannot be negative';
-                            }
-                            return null;
-                          },
+                          colorScheme: colorScheme,
                         ),
 
-                        SizedBox(
-                          height: AppSizes.s80,
-                        ), // Extra padding for gradient
+                        verticalSpace(AppSizes.s80), // Extra padding for gradient
                       ],
                     ),
                   ),

@@ -111,5 +111,84 @@
 
   "deleteAccountTitle": "حذف الحساب",
   "deleteAccountConfirmation": "هل أنت متأكد أنك تريد حذف حسابك؟ لا يمكن التراجع عن هذا الإجراء.",
-  "deleteAccountButton": "حذف"
+  "deleteAccountButton": "حذف",
+
+  "announcementBannerMessage": "انشر إعلانك مجاناً! وصل لآلاف المشترين اليوم.",
+  "@announcementBannerMessage": {
+    "description": "Announcement banner message on home screen"
+  },
+
+  "featuredAdsLabel": "الإعلانات المميزة",
+  "@featuredAdsLabel": {
+    "description": "Label for featured ads section"
+  },
+
+  "myAdsTitle": "إعلاناتي",
+  "@myAdsTitle": {
+    "description": "My Ads screen title"
+  },
+
+  "myAdsSectionUnderReview": "قيد المراجعة",
+  "@myAdsSectionUnderReview": {
+    "description": "Under Review section title"
+  },
+
+  "myAdsSectionLiveNow": "منشور الآن",
+  "@myAdsSectionLiveNow": {
+    "description": "Live Now section title"
+  },
+
+  "myAdsStatusLive": "منشور",
+  "@myAdsStatusLive": {
+    "description": "Live status badge text"
+  },
+
+  "myAdsStatusPending": "قيد المراجعة",
+  "@myAdsStatusPending": {
+    "description": "Pending status badge text"
+  },
+
+  "myAdsSeeMore": "عرض {count} إضافية",
+  "@myAdsSeeMore": {
+    "description": "See more button text with count",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+
+  "myAdsPostNewAd": "انشر إعلان جديد",
+  "@myAdsPostNewAd": {
+    "description": "Post new ad button text"
+  },
+
+  "myAdsEmptyTitle": "لا توجد إعلانات بعد",
+  "@myAdsEmptyTitle": {
+    "description": "Empty state title"
+  },
+
+  "myAdsEmptySubtitle": "ستظهر إعلاناتك المنشورة هنا",
+  "@myAdsEmptySubtitle": {
+    "description": "Empty state subtitle"
+  },
+
+  "myAdsUnderReviewTitle": "قيد المراجعة",
+  "@myAdsUnderReviewTitle": {
+    "description": "Under Review screen title"
+  },
+
+  "myAdsUnderReviewEmptyTitle": "لا توجد إعلانات قيد المراجعة",
+  "@myAdsUnderReviewEmptyTitle": {
+    "description": "Under Review empty state title"
+  },
+
+  "myAdsUnderReviewEmptySubtitle": "ستظهر إعلاناتك المعلقة هنا",
+  "@myAdsUnderReviewEmptySubtitle": {
+    "description": "Under Review empty state subtitle"
+  },
+
+  "myAdsSearchHint": "بحث في إعلاناتي...",
+  "myAdsUnderReviewSearchHint": "بحث في قيد المراجعة..."
 }

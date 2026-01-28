@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,8 +6,9 @@ import 'package:channels/core/shared/widgets/app_bar.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 
 /// Full-screen image viewer with zoom and swipe functionality
+/// Supports both network images (URLs) and local files
 class ImageViewerView extends StatefulWidget {
-  final List<String> images;
+  final List<dynamic> images; // Can be List<String> (URLs) or List<File> (local files)
   final int initialIndex;
 
   const ImageViewerView({
@@ -34,6 +36,50 @@ class _ImageViewerViewState extends State<ImageViewerView> {
   void dispose() {
     _pageController.dispose();
     super.dispose();
+  }
+
+  Widget _buildImage(dynamic image) {
+    if (image is File) {
+      // Local file
+      return Image.file(
+        image,
+        fit: BoxFit.contain,
+        errorBuilder: (_, __, ___) => Icon(
+          Icons.broken_image_outlined,
+          size: 64.sp,
+          color: Colors.white54,
+        ),
+      );
+    } else if (image is String) {
+      // Network URL
+      return Image.network(
+        image,
+        fit: BoxFit.contain,
+        loadingBuilder: (context, child, loadingProgress) {
+          if (loadingProgress == null) return child;
+          return Center(
+            child: CircularProgressIndicator(
+              color: Colors.white,
+              value: loadingProgress.expectedTotalBytes != null
+                  ? loadingProgress.cumulativeBytesLoaded /
+                      loadingProgress.expectedTotalBytes!
+                  : null,
+            ),
+          );
+        },
+        errorBuilder: (_, __, ___) => Icon(
+          Icons.broken_image_outlined,
+          size: 64.sp,
+          color: Colors.white54,
+        ),
+      );
+    }
+    // Fallback
+    return Icon(
+      Icons.image_not_supported_outlined,
+      size: 64.sp,
+      color: Colors.white54,
+    );
   }
 
   @override
@@ -64,27 +110,7 @@ class _ImageViewerViewState extends State<ImageViewerView> {
                   minScale: 1.0,
                   maxScale: 4.0,
                   child: Center(
-                    child: Image.network(
-                      widget.images[index],
-                      fit: BoxFit.contain,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                            value: loadingProgress.expectedTotalBytes != null
-                                ? loadingProgress.cumulativeBytesLoaded /
-                                      loadingProgress.expectedTotalBytes!
-                                : null,
-                          ),
-                        );
-                      },
-                      errorBuilder: (_, __, ___) => Icon(
-                        Icons.broken_image_outlined,
-                        size: 64.sp,
-                        color: Colors.white54,
-                      ),
-                    ),
+                    child: _buildImage(widget.images[index]),
                   ),
                 );
               },
