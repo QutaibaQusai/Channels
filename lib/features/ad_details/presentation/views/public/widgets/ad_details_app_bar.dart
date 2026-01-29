@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lucide_icons/lucide_icons.dart';
@@ -33,7 +34,7 @@ class AdDetailsAppBar extends StatelessWidget implements PreferredSizeWidget {
           children: [
             // Back button
             FloatingIconButton(
-              icon: LucideIcons.arrowLeft,
+              icon: CupertinoIcons.back,
               onTap: () => context.pop(),
             ),
 

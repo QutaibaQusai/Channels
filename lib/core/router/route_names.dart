@@ -24,6 +24,7 @@ class RouteNames {
   static const String myAds = '/my-ads';
   static const String underReviewAds = '/my-ads/under-review';
   static const String updateAd = '/my-ads/update';
+  static const String userProfile = '/user-profile';
 
   // ==================== CREATE AD ====================
   static const String createAd = '/create-ad';

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:channels/core/shared/widgets/app_bar.dart';
 import 'package:channels/core/shared/widgets/app_button.dart';
+import 'package:channels/core/shared/widgets/app_text_field.dart';
+import 'package:channels/core/shared/widgets/gradient_overlay.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/utils/spacing.dart';
 import 'package:channels/features/ad_details/domain/entities/ad_details.dart';
@@ -64,143 +66,131 @@ class _UpdateAdViewState extends State<UpdateAdView> {
         title: 'Update Ad', // TODO: Add localization
         showBackButton: true,
       ),
-      body: Form(
-        key: _formKey,
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(AppSizes.screenPaddingH),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Title Field
-              Text(
-                l10n.labelTitle,
-                style: theme.textTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.w600,
+      body: GradientOverlay(
+        bottomWidget: Padding(
+          padding: EdgeInsets.symmetric(horizontal: AppSizes.screenPaddingH),
+          child: AppButton(
+            text: 'Update Ad', // TODO: Add localization
+            onPressed: _handleUpdate,
+          ),
+        ),
+        child: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: AppSizes.screenPaddingH),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Title Field
+                Text(
+                  l10n.labelTitle,
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-              ),
-              verticalSpace(8.h),
-              TextFormField(
-                controller: _titleController,
-                decoration: InputDecoration(
+                verticalSpace(8.h),
+                AppTextField(
+                  controller: _titleController,
                   hintText: 'Enter title',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.r),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Title is required';
+                    }
+                    return null;
+                  },
+                ),
+                verticalSpace(24.h),
+
+                // Price Field
+                Text(
+                  l10n.labelPrice,
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Title is required';
-                  }
-                  return null;
-                },
-              ),
-              verticalSpace(24.h),
-
-              // Price Field
-              Text(
-                l10n.labelPrice,
-                style: theme.textTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              verticalSpace(8.h),
-              TextFormField(
-                controller: _priceController,
-                decoration: InputDecoration(
-                  hintText: 'Enter price',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.r),
+                verticalSpace(8.h),
+                AppTextField(
+                  controller: _priceController,
+                  hintText: 'Enter price (${widget.adDetails.priceCurrency})',
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
                   ),
-                  suffixText: widget.adDetails.priceCurrency,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Price is required';
+                    }
+                    if (double.tryParse(value) == null) {
+                      return 'Please enter a valid number';
+                    }
+                    return null;
+                  },
                 ),
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Price is required';
-                  }
-                  if (double.tryParse(value) == null) {
-                    return 'Please enter a valid number';
-                  }
-                  return null;
-                },
-              ),
-              verticalSpace(24.h),
+                verticalSpace(24.h),
 
-              // Description Field
-              Text(
-                l10n.myAdDetailsSectionDescription,
-                style: theme.textTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.w600,
+                // Description Field
+                Text(
+                  l10n.myAdDetailsSectionDescription,
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-              ),
-              verticalSpace(8.h),
-              TextFormField(
-                controller: _descriptionController,
-                decoration: InputDecoration(
+                verticalSpace(8.h),
+                AppTextField(
+                  controller: _descriptionController,
                   hintText: 'Enter description',
-                  border: OutlineInputBorder(
+                  maxLines: 5,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Description is required';
+                    }
+                    return null;
+                  },
+                ),
+                verticalSpace(24.h),
+
+                // Category Info (Read-only)
+                Container(
+                  padding: EdgeInsets.all(16.w),
+                  decoration: BoxDecoration(
+                    color: colorScheme.surfaceContainerHighest,
                     borderRadius: BorderRadius.circular(12.r),
                   ),
-                ),
-                maxLines: 5,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Description is required';
-                  }
-                  return null;
-                },
-              ),
-              verticalSpace(24.h),
-
-              // Category Info (Read-only)
-              Container(
-                padding: EdgeInsets.all(16.w),
-                decoration: BoxDecoration(
-                  color: colorScheme.surfaceContainerHighest,
-                  borderRadius: BorderRadius.circular(12.r),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Category Information',
-                      style: theme.textTheme.titleSmall?.copyWith(
-                        fontWeight: FontWeight.w600,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Category Information',
+                        style: theme.textTheme.titleSmall?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-                    verticalSpace(12.h),
-                    _buildInfoRow(
-                      l10n.labelCategory,
-                      widget.adDetails.categoryName ??
-                          widget.adDetails.categoryId,
-                      theme,
-                    ),
-                    verticalSpace(8.h),
-                    _buildInfoRow(
-                      l10n.labelSubCategory,
-                      widget.adDetails.subcategoryName ??
-                          widget.adDetails.subcategoryId ??
-                          'N/A',
-                      theme,
-                    ),
-                    verticalSpace(8.h),
-                    _buildInfoRow(
-                      l10n.labelLocation,
-                      widget.adDetails.countryCode,
-                      theme,
-                    ),
-                  ],
+                      verticalSpace(12.h),
+                      _buildInfoRow(
+                        l10n.labelCategory,
+                        widget.adDetails.categoryName ??
+                            widget.adDetails.categoryId,
+                        theme,
+                      ),
+                      verticalSpace(8.h),
+                      _buildInfoRow(
+                        l10n.labelSubCategory,
+                        widget.adDetails.subcategoryName ??
+                            widget.adDetails.subcategoryId ??
+                            'N/A',
+                        theme,
+                      ),
+                      verticalSpace(8.h),
+                      _buildInfoRow(
+                        l10n.labelLocation,
+                        widget.adDetails.countryCode,
+                        theme,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              verticalSpace(32.h),
-
-              // Update Button
-              AppButton(
-                text: 'Update Ad', // TODO: Add localization
-                onPressed: _handleUpdate,
-              ),
-              verticalSpace(24.h),
-            ],
+                verticalSpace(100.h), // Extra space for bottom button
+              ],
+            ),
           ),
         ),
       ),

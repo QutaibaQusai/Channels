@@ -45,6 +45,7 @@ dependencies:
   image_picker: ^1.1.2
   cached_network_image: ^3.4.1
   pie_menu: ^3.3.4
+  share_plus: ^12.0.1
 
 dev_dependencies:
   flutter_test:

@@ -17,7 +17,6 @@ class AdDetailsInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final textExtension = theme.extension<AppColorsExtension>()!;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,31 +28,6 @@ class AdDetailsInfo extends StatelessWidget {
             fontSize: 28.sp,
             fontWeight: FontWeight.w700,
             color: colorScheme.primary,
-          ),
-        ),
-
-        verticalSpace(AppSizes.s12),
-
-        // Title
-        Text(
-          adDetails.title,
-          style: TextStyle(
-            fontSize: 20.sp,
-            fontWeight: FontWeight.w600,
-            color: colorScheme.onSurface,
-          ),
-        ),
-
-        verticalSpace(AppSizes.s8),
-
-        // Description
-        Text(
-          adDetails.description,
-          style: TextStyle(
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w400,
-            color: textExtension.textSecondary,
-            height: 1.5,
           ),
         ),
 

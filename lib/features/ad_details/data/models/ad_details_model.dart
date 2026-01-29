@@ -1,5 +1,6 @@
 import 'package:channels/core/api/end_points.dart';
 import 'package:channels/features/ad_details/domain/entities/ad_details.dart';
+import 'package:channels/features/ad_details/data/models/similar_ad_model.dart';
 
 /// AdDetails model - data layer
 class AdDetailsModel extends AdDetails {
@@ -24,6 +25,7 @@ class AdDetailsModel extends AdDetails {
     super.userName,
     super.categoryName,
     super.subcategoryName,
+    super.similarAds,
   });
 
   factory AdDetailsModel.fromJson(Map<String, dynamic> json) {
@@ -52,6 +54,10 @@ class AdDetailsModel extends AdDetails {
       userName: json[ApiKey.userName] as String?,
       categoryName: json[ApiKey.categoryName] as String?,
       subcategoryName: json[ApiKey.subcategoryName] as String?,
+      similarAds: (json[ApiKey.similarAds] as List<dynamic>?)
+              ?.map((e) => SimilarAdModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
     );
   }
 
@@ -85,6 +91,26 @@ class AdDetailsModel extends AdDetails {
       ApiKey.userName: userName,
       ApiKey.categoryName: categoryName,
       ApiKey.subcategoryName: subcategoryName,
+      ApiKey.similarAds: similarAds
+          .map((e) => SimilarAdModel(
+                id: e.id,
+                userId: e.userId,
+                categoryId: e.categoryId,
+                subcategoryId: e.subcategoryId,
+                countryCode: e.countryCode,
+                languageCode: e.languageCode,
+                title: e.title,
+                description: e.description,
+                images: e.images,
+                attributes: e.attributes,
+                amount: e.amount,
+                priceCurrency: e.priceCurrency,
+                status: e.status,
+                approved: e.approved,
+                reportCount: e.reportCount,
+                createdAt: e.createdAt,
+              ).toJson())
+          .toList(),
     };
   }
 }

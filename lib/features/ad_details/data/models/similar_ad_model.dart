@@ -1,9 +1,9 @@
 import 'package:channels/core/api/end_points.dart';
-import 'package:channels/features/ads/domain/entities/ad.dart';
+import 'package:channels/features/ad_details/domain/entities/similar_ad.dart';
 
-/// Ad model - data layer
-class AdModel extends Ad {
-  const AdModel({
+/// Similar Ad model - data layer
+class SimilarAdModel extends SimilarAd {
+  const SimilarAdModel({
     required super.id,
     required super.userId,
     required super.categoryId,
@@ -17,13 +17,13 @@ class AdModel extends Ad {
     required super.amount,
     required super.priceCurrency,
     required super.status,
+    required super.approved,
     required super.reportCount,
     required super.createdAt,
-    required super.phoneE164,
   });
 
-  factory AdModel.fromJson(Map<String, dynamic> json) {
-    return AdModel(
+  factory SimilarAdModel.fromJson(Map<String, dynamic> json) {
+    return SimilarAdModel(
       id: json[ApiKey.id] as String,
       userId: json[ApiKey.userId] as String,
       categoryId: json[ApiKey.categoryId] as String,
@@ -38,17 +38,21 @@ class AdModel extends Ad {
       attributes: (json[ApiKey.attributes] is Map<String, dynamic>)
           ? json[ApiKey.attributes] as Map<String, dynamic>
           : {},
-      amount:
-          ((json[ApiKey.amount] is num)
-                  ? (json[ApiKey.amount] as num).toDouble()
-                  : double.tryParse(json[ApiKey.amount].toString()) ?? 0.0)
-              .toInt(),
+      amount: _parseAmount(json[ApiKey.amount]),
       priceCurrency: json[ApiKey.priceCurrency] as String? ?? '',
       status: json[ApiKey.adStatus] as String,
+      approved: (json[ApiKey.approved] ?? '0').toString(),
       reportCount: int.tryParse(json[ApiKey.reportCount].toString()) ?? 0,
       createdAt: DateTime.parse(json[ApiKey.createdAt] as String),
-      phoneE164: json[ApiKey.phoneE164] as String? ?? '',
     );
+  }
+
+  /// Parse amount from API (can be String or num)
+  static double _parseAmount(dynamic value) {
+    if (value is num) {
+      return value.toDouble();
+    }
+    return double.tryParse(value.toString()) ?? 0.0;
   }
 
   Map<String, dynamic> toJson() {
@@ -66,9 +70,9 @@ class AdModel extends Ad {
       ApiKey.amount: amount,
       ApiKey.priceCurrency: priceCurrency,
       ApiKey.adStatus: status,
+      ApiKey.approved: approved,
       ApiKey.reportCount: reportCount.toString(),
       ApiKey.createdAt: createdAt.toIso8601String(),
-      ApiKey.phoneE164: phoneE164,
     };
   }
 }

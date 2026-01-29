@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:channels/core/shared/widgets/app_loading.dart';
 import 'package:channels/core/shared/widgets/app_error.dart';
-import 'package:channels/core/theme/app_sizes.dart';
-import 'package:channels/core/utils/spacing.dart';
 import 'package:channels/features/ad_details/presentation/cubit/ad_details_cubit.dart';
 import 'package:channels/features/ad_details/presentation/cubit/ad_details_state.dart';
 import 'package:channels/features/ad_details/presentation/views/public/widgets/ad_details_app_bar.dart';
-import 'package:channels/features/ad_details/presentation/views/public/widgets/ad_details_images.dart';
-import 'package:channels/features/ad_details/presentation/views/public/widgets/ad_details_info.dart';
-import 'package:channels/features/ad_details/presentation/views/public/widgets/ad_details_attributes.dart';
-import 'package:channels/features/ad_details/presentation/views/public/widgets/public_ad_action_buttons.dart';
-import 'package:channels/features/ad_details/domain/entities/ad_details.dart';
+import 'package:channels/features/ad_details/presentation/views/public/widgets/public_ad_details_content.dart';
 
 class PublicAdDetailsView extends StatefulWidget {
   final String adId;
@@ -40,8 +34,28 @@ class _PublicAdDetailsViewState extends State<PublicAdDetailsView> {
     }
   }
 
-  void _handleShare() {
-    // TODO: Implement share
+  Future<void> _handleShare() async {
+    final state = context.read<AdDetailsCubit>().state;
+    if (state is AdDetailsSuccess) {
+      final adDetails = state.adDetails;
+
+      // Create a shareable text message with ad details
+      final shareText =
+          '''
+${adDetails.title}
+
+${adDetails.formattedPrice}
+
+${adDetails.description}
+
+${adDetails.categoryName != null ? '📁 ${adDetails.categoryName}' : ''}
+${adDetails.subcategoryName != null ? ' • ${adDetails.subcategoryName}' : ''}
+
+📞 Contact: ${adDetails.phoneE164}
+''';
+
+      await SharePlus.instance.share(ShareParams(text: shareText.trim()));
+    }
   }
 
   void _handleFavorite() {
@@ -83,69 +97,13 @@ class _PublicAdDetailsViewState extends State<PublicAdDetailsView> {
             }
 
             if (state is AdDetailsSuccess) {
-              return _buildContent(context, state.adDetails);
+              return PublicAdDetailsContent(adDetails: state.adDetails);
             }
 
             return const SizedBox.shrink();
           },
         ),
       ),
-    );
-  }
-
-  Widget _buildContent(BuildContext context, AdDetails adDetails) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return Column(
-      children: [
-        Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                // Carousel
-                AdDetailsImages(images: adDetails.images),
-
-                // Info card overlapping
-                Transform.translate(
-                  offset: Offset(0, -24.h),
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: colorScheme.surface,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(AppSizes.r24),
-                        topRight: Radius.circular(AppSizes.r24),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(
-                        AppSizes.screenPaddingH,
-                        24.h,
-                        AppSizes.screenPaddingH,
-                        16.h,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AdDetailsInfo(adDetails: adDetails),
-                          verticalSpace(24.h),
-                          if (adDetails.attributes.isNotEmpty)
-                            AdDetailsAttributes(
-                              attributes: adDetails.attributes,
-                            ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-
-        // Public Actions
-        PublicAdActionButtons(phoneNumber: adDetails.phoneE164),
-      ],
     );
   }
 }

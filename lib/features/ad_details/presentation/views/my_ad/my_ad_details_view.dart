@@ -43,10 +43,7 @@ class _MyAdDetailsViewState extends State<MyAdDetailsView> {
   void _handleEdit() {
     final state = context.read<AdDetailsCubit>().state;
     if (state is AdDetailsSuccess) {
-      context.pushNamed(
-        RouteNames.updateAd,
-        extra: state.adDetails,
-      );
+      context.pushNamed(RouteNames.updateAd, extra: state.adDetails);
     }
   }
 
@@ -144,6 +141,7 @@ class _MyAdDetailsViewState extends State<MyAdDetailsView> {
               ),
             ],
             child: FloatingActionButton(
+              heroTag: 'myAdDetailsFab',
               onPressed: () {},
               backgroundColor: colorScheme.primary,
               elevation: 0,

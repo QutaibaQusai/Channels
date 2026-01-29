@@ -1,8 +1,7 @@
 import 'package:equatable/equatable.dart';
-import 'package:channels/features/ad_details/domain/entities/similar_ad.dart';
 
-/// AdDetails entity - extends Ad with user and category names
-class AdDetails extends Equatable {
+/// User Ad entity - simplified ad for user profile list
+class UserAd extends Equatable {
   final String id;
   final String userId;
   final String categoryId;
@@ -19,15 +18,10 @@ class AdDetails extends Equatable {
   final String approved;
   final int reportCount;
   final DateTime createdAt;
-  final String phoneE164;
-
-  // Extra fields from details endpoint
-  final String? userName;
   final String? categoryName;
   final String? subcategoryName;
-  final List<SimilarAd> similarAds;
 
-  const AdDetails({
+  const UserAd({
     required this.id,
     required this.userId,
     required this.categoryId,
@@ -44,11 +38,8 @@ class AdDetails extends Equatable {
     required this.approved,
     required this.reportCount,
     required this.createdAt,
-    required this.phoneE164,
-    this.userName,
     this.categoryName,
     this.subcategoryName,
-    this.similarAds = const [],
   });
 
   /// Check if ad has multiple images
@@ -56,9 +47,6 @@ class AdDetails extends Equatable {
 
   /// Check if ad is approved
   bool get isApproved => approved == '1';
-
-  /// Check if ad is under review
-  bool get isUnderReview => approved == '0';
 
   /// Get formatted price
   String get formattedPrice => '${amount.toStringAsFixed(2)} $priceCurrency';
@@ -68,26 +56,23 @@ class AdDetails extends Equatable {
 
   @override
   List<Object?> get props => [
-    id,
-    userId,
-    categoryId,
-    subcategoryId,
-    countryCode,
-    languageCode,
-    title,
-    description,
-    images,
-    attributes,
-    amount,
-    priceCurrency,
-    status,
-    approved,
-    reportCount,
-    createdAt,
-    phoneE164,
-    userName,
-    categoryName,
-    subcategoryName,
-    similarAds,
-  ];
+        id,
+        userId,
+        categoryId,
+        subcategoryId,
+        countryCode,
+        languageCode,
+        title,
+        description,
+        images,
+        attributes,
+        amount,
+        priceCurrency,
+        status,
+        approved,
+        reportCount,
+        createdAt,
+        categoryName,
+        subcategoryName,
+      ];
 }

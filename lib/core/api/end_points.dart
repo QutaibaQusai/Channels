@@ -1,6 +1,6 @@
 class EndPoint {
   static String baseUrl = "https://thedate.to/channels/api/";
-  static String countries = "countries";
+  static String countries = "phone/countries";
   static String categories = "categories";
   static String subcategories(String categoryId) => "categories/$categoryId";
   static String filters(String categoryId) => "categories/$categoryId/filters";
@@ -71,9 +71,12 @@ class ApiKey {
   static String userName = "user_name";
   static String categoryName = "category_name";
   static String subcategoryName = "subcategory_name";
+  static String similarAds = "similar_ads";
 
   // Profile extra keys
   static String isMe = "is_me";
+  static String countryName = "country_name";
+  static String ads = "ads";
 
   // Filter keys
   static String filters = "filters";
