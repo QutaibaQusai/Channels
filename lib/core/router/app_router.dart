@@ -43,6 +43,10 @@ import 'package:channels/features/my_ads/presentation/views/my_ads/my_ads_view.d
 import 'package:channels/features/my_ads/presentation/views/under_review_ads/under_review_ads_view.dart';
 import 'package:channels/features/my_ads/presentation/cubit/my_ads_cubit.dart';
 import 'package:channels/features/my_ads/domain/usecases/get_my_ads.dart';
+import 'package:channels/features/ad_details/presentation/views/my_ad/update_ad_view.dart';
+import 'package:channels/features/ad_details/domain/entities/ad_details.dart';
+import 'package:channels/features/user_profile/presentation/views/user_profile_view.dart';
+import 'package:channels/features/user_profile/presentation/cubit/user_profile_cubit.dart';
 
 /// Centralized routing configuration using Go Router
 class AppRouter {
@@ -237,6 +241,35 @@ class AppRouter {
             create: (_) =>
                 MyAdsCubit(getMyAdsUseCase: sl<GetMyAds>())..fetchMyAds(),
             child: const UnderReviewAdsView(),
+          );
+        },
+      ),
+
+      GoRoute(
+        path: RouteNames.updateAd,
+        name: RouteNames.updateAd,
+        builder: (context, state) {
+          final adDetails = state.extra as AdDetails;
+          return UpdateAdView(adDetails: adDetails);
+        },
+      ),
+
+      GoRoute(
+        path: RouteNames.userProfile,
+        name: RouteNames.userProfile,
+        builder: (context, state) {
+          final userId = state.extra as String;
+          // Get current locale from context
+          final locale = Localizations.localeOf(context);
+          final languageCode = locale.languageCode;
+
+          return BlocProvider(
+            create: (context) => sl<UserProfileCubit>()
+              ..fetchUserProfile(
+                userId: userId,
+                languageCode: languageCode,
+              ),
+            child: UserProfileView(userId: userId),
           );
         },
       ),

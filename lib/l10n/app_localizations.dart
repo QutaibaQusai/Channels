@@ -715,6 +715,162 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Search under review...'**
   String get myAdsUnderReviewSearchHint;
+
+  /// Title for My Ad Details screen
+  ///
+  /// In en, this message translates to:
+  /// **'Ad Data Preview'**
+  String get myAdDetailsTitle;
+
+  /// Description section title
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get myAdDetailsSectionDescription;
+
+  /// Basic Info section title
+  ///
+  /// In en, this message translates to:
+  /// **'Basic Information'**
+  String get myAdDetailsSectionBasicInfo;
+
+  /// Attributes section title
+  ///
+  /// In en, this message translates to:
+  /// **'Attributes'**
+  String get myAdDetailsSectionAttributes;
+
+  /// System Data section title
+  ///
+  /// In en, this message translates to:
+  /// **'System Data'**
+  String get myAdDetailsSectionSystemData;
+
+  /// Toast message for edit feature
+  ///
+  /// In en, this message translates to:
+  /// **'Edit feature coming soon!'**
+  String get myAdDetailsFeatureEditComingSoon;
+
+  /// Delete confirmation dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Ad'**
+  String get myAdDetailsDeleteDialogTitle;
+
+  /// Delete confirmation dialog content
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this ad? This action cannot be undone.'**
+  String get myAdDetailsDeleteDialogContent;
+
+  /// Toast message for delete feature
+  ///
+  /// In en, this message translates to:
+  /// **'Delete feature coming soon!'**
+  String get myAdDetailsFeatureDeleteComingSoon;
+
+  /// Report count text
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Reports'**
+  String myAdDetailsReports(Object count);
+
+  /// No description provided for @labelTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get labelTitle;
+
+  /// No description provided for @labelPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Price'**
+  String get labelPrice;
+
+  /// No description provided for @labelCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get labelCategory;
+
+  /// No description provided for @labelSubCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Sub Category'**
+  String get labelSubCategory;
+
+  /// No description provided for @labelLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get labelLocation;
+
+  /// No description provided for @labelLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get labelLanguage;
+
+  /// No description provided for @labelStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get labelStatus;
+
+  /// No description provided for @labelCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Created'**
+  String get labelCreated;
+
+  /// No description provided for @labelPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone'**
+  String get labelPhone;
+
+  /// No description provided for @labelUser.
+  ///
+  /// In en, this message translates to:
+  /// **'User'**
+  String get labelUser;
+
+  /// No description provided for @statusLiveNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Live Now'**
+  String get statusLiveNow;
+
+  /// No description provided for @statusPendingReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending Review'**
+  String get statusPendingReview;
+
+  /// No description provided for @actionEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get actionEdit;
+
+  /// No description provided for @actionDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get actionDelete;
+
+  /// Title for under review banner in preview view
+  ///
+  /// In en, this message translates to:
+  /// **'Under Review'**
+  String get previewUnderReviewTitle;
+
+  /// Message explaining ad is under review and user will get notification
+  ///
+  /// In en, this message translates to:
+  /// **'Your ad is currently under review. We will send you a notification once it\'s approved.'**
+  String get previewUnderReviewMessage;
 }
 
 class _AppLocalizationsDelegate

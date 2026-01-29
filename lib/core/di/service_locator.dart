@@ -55,7 +55,15 @@ import 'package:channels/features/ad_details/data/data_sources/ad_details_remote
 import 'package:channels/features/ad_details/data/repositories/ad_details_repository_impl.dart';
 import 'package:channels/features/ad_details/domain/repositories/ad_details_repository.dart';
 import 'package:channels/features/ad_details/domain/usecases/get_ad_details.dart';
+import 'package:channels/features/ad_details/domain/usecases/delete_ad.dart';
 import 'package:channels/features/ad_details/presentation/cubit/ad_details_cubit.dart';
+
+// User Profile
+import 'package:channels/features/user_profile/data/data_sources/user_profile_remote_data_source.dart';
+import 'package:channels/features/user_profile/data/repositories/user_profile_repository_impl.dart';
+import 'package:channels/features/user_profile/domain/repositories/user_profile_repository.dart';
+import 'package:channels/features/user_profile/domain/usecases/get_user_profile.dart';
+import 'package:channels/features/user_profile/presentation/cubit/user_profile_cubit.dart';
 
 /// Service locator instance
 final sl = GetIt.instance;
@@ -192,7 +200,25 @@ Future<void> setupServiceLocator() async {
   // We should eventually remove the old one.
   sl.registerLazySingleton<GetAdDetails>(() => GetAdDetails(sl()));
 
+  sl.registerLazySingleton<DeleteAd>(() => DeleteAd(repository: sl()));
+
   sl.registerFactory<AdDetailsCubit>(
-    () => AdDetailsCubit(getAdDetailsUseCase: sl()),
+    () => AdDetailsCubit(getAdDetailsUseCase: sl(), deleteAdUseCase: sl()),
+  );
+
+  // ==================== USER PROFILE ====================
+
+  sl.registerLazySingleton<UserProfileRemoteDataSource>(
+    () => UserProfileRemoteDataSourceImpl(apiConsumer: sl()),
+  );
+
+  sl.registerLazySingleton<UserProfileRepository>(
+    () => UserProfileRepositoryImpl(remoteDataSource: sl()),
+  );
+
+  sl.registerLazySingleton<GetUserProfile>(() => GetUserProfile(sl()));
+
+  sl.registerFactory<UserProfileCubit>(
+    () => UserProfileCubit(getUserProfileUseCase: sl()),
   );
 }

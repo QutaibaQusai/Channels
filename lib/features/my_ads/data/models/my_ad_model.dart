@@ -34,7 +34,8 @@ class MyAdModel extends MyAd {
       languageCode: json[ApiKey.languageCode] as String,
       title: json[ApiKey.title] as String,
       description: json[ApiKey.description] as String,
-      images: (json[ApiKey.images] as List<dynamic>?)
+      images:
+          (json[ApiKey.images] as List<dynamic>?)
               ?.map((e) => e.toString())
               .toList() ??
           [],
@@ -45,7 +46,7 @@ class MyAdModel extends MyAd {
       approved: json[ApiKey.approved] as String,
       reportCount: int.tryParse(json[ApiKey.reportCount].toString()) ?? 0,
       createdAt: json[ApiKey.createdAt] as String,
-      phoneE164: json[ApiKey.phoneE164] as String,
+      phoneE164: json[ApiKey.phoneE164] as String? ?? '',
       categoryName: json[ApiKey.categoryName] as String,
       subcategoryName: json[ApiKey.subcategoryName] as String,
     );

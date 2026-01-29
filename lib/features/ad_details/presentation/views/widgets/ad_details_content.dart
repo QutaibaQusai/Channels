@@ -1,123 +1,246 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 import 'package:channels/core/theme/app_sizes.dart';
 import 'package:channels/core/utils/spacing.dart';
+import 'package:channels/core/utils/formatters.dart';
 import 'package:channels/features/ad_details/domain/entities/ad_details.dart';
-import 'package:channels/features/ad_details/presentation/ad_view_mode.dart';
-import 'package:channels/features/ad_details/presentation/views/widgets/ad_details_images.dart';
-import 'package:channels/features/ad_details/presentation/views/widgets/ad_details_info.dart';
-import 'package:channels/features/ad_details/presentation/views/widgets/ad_details_attributes.dart';
-import 'package:channels/features/ad_details/presentation/views/widgets/ad_action_buttons.dart';
+import 'package:channels/features/ad_details/presentation/views/my_ad/widgets/my_ad_status_badge.dart';
+import 'package:channels/features/ad_details/presentation/views/my_ad/widgets/ad_details_images.dart';
+import 'package:channels/l10n/app_localizations.dart';
 
-/// Main content widget for ad details with images, info, and fixed bottom action bar
+/// Shared content widget for ad details
+/// Used by both My Ad Details and Preview views
 class AdDetailsContent extends StatelessWidget {
   final AdDetails adDetails;
-  final AdViewMode mode;
+  final bool showStatusBadge;
+  final Widget? headerWidget;
 
   const AdDetailsContent({
     super.key,
     required this.adDetails,
-    required this.mode,
+    this.showStatusBadge = true,
+    this.headerWidget,
   });
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
 
-    return Column(
-      children: [
-        // Scrollable content
-        Expanded(
-          child: SingleChildScrollView(
-            child: Column(
+    // Prepare data lists
+    final basicInfo = {
+      l10n.labelTitle: adDetails.title,
+      l10n.labelPrice: adDetails.formattedPrice,
+      l10n.labelCategory: adDetails.categoryName,
+      l10n.labelSubCategory: adDetails.subcategoryName,
+      l10n.labelLocation: adDetails.countryCode,
+      l10n.labelLanguage: adDetails.languageCode,
+    };
+
+    final metaInfo = {
+      l10n.labelStatus: adDetails.status,
+      l10n.labelCreated: Formatters.relativeTime(adDetails.createdAt),
+      l10n.labelPhone: adDetails.phoneE164,
+      l10n.labelUser: adDetails.userName,
+    };
+
+    return SingleChildScrollView(
+      padding: EdgeInsets.symmetric(
+        horizontal: AppSizes.screenPaddingH,
+        vertical: 24.h,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // 0. Optional Header Widget (e.g., announcement banner)
+          if (headerWidget != null) ...[
+            headerWidget!,
+            verticalSpace(16.h),
+          ],
+
+          // 1. Status Section
+          if (showStatusBadge)
+            Row(
               children: [
-                // Immersive image carousel
-                AdDetailsImages(images: adDetails.images),
-
-                // Content with rounded top corners overlapping the image
-                Transform.translate(
-                  offset: Offset(0, -24.h),
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: colorScheme.surface,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(AppSizes.r24),
-                        topRight: Radius.circular(AppSizes.r24),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(
-                        AppSizes.screenPaddingH,
-                        24.h,
-                        AppSizes.screenPaddingH,
-                        16.h,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Title, price, info
-                          AdDetailsInfo(adDetails: adDetails, mode: mode),
-
-                          verticalSpace(24.h),
-
-                          // Attributes (year, color, make, etc.)
-                          if (adDetails.attributes.isNotEmpty)
-                            AdDetailsAttributes(
-                              attributes: adDetails.attributes,
-                            ),
-                        ],
-                      ),
-                    ),
+                MyAdStatusBadge(isApproved: adDetails.isApproved),
+                const Spacer(),
+                if (adDetails.reportCount > 0)
+                  _buildMetricBadge(
+                    context,
+                    LucideIcons.flag,
+                    l10n.myAdDetailsReports(adDetails.reportCount),
+                    theme.colorScheme.error,
                   ),
-                ),
               ],
             ),
+          if (showStatusBadge) verticalSpace(16.h),
+
+          // 2. Images
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12.r),
+            child: AspectRatio(
+              aspectRatio: 16 / 9,
+              child: AdDetailsImages(images: adDetails.images),
+            ),
+          ),
+          verticalSpace(24.h),
+
+          // 3. Description Box
+          Text(
+            l10n.myAdDetailsSectionDescription,
+            style: theme.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          verticalSpace(8.h),
+          Text(
+            adDetails.description,
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.colorScheme.onSurface,
+              height: 1.5,
+            ),
+          ),
+          verticalSpace(24.h),
+
+          // 4. Basic Info Table
+          _buildStripedTable(
+            context,
+            l10n.myAdDetailsSectionBasicInfo,
+            basicInfo,
+          ),
+          verticalSpace(24.h),
+
+          // 5. Attributes Table
+          if (adDetails.attributes.isNotEmpty)
+            _buildStripedTable(
+              context,
+              l10n.myAdDetailsSectionAttributes,
+              adDetails.attributes,
+            ),
+
+          if (adDetails.attributes.isNotEmpty) verticalSpace(24.h),
+
+          // 6. Meta Table
+          _buildStripedTable(
+            context,
+            l10n.myAdDetailsSectionSystemData,
+            metaInfo,
+          ),
+
+          verticalSpace(40.h),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStripedTable(
+    BuildContext context,
+    String title,
+    Map<dynamic, dynamic> data,
+  ) {
+    if (data.isEmpty) return const SizedBox.shrink();
+
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final entries = data.entries
+        .where((e) => e.value != null && e.value.toString().isNotEmpty)
+        .toList();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: theme.textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.bold,
           ),
         ),
+        verticalSpace(12.h),
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: colorScheme.outlineVariant),
+            borderRadius: BorderRadius.circular(12.r),
+          ),
+          child: Column(
+            children: List.generate(entries.length, (index) {
+              final entry = entries[index];
+              final isEven = index % 2 == 0;
+              final isLast = index == entries.length - 1;
 
-        // Fixed action buttons at bottom
-        AdActionButtons(
-          mode: mode,
-          phoneNumber: adDetails.phoneE164,
-          onEdit: () {
-            // TODO: Navigate to edit ad
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Edit feature coming soon!')),
-            );
-          },
-          onDelete: () {
-            showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                title: const Text('Delete Ad'),
-                content: const Text(
-                  'Are you sure you want to delete this ad? This action cannot be undone.',
+              return Container(
+                decoration: BoxDecoration(
+                  color: isEven
+                      ? colorScheme.surface
+                      : colorScheme.primary.withValues(alpha: 0.05),
+                  borderRadius: BorderRadius.vertical(
+                    top: index == 0 ? Radius.circular(11.r) : Radius.zero,
+                    bottom: isLast ? Radius.circular(11.r) : Radius.zero,
+                  ),
                 ),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text('Cancel'),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      // TODO: Implement delete logic
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Delete feature coming soon!'),
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      flex: 4,
+                      child: Text(
+                        entry.key.toString(),
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          color: colorScheme.onSurface,
                         ),
-                      );
-                    },
-                    style: TextButton.styleFrom(foregroundColor: Colors.red),
-                    child: const Text('Delete'),
-                  ),
-                ],
-              ),
-            );
-          },
+                      ),
+                    ),
+                    Expanded(
+                      flex: 6,
+                      child: Text(
+                        entry.value.toString(),
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                          color: colorScheme.onSurface,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }),
+          ),
         ),
       ],
+    );
+  }
+
+  Widget _buildMetricBadge(
+    BuildContext context,
+    IconData icon,
+    String label,
+    Color color,
+  ) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(4.r),
+        border: Border.all(color: color.withValues(alpha: 0.2)),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, size: 14.sp, color: color),
+          horizontalSpace(4.w),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 12.sp,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

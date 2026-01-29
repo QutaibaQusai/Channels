@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:channels/features/ad_details/domain/entities/similar_ad.dart';
 
 /// AdDetails entity - extends Ad with user and category names
 class AdDetails extends Equatable {
@@ -24,6 +25,7 @@ class AdDetails extends Equatable {
   final String? userName;
   final String? categoryName;
   final String? subcategoryName;
+  final List<SimilarAd> similarAds;
 
   const AdDetails({
     required this.id,
@@ -46,6 +48,7 @@ class AdDetails extends Equatable {
     this.userName,
     this.categoryName,
     this.subcategoryName,
+    this.similarAds = const [],
   });
 
   /// Check if ad has multiple images
@@ -85,5 +88,6 @@ class AdDetails extends Equatable {
     userName,
     categoryName,
     subcategoryName,
+    similarAds,
   ];
 }

@@ -190,5 +190,43 @@
   },
 
   "myAdsSearchHint": "بحث في إعلاناتي...",
-  "myAdsUnderReviewSearchHint": "بحث في قيد المراجعة..."
+  "myAdsUnderReviewSearchHint": "بحث في قيد المراجعة...",
+
+  "myAdDetailsTitle": "معاينة بيانات الإعلان",
+  "myAdDetailsSectionDescription": "الوصف",
+  "myAdDetailsSectionBasicInfo": "المعلومات الأساسية",
+  "myAdDetailsSectionAttributes": "الخصائص",
+  "myAdDetailsSectionSystemData": "بيانات النظام",
+  "myAdDetailsFeatureEditComingSoon": "ميزة التعديل قريباً!",
+  "myAdDetailsDeleteDialogTitle": "حذف الإعلان",
+  "myAdDetailsDeleteDialogContent": "هل أنت متأكد أنك تريد حذف هذا الإعلان؟ لا يمكن التراجع عن هذا الإجراء.",
+  "myAdDetailsFeatureDeleteComingSoon": "ميزة الحذف قريباً!",
+  "myAdDetailsReports": "{count} بلاغات",
+
+  "labelTitle": "العنوان",
+  "labelPrice": "السعر",
+  "labelCategory": "الفئة",
+  "labelSubCategory": "الفئة الفرعية",
+  "labelLocation": "الموقع",
+  "labelLanguage": "اللغة",
+  "labelStatus": "الحالة",
+  "labelCreated": "تاريخ الإنشاء",
+  "labelPhone": "الهاتف",
+  "labelUser": "المستخدم",
+
+  "statusLiveNow": "منشور الآن",
+  "statusPendingReview": "قيد المراجعة",
+
+  "actionEdit": "تعديل",
+  "actionDelete": "حذف",
+
+  "previewUnderReviewTitle": "قيد المراجعة",
+  "@previewUnderReviewTitle": {
+    "description": "Title for under review banner in preview view"
+  },
+
+  "previewUnderReviewMessage": "إعلانك قيد المراجعة حالياً. سنرسل لك إشعاراً بمجرد الموافقة عليه.",
+  "@previewUnderReviewMessage": {
+    "description": "Message explaining ad is under review and user will get notification"
+  }
 }

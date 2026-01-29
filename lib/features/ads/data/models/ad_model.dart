@@ -47,7 +47,7 @@ class AdModel extends Ad {
       status: json[ApiKey.adStatus] as String,
       reportCount: int.tryParse(json[ApiKey.reportCount].toString()) ?? 0,
       createdAt: DateTime.parse(json[ApiKey.createdAt] as String),
-      phoneE164: json[ApiKey.phoneE164] as String,
+      phoneE164: json[ApiKey.phoneE164] as String? ?? '',
     );
   }
 
